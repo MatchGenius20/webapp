@@ -6,7 +6,7 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
-            <Link href="/" className="text-xl text-[#443EDE]  font-bold mr-8 -ml-4">
+            <Link href="/" className="text-2xl text-[#443EDE]  font-bold mr-8 -ml-4">
               DebatesMatch
             </Link>
           </div>
@@ -21,11 +21,11 @@ const Navbar = () => {
               About
             </Link>
           </div>
-          <div className="flex items-center space-x-4">
-            <Link href="/sign-in" className="text-[#1E1E1E] hover:text-gray-700 font-semibold">
+          <div className="flex items-center space-x-4 gap-4">
+            <Link href="/sign-in" className="text-[#1E1E1E] hover:text-gray-700 font-semibold px-3">
               Sign In
             </Link>
-            <Link href="/register" className="bg-[#443EDE] text-[#ffff] font-semibold  px-4 py-2 rounded-md hover:bg-[#3836c4]">
+            <Link href="/register" className="bg-[#443EDE] text-[#ffff] font-semibold  px-6 py-2 rounded-md hover:bg-[#3836c4]">
               Register
             </Link>
           </div>

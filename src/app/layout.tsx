@@ -22,9 +22,9 @@ export default function RootLayout({
         <link rel="icon" type="image/png" href="../../public/logo/logo5.png" />
       </head>
       <body className={roboto.className}>
-        <Header />
+      
         {children}
-        <Footer />
+        
       </body>
     </html>
   )

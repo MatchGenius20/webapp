@@ -1,6 +1,47 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import "~slick-carousel/slick/slick.css";
+@import "~slick-carousel/slick/slick-theme.css";
+/* Custom styles for TestimonialSlider */
+.testimonial-slider .slick-dots {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+#__next {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+footer {
+  margin-top: auto;
+}
+.testimonial-slider .slick-dots li {
+  margin: 0 2px; /* Adjust the space between bars */
+}
+
+.testimonial-slider .slick-dots li button {
+  width: 30px; /* Adjust the width of the bars */
+  height: 5px; /* Adjust the height of the bars */
+  background: #ddd; /* Default color of the bars */
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.testimonial-slider .slick-dots li.slick-active button {
+  background: purple; /* Active color of the bars */
+}
 
 body {
   background-color: #ffffff;

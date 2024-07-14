@@ -20,7 +20,7 @@ const CategoryPage: React.FC = () => {
         </div>
         <div className="mt-4 md:mt-0">
           <Link href="/browse-all" passHref>
-            <div className="text-[#443EDE] border border-[#443EDE] px-4 py-2 rounded-md cursor-pointer font-semibold text-center">Browse All</div>
+            <div className="text-[#443EDE] border border-[#443EDE] px-4 py-2 rounded-md cursor-pointer font-semibold text-center hover:text-purple-700">Browse All</div>
           </Link>
         </div>
       </div>

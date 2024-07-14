@@ -54,10 +54,10 @@ const CoachList: React.FC = () => {
     <div className="flex flex-col items-center py-10 bg-[#EDECFF]">
       <div className="flex justify-between w-full max-w-4xl px-4 mb-10">
         <div className='ml-[-166px]'>
-          <h1 className="text-3xl font-bold mb-1">Top Rated Coaches</h1>
+          <h1 className="lg:text-3xl font-bold mb-1">Top Rated Coaches</h1>
           <p className="text-[#000000] py-3">Get consultation from best coaches.</p>
         </div>
-        <div className='mr-[-189px]'>
+        <div className='lg:mr-[-189px]'>
           <Link href="/all-coaches" passHref>
             <button className=" border border-[#443EDE] px-5 py-3 bg-[#FFFFFF] text-[#443EDE] hover:text-purple-600 rounded-lg font-bold">All Coaches</button>
           </Link>

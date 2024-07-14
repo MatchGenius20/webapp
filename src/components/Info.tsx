@@ -1,5 +1,3 @@
-import Image from "next/image"
-
 const Hero = () => {
   return (
     <div className="bg-gray-50">
@@ -23,8 +21,20 @@ const Hero = () => {
             </button>
           </div>
         </div>
-        <div className="md:w-1/2 flex justify-center">
-          <Image src="/images/design.png" width={480} height={480} alt="design" />
+        <div
+          className="md:w-1/2 relative flex justify-center items-center"
+          style={{
+            backgroundImage: 'url(/grp.svg)',
+            backgroundSize: 'contain', 
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            height: '440px' 
+          }}
+        >
+          <video className="relative z-10  mr-20" width="320" height="300" controls>
+            <source src="your-video-source.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
         </div>
       </div>
     </div>

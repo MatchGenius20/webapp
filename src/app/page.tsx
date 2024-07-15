@@ -1,5 +1,3 @@
-
-import CarouselSlide from "@/components/CarouselSlide"
 import Category from "@/components/Category"
 import CoachList from "@/components/CoachList"
 import Footer from "@/components/Footer"

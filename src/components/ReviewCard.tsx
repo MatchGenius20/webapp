@@ -26,7 +26,7 @@ const reviews = [
     rating: 5,
     backgroundColor: "bg-white",
     textColor: "text-gray-900",
-    quoteImage: "/images/feed.png",
+    quoteImage: "/images/feed2.png",
     profilePicUrl: "/images/user.png",
   },
   {
@@ -35,8 +35,8 @@ const reviews = [
     name: "Piyush Jaiswal",
     rating: 5,
     backgroundColor: "bg-white",
-    textColor: "text-gray-900",
-    quoteImage: "/images/feed.png",
+    textColor: "",
+    quoteImage: "/images/feed2.png",
     profilePicUrl: "/images/user.png",
   },
   {
@@ -45,8 +45,8 @@ const reviews = [
     name: "Piyush Jaiswal",
     rating: 5,
     backgroundColor: "bg-white",
-    textColor: "text-gray-900",
-    quoteImage: "/images/feed.png",
+    textColor: "",
+    quoteImage: "/images/feed2.png",
     profilePicUrl: "/images/user.png",
   },
   {
@@ -55,8 +55,8 @@ const reviews = [
     name: "Piyush Jaiswal",
     rating: 5,
     backgroundColor: "bg-white",
-    textColor: "text-gray-900",
-    quoteImage: "/images/feed.png",
+    textColor: "",
+    quoteImage: "/images/feed2.png",
     profilePicUrl: "/images/user.png",
   },
   {
@@ -65,8 +65,8 @@ const reviews = [
     name: "Piyush Jaiswal",
     rating: 5,
     backgroundColor: "bg-white",
-    textColor: "text-gray-900",
-    quoteImage: "/images/feed.png",
+    textColor: "",
+    quoteImage: "/images/feed2.png",
     profilePicUrl: "/images/user.png",
   },
   {
@@ -75,8 +75,8 @@ const reviews = [
     name: "Piyush Jaiswal",
     rating: 5,
     backgroundColor: "bg-white",
-    textColor: "text-gray-900",
-    quoteImage: "/images/feed.png",
+    textColor: "",
+    quoteImage: "/images/feed2.png",
     profilePicUrl: "/images/user.png",
   },
   // Add more reviews as needed
@@ -84,13 +84,24 @@ const reviews = [
 
 const ReviewCard: FC = () => {
   return (
-    <div className="h-128 bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <h1 className="text-3xl font-bold text-gray-900 text-left mb-12 ml-8">
-        What our students are <br /> saying about us
+    <div className="bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 text-center mb-12">
+        What our students are <br className="hidden md:block" /> saying about us
       </h1>
       <Swiper
         spaceBetween={30}
-        slidesPerView={3}
+        slidesPerView={1} // Default slides per view
+        breakpoints={{
+          640: {
+            slidesPerView: 2, // 2 slides per view on small screens
+          },
+          768: {
+            slidesPerView: 2, // 2 slides per view on medium screens
+          },
+          1024: {
+            slidesPerView: 3, // 3 slides per view on large screens
+          },
+        }}
         navigation
         pagination={{
           clickable: true,
@@ -105,16 +116,16 @@ const ReviewCard: FC = () => {
         {reviews.map((review, index) => (
           <SwiperSlide key={index}>
             <div
-              className={`${review.backgroundColor} p-6 rounded-lg shadow-lg w-80 h-96 mx-auto flex flex-col`}
+              className={`${review.backgroundColor} p-6 rounded-lg shadow-lg w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-80 mx-auto flex flex-col`}
             >
               <div className="flex mb-4 items-center">
-                <h2 className={`text-2xl font-bold ${review.textColor}`}>
+                <h2 className={`text-lg sm:text-xl md:text-2xl lg:text-xl font-bold ${review.textColor}`}>
                   {review.title}
                 </h2>
               </div>
               <div className="relative flex-1">
                 <div
-                  className="absolute top-0 left-0 transform -translate-x-2 -translate-y-2 w-10 h-10 rounded-full flex justify-center items-center"
+                  className="absolute top-0 left-0 transform -translate-x-2 -translate-y-2 w-8 h-8 sm:w-10 sm:h-10 rounded-full flex justify-center items-center"
                   style={{
                     backgroundColor:
                       review.backgroundColor === 'bg-[#443EDE]'
@@ -129,10 +140,10 @@ const ReviewCard: FC = () => {
                     height={16}
                   />
                 </div>
-                <p className={`ml-8 ${review.textColor} mt-4`}>{review.content}</p>
+                <p className={`ml-6 sm:ml-8 ${review.textColor} mt-4 text-sm sm:text-base`}>{review.content}</p>
               </div>
               <div className="flex mt-4 pt-4 border-t border-gray-200 items-center">
-                <div className="w-10 bg-[#FDEFEE] h-10 rounded-full overflow-hidden border-2 border-gray-200 flex justify-center items-center">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 bg-[#FDEFEE] rounded-full overflow-hidden border-2 border-gray-200 flex justify-center items-center">
                   <Image
                     src={review.profilePicUrl}
                     alt="Profile picture"
@@ -141,13 +152,13 @@ const ReviewCard: FC = () => {
                     className="rounded-full"
                   />
                 </div>
-                <div className="ml-4">
+                <div className="ml-3 sm:ml-4">
                   <p className={`font-semibold ${review.textColor}`}>{review.name}</p>
                   <div className="flex items-center">
                     {[...Array(review.rating)].map((_, i) => (
                       <svg
                         key={i}
-                        className="h-5 w-5 text-yellow-500"
+                        className="h-4 w-4 sm:h-5 sm:w-5 text-yellow-500"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                       >

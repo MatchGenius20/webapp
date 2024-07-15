@@ -1,0 +1,44 @@
+const Hero = () => {
+  return (
+    <div className="bg-gray-50">
+      <div className="max-w-7xl mx-auto py-16 px-4 sm:px-5 lg:px-6 flex flex-col md:flex-row items-center">
+        <div className="md:w-1/2 md:pr-8 mb-8 md:mb-0">
+          <h1 className="text-4xl font-extrabold text-gray-900">
+            Find your <span className="text-[#443EDE]">Coach</span>,<br />
+            and connect <br />
+            <span className="text-[#443EDE]">instantly</span>.
+          </h1>
+          <p className="mt-4 text-lg text-gray-600">
+            Get instant consultation and guidance<br /> from the coach of your choice,
+            and <br /> get ahead in your career.
+          </p>
+          <div className="mt-8 flex space-x-4">
+            <button className="bg-[#443EDE] text-white px-4 py-2 rounded-md hover:bg-[#3836c4] font-semibold">
+              Get Started
+            </button>
+            <button className="bg-[#EDECFF] border border-[#443EDE] text-[#443EDE] px-4 py-2 rounded-md hover:bg-gray-200 font-semibold">
+              Get Free Trial
+            </button>
+          </div>
+        </div>
+        <div
+          className="md:w-1/2 relative flex justify-center items-center"
+          style={{
+            backgroundImage: 'url(/grp.svg)',
+            backgroundSize: 'contain', 
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            height: '420px' 
+          }}
+        >
+          <video className="relative z-10  mr-20" width="320" height="300" controls>
+            <source src="your-video-source.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default Hero

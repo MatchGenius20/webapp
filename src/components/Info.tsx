@@ -28,7 +28,7 @@ const Hero = () => {
             backgroundSize: 'contain', 
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
-            height: '440px' 
+            height: '420px' 
           }}
         >
           <video className="relative z-10  mr-20" width="320" height="300" controls>

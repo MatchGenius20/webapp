@@ -10,15 +10,15 @@ interface CoachCardProps {
 
 const CoachCard: React.FC<CoachCardProps> = ({ name, description, rating, imageUrl }) => {
   return (
-    <div className="bg-white border border-gray-200 p-3 text-left rounded-lg shadow-lg max-w-72">
+    <div className="bg-white border border-gray-200 p-4 text-left rounded-lg shadow-lg max-w-80">
       <div className="flex justify-center">
         <Image height={256} width={256} src={imageUrl} alt={`${name}'s picture`} className="object-cover rounded-md" />
       </div>
-      <h3 className="text-lg font-semibold mt-4">{name}</h3>
-      <p className="mt-2">{description}</p>
-      <div className="mt-4 font-medium">Rating: {Array(rating).fill('⭐').join('')}</div>
-      <div className="flex justify-end mt-4">
-        <button className="px-4 py-3 bg-[#453EF1] text-white rounded-lg hover:bg-purple-700 text-xs">Book Session</button>
+      <h3 className="text-xl font-semibold mt-6">{name}</h3>
+      <p className="mt-3 text-lg">{description}</p>
+      <div className="mt-6 font-medium text-lg">Rating: {Array(rating).fill('⭐').join('')}</div>
+      <div className="flex justify-end mt-6">
+        <button className="px-5 py-3 bg-[#453EF1] text-white rounded-lg hover:bg-purple-700 text-base">Book Session</button>
       </div>
     </div>
   );

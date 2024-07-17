@@ -9,8 +9,8 @@ const Navbar = () => {
 
   return (
     <nav className="bg-white shadow-md">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16 relative">
+      <div className="max-w-full mx-auto px-8 sm:px-8 lg:px-16">
+        <div className="flex justify-between items-center h-20 relative">
           <div className="flex items-center">
             <Link href="/" className="text-2xl text-[#443EDE] font-bold">
               DebatesMatch
@@ -25,7 +25,7 @@ const Navbar = () => {
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
+                className="h-8 w-8"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -41,24 +41,24 @@ const Navbar = () => {
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex space-x-8">
-            <Link href="/" className="text-[#1E1E1E] hover:text-gray-700 font-semibold">
+          <div className="hidden md:flex space-x-10">
+            <Link href="/" className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-lg">
               Home
             </Link>
-            <Link href="/find-coach" className="text-[#1E1E1E] hover:text-gray-700 font-semibold">
+            <Link href="/find-coach" className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-lg">
               Find Coach
             </Link>
-            <Link href="/about" className="text-[#1E1E1E] hover:text-gray-700 font-semibold">
+            <Link href="/about" className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-lg">
               About
             </Link>
           </div>
 
           {/* Desktop Sign In and Register Buttons */}
-          <div className="hidden md:flex items-center space-x-4 gap-4">
-            <Link href="/sign-in" className="text-[#1E1E1E] hover:text-gray-700 font-semibold px-3">
+          <div className="hidden md:flex items-center space-x-6">
+            <Link href="/sign-in" className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-lg px-4">
               Sign In
             </Link>
-            <Link href="/register" className="bg-[#443EDE] text-[#ffff] font-semibold px-6 py-2 rounded-md hover:bg-[#3836c4]">
+            <Link href="/register" className="bg-[#443EDE] text-white font-semibold text-lg px-8 py-3 rounded-md hover:bg-[#3836c4]">
               Register
             </Link>
           </div>
@@ -68,16 +68,16 @@ const Navbar = () => {
             className={`fixed top-0 right-0 h-full bg-white z-50 transition-transform duration-300 ease-in-out md:hidden ${
               isOpen ? 'translate-x-0' : 'translate-x-full'
             }`}
-            style={{ width: '250px' }} // Set the width of the mobile menu
+            style={{ width: '300px' }} // Set the width of the mobile menu
           >
-            <div className="flex flex-col items-start pt-16 px-6">
+            <div className="flex flex-col items-start pt-16 px-8">
               <button
                 onClick={handleToggle}
-                className="text-[#443EDE] hover:text-[#3836c4] focus:outline-none mb-4"
+                className="text-[#443EDE] hover:text-[#3836c4] focus:outline-none mb-6"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
+                  className="h-8 w-8"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -90,19 +90,19 @@ const Navbar = () => {
                   />
                 </svg>
               </button>
-              <Link href="/" className="text-[#1E1E1E] hover:text-gray-700 font-semibold py-2" onClick={handleToggle}>
+              <Link href="/" className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-lg py-3" onClick={handleToggle}>
                 Home
               </Link>
-              <Link href="/find-coach" className="text-[#1E1E1E] hover:text-gray-700 font-semibold py-2" onClick={handleToggle}>
+              <Link href="/find-coach" className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-lg py-3" onClick={handleToggle}>
                 Find Coach
               </Link>
-              <Link href="/about" className="text-[#1E1E1E] hover:text-gray-700 font-semibold py-2" onClick={handleToggle}>
+              <Link href="/about" className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-lg py-3" onClick={handleToggle}>
                 About
               </Link>
-              <Link href="/sign-in" className="text-[#1E1E1E] hover:text-gray-700 font-semibold py-2" onClick={handleToggle}>
+              <Link href="/sign-in" className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-lg py-3" onClick={handleToggle}>
                 Sign In
               </Link>
-              <Link href="/register" className="bg-[#443EDE] text-[#ffff] font-semibold px-6 py-2 rounded-md hover:bg-[#3836c4] mt-4" onClick={handleToggle}>
+              <Link href="/register" className="bg-[#443EDE] text-white font-semibold text-lg px-8 py-3 rounded-md hover:bg-[#3836c4] mt-6" onClick={handleToggle}>
                 Register
               </Link>
             </div>

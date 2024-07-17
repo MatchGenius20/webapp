@@ -6,21 +6,19 @@ type CategoryCardProps = {
   bgColor: string;
 };
 
-const CategoryCard   = ({ name ,coaches, bgColor }:CategoryCardProps) => {
+const CategoryCard = ({ name, coaches, bgColor }: CategoryCardProps) => {
   return (
-    <>
     <div
-      className="flex items-center p-4 bg-[#FFFFFF]  rounded-lg" style={ {maxWidth: '18rem'} }
+      className="flex items-center p-6 bg-[#FFFFFF] rounded-lg shadow-md" style={{ maxWidth: '20rem' }}
     >
-      <div className="w-32 h-24 flex  items-center justify-center flex-col  rounded-md" style={{ backgroundColor: bgColor}}>
-        <Image height={54} width={54} alt="icon" src="/images/assessment 1.png" />
+      <div className="w-32 h-32 flex items-center justify-center flex-col rounded-md" style={{ backgroundColor: bgColor }}>
+        <Image height={60} width={60} alt="icon" src="/images/assessment 1.png" />
       </div>
-      <div className='bg-[#FFFFFF] px-4 w-48'>
-        <h3 className="text-xl font-semibold">{name}</h3>
-        <p className="text-gray-600">{coaches}</p>
+      <div className='bg-[#FFFFFF] px-6 w-56'>
+        <h3 className="text-2xl font-semibold">{name}</h3>
+        <p className="text-lg text-gray-600">{coaches}</p>
       </div>
     </div>
-  </>
   );
 };
 

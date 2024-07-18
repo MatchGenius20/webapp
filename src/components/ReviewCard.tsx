@@ -201,7 +201,8 @@ const ReviewCard: FC = () => {
         }
         .swiper-button-next,
         .swiper-button-prev {
-          color: #443ede;
+          display:none
+          
         }
       `}</style>
     </div>

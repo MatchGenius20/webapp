@@ -15,7 +15,7 @@ const Navbar: React.FC = () => {
 
   return (
     <>
-      <nav className="bg-white shadow-md">
+      <nav className="bg-[#FFFFFF]">
         <div className="max-w-full mx-auto px-8 sm:px-8 lg:px-16">
           <div className="flex justify-between items-center h-20 relative">
             <div className="flex items-center">

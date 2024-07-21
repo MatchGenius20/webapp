@@ -1,27 +1,44 @@
-import Image from 'next/image';
-import React from 'react';
+import { Coach } from './FindCoachContent';
 
-interface CoachCardProps {
-  name: string;
-  description: string;
-  rating: number;
-  imageUrl: string;
-}
+type CoachCardProps = {
+  coach: Coach;
+  isSelected: boolean;
+  onClick: () => void;
+};
 
-const CoachCard: React.FC<CoachCardProps> = ({ name, description, rating, imageUrl }) => {
+export default function CoachCard({ coach, isSelected, onClick }: CoachCardProps) {
   return (
-    <div className="bg-white border border-gray-200 p-4 text-left rounded-lg shadow-lg max-w-80">
-      <div className="flex justify-center">
-        <Image height={256} width={256} src={imageUrl} alt={`${name}'s picture`} className="object-cover rounded-md" />
+    <div
+      className={`mb-4 p-6 border-[#B9B9B9] rounded-lg cursor-pointer border ${
+        isSelected ? 'bg-[#443EDE] text-white' : 'bg-white'
+      }`}
+      onClick={onClick}
+    >
+      <div className="flex items-center mb-4">
+        <div className="w-12 h-12 bg-gray-300 rounded-full mr-4"></div>
+        <div>
+          <h2 className="font-bold text-lg">{coach.name}</h2>
+          <p className="text-sm">{coach.location}</p>
+        </div>
+        <div className="ml-auto">
+          <span className="text-yellow-400">★</span> {coach.rating}
+        </div>
       </div>
-      <h3 className="text-xl font-semibold mt-6">{name}</h3>
-      <p className="mt-3 text-lg">{description}</p>
-      <div className="mt-6 font-medium text-lg">Rating: {Array(rating).fill('⭐').join('')}</div>
-      <div className="flex justify-end mt-6">
-        <button className="px-5 py-3 bg-[#453EF1] text-white rounded-lg hover:bg-purple-700 text-base">Book Session</button>
+      <p className="text-sm mb-4">{coach.description}</p>
+      <div className="flex flex-wrap gap-2">
+        {coach.skills.map((skill) => (
+          <span
+            key={skill}
+            className={`text-sm px-4 py-1 rounded-md ${
+              skill === 'Maths' ? 'bg-[#E9F8FF] text-[#00ADFD]' :
+              skill === 'Statistics' ? 'bg-pink-100 text-pink-800' :
+              'bg-green-100 text-green-800'
+            }`}
+          >
+            {skill}
+          </span>
+        ))}
       </div>
     </div>
   );
-};
-
-export default CoachCard;
+}

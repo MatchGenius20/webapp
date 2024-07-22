@@ -1,5 +1,4 @@
 import Category from "@/components/Category"
-import CoachList from "@/components/CoachList"
 import Footer from "@/components/Footer"
 import Info from "@/components/Info"
 import Navbar from "@/components/Navbar"
@@ -12,7 +11,6 @@ export default async function Home() {
       <Info/>
       <Stats/>
       <Category/>
-      <CoachList/>
       <ReviewCard/>
       <Footer/>
     </>

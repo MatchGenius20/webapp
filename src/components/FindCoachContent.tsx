@@ -14,6 +14,7 @@ export type Coach = {
   price: number;
   availability: string;
   timings: string;
+  image: string;
 };
 
 const coaches: Coach[] = [
@@ -27,6 +28,7 @@ const coaches: Coach[] = [
     price: 30,
     availability: 'This week, I am available to take sessions till 20th July 2024.',
     timings: 'Weekdays: 10am to 5pm\nWeekend: 10am to 12pm',
+    image:"/images/user.png"
   },
   {
     id: '2',
@@ -38,6 +40,7 @@ const coaches: Coach[] = [
     price: 30,
     availability: 'This week, I am available to take sessions till 20th July 2024.',
     timings: 'Weekdays: 10am to 5pm\nWeekend: 10am to 12pm',
+    image:"/images/user.png"
   },
   {
     id: '3',
@@ -49,6 +52,7 @@ const coaches: Coach[] = [
     price: 30,
     availability: 'This week, I am available to take sessions till 20th July 2024.',
     timings: 'Weekdays: 10am to 5pm\nWeekend: 10am to 12pm',
+    image:"/images/user.png"
   },
   {
     id: '4',
@@ -60,6 +64,7 @@ const coaches: Coach[] = [
     price: 30,
     availability: 'This week, I am available to take sessions till 20th July 2024.',
     timings: 'Weekdays: 10am to 5pm\nWeekend: 10am to 12pm',
+    image:"/images/user.png"
   },
   // Add more coaches here
 ];

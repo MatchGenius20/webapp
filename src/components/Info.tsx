@@ -1,3 +1,5 @@
+import PrimaryButton from "./PrimaryButton";
+
 const Info = () => {
   return (
     <div className="bg-gray-50">
@@ -13,9 +15,7 @@ const Info = () => {
             and <br /> get ahead in your career.
           </p>
           <div className="mt-8 flex space-x-6">
-            <button className="bg-[#443EDE] text-white px-6 py-3 rounded-md hover:bg-[#3836c4] font-semibold text-lg">
-              Get Started
-            </button>
+            <PrimaryButton text="Get Started"/>
             <button className="bg-[#EDECFF] border border-[#443EDE] text-[#443EDE] px-6 py-3 rounded-md hover:bg-gray-200 font-semibold text-lg">
               Get Free Trial
             </button>

@@ -1,4 +1,5 @@
-import { Coach } from './FindCoachContent';
+import { Coach } from '../../type';
+import PrimaryButton from './PrimaryButton';
 
 type CoachDetailsProps = {
   coach: Coach;
@@ -25,8 +26,8 @@ export default function CoachDetails({ coach }: CoachDetailsProps) {
       <p className="font-semibold text-sm mb-1">Timings</p>
       <p className="mb-6 text-[#8D8D8B] text-sm whitespace-pre-line">{coach.timings}</p>
       <div className="flex space-x-6 justify-center">
-        <button className="bg-indigo-600 text-white px-8 py-2 rounded">View Profile</button>
-        <button className="bg-indigo-600 text-white px-8 py-2 rounded">Book Session</button>
+       <PrimaryButton text='View Profile'/>
+       <PrimaryButton text='Book Session'/>
       </div>
     </div>
   );

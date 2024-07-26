@@ -3,19 +3,9 @@
 import { useState } from 'react';
 import CoachCard from './CoachCard';
 import CoachDetails from './CoachDetails';
+import PrimaryButton from './PrimaryButton';
 
-export type Coach = {
-  id: string;
-  name: string;
-  location: string;
-  rating: number;
-  skills: string[];
-  description: string;
-  price: number;
-  availability: string;
-  timings: string;
-  image: string;
-};
+import { Coach } from '../../type';
 
 const coaches: Coach[] = [
   {
@@ -79,7 +69,7 @@ export default function FindCoachContent() {
           <button className="bg-[#FFFFFF] border border-[#C1BFFA] px-4 py-3 rounded-md font-semibold">4+ Rating</button>
           <button className="bg-[#FFFFFF] border border-[#C1BFFA] px-3 py-3 rounded-md font-semibold">10+ Sessions</button>
         </div>
-        <button className="bg-[#443EDE] text-white px-6 rounded-md">Filters</button>
+        <PrimaryButton text='Filters'/>
       </div>
       <div className="flex space-x-8">
         <div className="w-1/2 overflow-y-auto h-[calc(100vh-300px)] pr-4 hide-scrollbar">

@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
-interface LoginProps {
-  onClose: () => void;
-}
+import { LoginProps } from '../../type';
 
 const Login: React.FC<LoginProps> = ({ onClose }) => {
   const [email, setEmail] = useState('');

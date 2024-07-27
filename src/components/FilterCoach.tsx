@@ -25,12 +25,12 @@ export default function FilterModal({ isOpen, onClose, onApply }: FilterModalPro
 
   return (
     <div className="fixed inset-0 flex justify-end">
-      <div className="w-full max-w-md h-full bg-white p-6 shadow-xl">
-        <div className="flex justify-between items-center mb-6 bg-[#E8E7FF] p-4">
-          <h2 className="text-xl font-semibold text-[#443EDE]">Filters</h2>
+      <div className="w-full max-w-md h-full bg-white shadow-xl">
+        <div className="flex justify-between items-center mb-6 bg-[#E8E7FF] p-2">
+          <h2 className="text-xl font-bold text-[#443EDE] px-4">Filters</h2>
           <button onClick={onClose} className="text-gray-500 text-2xl">&times;</button>
         </div>
-        <div className="space-y-6">
+        <div className="space-y-6 px-6">
           <div className="relative">
             <input
               type="text"
@@ -75,7 +75,7 @@ export default function FilterModal({ isOpen, onClose, onApply }: FilterModalPro
             />
           </div>
         </div>
-        <div className="flex justify-center items-center mt-4">
+        <div className="flex justify-center items-center mt-7">
           <PrimaryButton text='Apply' onClick={handleApply} />
         </div>
       </div>

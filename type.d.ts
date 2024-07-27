@@ -19,7 +19,9 @@ type CategoryCardProps = {
     availability: string;
     timings: string;
     image: string;
+    experience: number;
   };
+
   type CoachCardProps = {
     coach: Coach;
     isSelected: boolean;
@@ -39,4 +41,16 @@ type CategoryCardProps = {
   }
   interface ButtonProps {
     text: string;
+}
+interface FilterModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onApply: (filters: FilterState) => void;
+}
+
+interface FilterState {
+  search: string;
+  price: string;
+  rating: string;
+  experience: string;
 }

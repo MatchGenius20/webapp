@@ -11,6 +11,10 @@
       scrollbar-width: none;
     }
   }
+  .custom-placeholder::placeholder {
+    color: #443EDE; /* Change this to your desired color */
+  }
+  
   @layer base {
     :root {
       --background: 0 0% 100%;

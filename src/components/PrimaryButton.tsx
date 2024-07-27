@@ -1,13 +1,15 @@
-import React from 'react';
+interface PrimaryButtonProps {
+  text: string;
+  onClick?: () => void;
+}
 
-import { ButtonProps } from '../../type';
-
-const PrimaryButton: React.FC<ButtonProps> = ({ text }) => {
+export default function PrimaryButton({ text, onClick }: PrimaryButtonProps) {
   return (
-    <button className="bg-[#443EDE] text-white px-6 py-3 rounded-md hover:bg-[#3836c4] font-semibold text-lg">
-        {text}
+    <button
+      className="bg-[#443EDE] text-white px-4 py-3 rounded-md font-semibold"
+      onClick={onClick}
+    >
+      {text}
     </button>
   );
 }
-
-export default PrimaryButton;

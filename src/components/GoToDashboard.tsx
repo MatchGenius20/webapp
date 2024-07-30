@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const GoToDashboard: React.FC = () => {
   return (
@@ -11,9 +12,11 @@ const GoToDashboard: React.FC = () => {
         <p className="mb-8 text-indigo-200">
           Neon vestibulum aliquet nibh a imperdiet. Nunc quis diam eros. Phasellus fermentum enim eget, eget faucibus leo pellentesque vel. Sed quis neque ornare, semper lectus ut.
         </p>
+        <Link href={"/dashboard/profile"}>
         <button className="px-6 py-3 bg-[#443EDE] text-[#FFFFF] font-bold border border-white rounded-md transition-colors">
           Go to Dashboard
         </button>
+        </Link>
       </div>
       <div className="relative w-[500px] h-[300px]">
         <div className="absolute top-0 right-0 w-[600px] h-[300px]">

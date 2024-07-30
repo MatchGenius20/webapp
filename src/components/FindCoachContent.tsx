@@ -7,61 +7,8 @@ import PrimaryButton from './PrimaryButton';
 import FilterCoach from './FilterCoach';
 
 import { Coach } from '../../type';
+import { coaches } from '@/coachdata';
 
-const coaches: Coach[] = [
-  {
-    id: '1',
-    name: 'Peter Hollins',
-    location: 'New Delhi, India',
-    rating: 4.5,
-    skills: ['Maths', 'Statistics', 'Probability'],
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam cursus sit amet est eget posuere. Phasellus vulputate massa arcu, et mattis augue euismod quis.',
-    price: 30,
-    availability: 'This week, I am available to take sessions till 20th July 2024.',
-    timings: 'Weekdays: 10am to 5pm\nWeekend: 10am to 12pm',
-    image:"/images/user.png",
-    experience: 5,
-  },
-  {
-    id: '2',
-    name: 'Peter Holli',
-    location: 'New Delhi, India',
-    rating: 4.5,
-    skills: ['Maths', 'Statistics', 'Probability'],
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam cursus sit amet est eget posuere. Phasellus vulputate massa arcu, et mattis augue euismod quis.',
-    price: 35,
-    availability: 'This week, I am available to take sessions till 20th July 2024.',
-    timings: 'Weekdays: 10am to 5pm\nWeekend: 10am to 12pm',
-    image:"/images/user.png",
-    experience:4
-  },
-  {
-    id: '3',
-    name: 'Joseph Merboth',
-    location: 'Canada',
-    rating: 4.5,
-    skills: ['Maths', 'Statistics', 'Probability'],
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam cursus sit amet est eget posuere. Phasellus vulputate massa arcu, et mattis augue euismod quis.',
-    price: 40,
-    availability: 'This week, I am available to take sessions till 20th July 2024.',
-    timings: 'Weekdays: 10am to 5pm\nWeekend: 10am to 12pm',
-    image:"/images/user.png",
-    experience:4
-  },
-  {
-    id: '4',
-    name: 'Sarah Johnson',
-    location: 'London, UK',
-    rating: 4.7,
-    skills: ['Maths', 'Physics', 'Chemistry'],
-    description: 'Experienced tutor specializing in STEM subjects. Passionate about making complex concepts easy to understand.',
-    price: 45,
-    availability: 'Available for sessions throughout the week.',
-    timings: 'Weekdays: 9am to 7pm\nWeekend: 10am to 3pm',
-    image:"/images/user.png",
-    experience:4
-  },
-];
 
 export default function FindCoachContent() {
   const [selectedCoach, setSelectedCoach] = useState<Coach>(coaches[0]);

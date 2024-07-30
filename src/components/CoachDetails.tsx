@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { Coach } from '../../type';
 import PrimaryButton from './PrimaryButton';
 
@@ -26,7 +27,9 @@ export default function CoachDetails({ coach }: CoachDetailsProps) {
       <p className="font-semibold text-sm mb-1">Timings</p>
       <p className="mb-6 text-[#8D8D8B] text-sm whitespace-pre-line">{coach.timings}</p>
       <div className="flex space-x-6 justify-center">
+      <Link href={`/find-coach/profile/${coach.id}`}>
        <PrimaryButton text='View Profile'/>
+       </Link>
        <PrimaryButton text='Book Session'/>
       </div>
     </div>

@@ -1,4 +1,4 @@
-type CategoryCardProps = {
+  type CategoryCardProps = {
     name: string;
     coaches: string;
     bgColor: string;
@@ -14,12 +14,29 @@ type CategoryCardProps = {
     location: string;
     rating: number;
     skills: string[];
+    speciality: string;
     description: string;
     price: number;
     availability: string;
     timings: string;
     image: string;
     experience: number;
+    statistics: {
+      totalSessions: number;
+      totalDuration: number;
+    };
+    reviews: {
+      rating: number;
+      date: string;
+      text: string;
+      duration: number;
+    }[];
+    calendar: {
+      session: string;
+      date: string;
+      start: string;
+      end: string;
+    }[];
   };
 
   type CoachCardProps = {
@@ -42,15 +59,19 @@ type CategoryCardProps = {
   interface ButtonProps {
     text: string;
 }
-interface FilterModalProps {
+  interface FilterModalProps {
   isOpen: boolean;
   onClose: () => void;
   onApply: (filters: FilterState) => void;
 }
 
-interface FilterState {
+  interface FilterState {
   search: string;
   price: string;
   rating: string;
   experience: string;
 }
+  type SidebarProps = {
+  selected: string;
+  onSelect: (option: string) => void;
+};

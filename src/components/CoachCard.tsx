@@ -1,10 +1,6 @@
-import { Coach } from './FindCoachContent';
+import  Coach  from './FindCoachContent';
 
-type CoachCardProps = {
-  coach: Coach;
-  isSelected: boolean;
-  onClick: () => void;
-};
+import { CoachCardProps } from '../../type';
 
 export default function CoachCard({ coach, isSelected, onClick }: CoachCardProps) {
   return (

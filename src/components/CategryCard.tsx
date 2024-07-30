@@ -1,10 +1,6 @@
 import Image from 'next/image';
 
-type CategoryCardProps = {
-  name: string;
-  coaches: string;
-  bgColor: string;
-};
+import { CategoryCardProps } from '../../type';
 
 const CategoryCard = ({ name, coaches, bgColor }: CategoryCardProps) => {
   return (

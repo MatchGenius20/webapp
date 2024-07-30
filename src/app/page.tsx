@@ -1,5 +1,6 @@
 import Category from "@/components/Category"
 import Footer from "@/components/Footer"
+import GoToDashboard from "@/components/GoToDashboard"
 import Info from "@/components/Info"
 import Navbar from "@/components/Navbar"
 import ReviewCard from "@/components/ReviewCard"
@@ -11,6 +12,7 @@ export default async function Home() {
       <Info/>
       <Stats/>
       <Category/>
+      <GoToDashboard/>
       <ReviewCard/>
       <Footer/>
     </>

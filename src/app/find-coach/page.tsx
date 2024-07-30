@@ -3,7 +3,7 @@ import FindCoachContent from '@/components/FindCoachContent'
 export default function FindCoachPage() {
   return (
     <>
-      <div className="container mx-auto px-3 py-8 bg-[#EBEBFE] rounded-md h-48">
+      <div className="container mx-auto px-3 py-4 bg-[#EBEBFE] rounded-md h-48">
         <div className='flex flex-row'>
           <div className="w-1/3 flex flex-col px-7 py-2">
             <h1 className=" text-3xl font-bold mb-4">

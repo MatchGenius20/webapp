@@ -32,13 +32,13 @@ const CoachProfile: React.FC = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto p-8">
-      <div className="flex justify-between items-start mb-12 -ml-28">
+    <div className="w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="flex flex-col md:flex-row justify-between items-start mb-8 md:mb-12">
         <div className="flex items-start">
           <img
             src={coach.image}
             alt={coach.name}
-            className="w-16 h-16 bg-gray-200 rounded-full mr-8"
+            className="w-16 h-16 bg-gray-200 rounded-full mr-4 md:mr-8"
           />
           <div>
             <h2 className="text-2xl font-bold">{coach.name}</h2>
@@ -46,10 +46,12 @@ const CoachProfile: React.FC = () => {
             <p className="text-md text-green-500">• Online</p>
           </div>
         </div>
-        <PrimaryButton text="Book Session" onClick={handleBookSessionClick} />
+        <div className="mt-4 md:mt-0">
+          <PrimaryButton text="Book Session" onClick={handleBookSessionClick} />
+        </div>
       </div>
-      <div className="flex justify-between items-start mb-12 gap-12">
-        <div className="w-[30%] pr-6 -ml-28">
+      <div className="flex flex-col md:flex-row justify-between items-start mb-8 md:mb-12 gap-8 md:gap-16">
+        <div className="w-full md:w-[30%]">
           <div className="mb-6">
             <p className="text-xl mb-2 font-medium">Rating: {coach.rating}⭐</p>
             <p className="text-xl font-medium">Price: ${coach.price} per hour</p>
@@ -66,7 +68,7 @@ const CoachProfile: React.FC = () => {
             <p className="text-md whitespace-pre-line">{coach.timings}</p>
           </div>
         </div>
-        <div className="w-[75%] flex flex-col -mr-12">
+        <div className="w-full md:w-[70%] flex flex-col">
           <div className="mb-8">
             <h2 className="text-2xl font-semibold mb-3">{coach.speciality}</h2>
             <p className="text-md text-[#A5A4A4]">{coach.description}</p>
@@ -74,7 +76,7 @@ const CoachProfile: React.FC = () => {
               {coach.skills.map((skill, index) => (
                 <div
                   key={index}
-                  className="bg-[#EDECFF] text-[#8480F6] rounded-md px-4 py-2 text-md font-medium mr-4 mb-2"
+                  className="bg-[#EDECFF] text-[#8480F6] rounded-md px-4 py-2 text-md font-medium mr-2 mb-2"
                 >
                   {skill}
                 </div>
@@ -97,7 +99,7 @@ const CoachProfile: React.FC = () => {
               <div key={index} className="bg-[#F3F3FF] p-6 rounded mb-4">
                 <div className="flex flex-row gap-6">
                   <div className="bg-gray-300 rounded-full h-16 w-16"></div>
-                  <div className="">
+                  <div>
                     <p className="text-lg">{review.text}</p>
                     <p className="text-md text-gray-600 mt-2">
                       {review.rating} ⭐ | {review.date} | Duration: {review.duration} Minutes

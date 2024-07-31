@@ -24,7 +24,7 @@ export default function FilterModal({ isOpen, onClose, onApply }: FilterModalPro
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 flex justify-end">
+    <div className="fixed inset-0 flex justify-end z-50">
       <div className="w-full max-w-md h-full bg-white shadow-xl">
         <div className="flex justify-between items-center mb-6 bg-[#E8E7FF] p-2">
           <h2 className="text-xl font-bold text-[#443EDE] px-4">Filters</h2>

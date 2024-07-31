@@ -75,3 +75,7 @@
   selected: string;
   onSelect: (option: string) => void;
 };
+
+interface BookingPopupProps {
+  onClose: () => void;
+}

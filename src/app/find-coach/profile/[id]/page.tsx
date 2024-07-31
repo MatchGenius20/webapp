@@ -1,26 +1,35 @@
 'use client'
-import { useParams } from 'next/navigation'
-import { useEffect, useState } from 'react'
-import { Coach } from '../../../../../type'
+import { useParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { Coach } from '../../../../../type';
+import { coaches } from '@/coachdata';
+import PrimaryButton from '@/components/PrimaryButton';
+import BookingPopup from '@/components/BookingPopup';
 
-import { coaches } from '@/coachdata'
-import PrimaryButton from '@/components/PrimaryButton'
-
-export default function CoachProfile() {
-  const params = useParams()
-  const [coach, setCoach] = useState<Coach | null>(null)
+const CoachProfile: React.FC = () => {
+  const params = useParams();
+  const [coach, setCoach] = useState<Coach | null>(null);
+  const [isBookingPopupOpen, setIsBookingPopupOpen] = useState(false);
 
   useEffect(() => {
-    const id = params?.id
+    const id = params?.id;
     if (typeof id === 'string') {
-      const selectedCoach = coaches.find((coach) => coach.id === id)
-      setCoach(selectedCoach || null)
+      const selectedCoach = coaches.find((coach) => coach.id === id);
+      setCoach(selectedCoach || null);
     }
-  }, [params])
+  }, [params]);
 
   if (!coach) {
-    return <div>Loading...</div>
+    return <div>Loading...</div>;
   }
+
+  const handleBookSessionClick = () => {
+    setIsBookingPopupOpen(true);
+  };
+
+  const handleCloseBookingPopup = () => {
+    setIsBookingPopupOpen(false);
+  };
 
   return (
     <div className="max-w-6xl mx-auto p-8">
@@ -37,7 +46,7 @@ export default function CoachProfile() {
             <p className="text-md text-green-500">• Online</p>
           </div>
         </div>
-        <PrimaryButton text="Book Session" />
+        <PrimaryButton text="Book Session" onClick={handleBookSessionClick} />
       </div>
       <div className="flex justify-between items-start mb-12 gap-12">
         <div className="w-[30%] pr-6 -ml-28">
@@ -89,17 +98,20 @@ export default function CoachProfile() {
                 <div className="flex flex-row gap-6">
                   <div className="bg-gray-300 rounded-full h-16 w-16"></div>
                   <div className="">
-                <p className="text-lg">{review.text}</p>
-                <p className="text-md text-gray-600 mt-2">
-                  {review.rating} ⭐ | {review.date} | Duration: {review.duration} Minutes
-                </p>
+                    <p className="text-lg">{review.text}</p>
+                    <p className="text-md text-gray-600 mt-2">
+                      {review.rating} ⭐ | {review.date} | Duration: {review.duration} Minutes
+                    </p>
+                  </div>
                 </div>
-              </div>
               </div>
             ))}
           </div>
         </div>
       </div>
+      {isBookingPopupOpen && <BookingPopup onClose={handleCloseBookingPopup} />}
     </div>
-  )
-}
+  );
+};
+
+export default CoachProfile;

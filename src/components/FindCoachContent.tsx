@@ -4,64 +4,10 @@ import { useState } from 'react';
 import CoachCard from './CoachCard';
 import CoachDetails from './CoachDetails';
 import PrimaryButton from './PrimaryButton';
-import FilterCoach from './FilterCoach';
+import FilterModal from './FilterCoach';
 
 import { Coach } from '../../type';
-
-const coaches: Coach[] = [
-  {
-    id: '1',
-    name: 'Peter Hollins',
-    location: 'New Delhi, India',
-    rating: 4.5,
-    skills: ['Maths', 'Statistics', 'Probability'],
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam cursus sit amet est eget posuere. Phasellus vulputate massa arcu, et mattis augue euismod quis.',
-    price: 30,
-    availability: 'This week, I am available to take sessions till 20th July 2024.',
-    timings: 'Weekdays: 10am to 5pm\nWeekend: 10am to 12pm',
-    image:"/images/user.png",
-    experience: 5,
-  },
-  {
-    id: '2',
-    name: 'Peter Holli',
-    location: 'New Delhi, India',
-    rating: 4.5,
-    skills: ['Maths', 'Statistics', 'Probability'],
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam cursus sit amet est eget posuere. Phasellus vulputate massa arcu, et mattis augue euismod quis.',
-    price: 35,
-    availability: 'This week, I am available to take sessions till 20th July 2024.',
-    timings: 'Weekdays: 10am to 5pm\nWeekend: 10am to 12pm',
-    image:"/images/user.png",
-    experience:4
-  },
-  {
-    id: '3',
-    name: 'Joseph Merboth',
-    location: 'Canada',
-    rating: 4.5,
-    skills: ['Maths', 'Statistics', 'Probability'],
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam cursus sit amet est eget posuere. Phasellus vulputate massa arcu, et mattis augue euismod quis.',
-    price: 40,
-    availability: 'This week, I am available to take sessions till 20th July 2024.',
-    timings: 'Weekdays: 10am to 5pm\nWeekend: 10am to 12pm',
-    image:"/images/user.png",
-    experience:4
-  },
-  {
-    id: '4',
-    name: 'Sarah Johnson',
-    location: 'London, UK',
-    rating: 4.7,
-    skills: ['Maths', 'Physics', 'Chemistry'],
-    description: 'Experienced tutor specializing in STEM subjects. Passionate about making complex concepts easy to understand.',
-    price: 45,
-    availability: 'Available for sessions throughout the week.',
-    timings: 'Weekdays: 9am to 7pm\nWeekend: 10am to 3pm',
-    image:"/images/user.png",
-    experience:4
-  },
-];
+import { coaches } from '@/coachdata';
 
 export default function FindCoachContent() {
   const [selectedCoach, setSelectedCoach] = useState<Coach>(coaches[0]);
@@ -111,15 +57,15 @@ export default function FindCoachContent() {
 
   return (
     <div>
-      <div className="flex justify-between mb-6 bg-[#FFFFFF]">
-        <div className="space-x-3">
-          <button className="bg-[#FFFFFF] border border-[#C1BFFA] px-4 py-3 rounded-md font-semibold">4+ Rating</button>
-          <button className="bg-[#FFFFFF] border border-[#C1BFFA] px-3 py-3 rounded-md font-semibold">10+ Sessions</button>
+      <div className="flex flex-col md:flex-row justify-between mb-6 bg-white">
+        <div className="space-x-3 mb-4 md:mb-0">
+          <button className="bg-white border border-[#C1BFFA] px-4 py-3 rounded-md font-semibold">4+ Rating</button>
+          <button className="bg-white border border-[#C1BFFA] px-3 py-3 rounded-md font-semibold">10+ Sessions</button>
         </div>
         <PrimaryButton text='Filters' onClick={() => setIsFilterModalOpen(true)} />
       </div>
-      <div className="flex space-x-8">
-        <div className="w-1/2 overflow-y-auto h-[calc(100vh-300px)] pr-4 hide-scrollbar">
+      <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8">
+        <div className="w-full md:w-1/2 overflow-y-auto h-[calc(100vh-300px)] pr-4 hide-scrollbar">
           {filteredCoaches.map((coach) => (
             <CoachCard
               key={coach.id}
@@ -129,11 +75,11 @@ export default function FindCoachContent() {
             />
           ))}
         </div>
-        <div className="w-1/2">
+        <div className="w-full md:w-1/2">
           <CoachDetails coach={selectedCoach} />
         </div>
       </div>
-      <FilterCoach
+      <FilterModal
         isOpen={isFilterModalOpen}
         onClose={() => setIsFilterModalOpen(false)}
         onApply={applyFilters}

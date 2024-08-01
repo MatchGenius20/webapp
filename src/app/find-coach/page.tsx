@@ -1,4 +1,4 @@
-import FindCoachContent from '@/components/FindCoachContent';
+import FindCoachContent from '@/components/FindCoachContent'
 
 export default function FindCoachPage() {
   return (
@@ -10,17 +10,17 @@ export default function FindCoachPage() {
               Find your <span className="text-[#443EDE]">Coach</span>
             </h1>
             <p className="mb-8 text-sm text-[#A2A2A2]">
-              Looking for an online coach? <br /> Use our advanced filters to find the
-              coach who suits your requirements. Click on a coach to see details.
+              Looking for an online coach? <br /> Use our advanced filters to
+              find the coach who suits your requirements. Click on a coach to
+              see details.
             </p>
           </div>
-          <div className="w-full md:w-2/3 flex justify-end">
-          </div>
+          <div className="w-full md:w-2/3 flex justify-end"></div>
         </div>
       </div>
       <div className="container mx-auto px-3 py-5">
         <FindCoachContent />
       </div>
     </>
-  );
+  )
 }

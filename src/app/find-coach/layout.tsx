@@ -1,17 +1,17 @@
-import React from 'react';
-import Navbar from '../../components/Navbar';
+import React from 'react'
+import Navbar from '../../components/Navbar'
 
 type LayoutProps = {
-  children: React.ReactNode;
-};
+  children: React.ReactNode
+}
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <div >
+    <div>
       <Navbar />
       {children}
     </div>
-  );
-};
+  )
+}
 
-export default Layout;
+export default Layout

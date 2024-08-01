@@ -1,37 +1,53 @@
-import React, { useState, useEffect } from 'react';
-import { LoginProps } from '../../type';
+import React, { useState, useEffect } from 'react'
+import { LoginProps } from '../../type'
 
 const Login: React.FC<LoginProps> = ({ onClose }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [isFormValid, setIsFormValid] = useState(false);
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [isFormValid, setIsFormValid] = useState(false)
 
   useEffect(() => {
-    setIsFormValid(email.trim() !== '' && password.trim() !== '');
-  }, [email, password]);
+    setIsFormValid(email.trim() !== '' && password.trim() !== '')
+  }, [email, password])
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    e.preventDefault()
     if (isFormValid) {
       // Handle login logic here
-      console.log('Login:', { email, password });
-      onClose();
+      console.log('Login:', { email, password })
+      onClose()
     }
-  };
+  }
 
   return (
     <div className="bg-white rounded-lg p-4 sm:p-6 md:p-8 w-90 max-w-sm">
       <div className="flex justify-between items-center mb-3 sm:mb-6">
         <h2 className="text-xl sm:text-2xl font-bold text-[#443EDE]">Login</h2>
         <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
-          <svg className="h-5 w-5 sm:h-6 sm:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          <svg
+            className="h-5 w-5 sm:h-6 sm:w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M6 18L18 6M6 6l12 12"
+            />
           </svg>
         </button>
       </div>
-      <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6 bg-[#EDECFF] p-4 sm:p-6 rounded-lg">
+      <form
+        onSubmit={handleSubmit}
+        className="space-y-4 sm:space-y-6 bg-[#EDECFF] p-4 sm:p-6 rounded-lg"
+      >
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
             Email
           </label>
           <input
@@ -44,7 +60,10 @@ const Login: React.FC<LoginProps> = ({ onClose }) => {
           />
         </div>
         <div>
-          <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+          <label
+            htmlFor="password"
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
             Password
           </label>
           <input
@@ -69,7 +88,7 @@ const Login: React.FC<LoginProps> = ({ onClose }) => {
         </div>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login

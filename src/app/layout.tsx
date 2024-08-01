@@ -20,9 +20,7 @@ export default function RootLayout({
       <head>
         <link rel="icon" type="image/png" href="/logo/logo5.png" />
       </head>
-      <body className={`${inter.className} bg-[#fafafc]`}>
-        {children}
-      </body>
+      <body className={`${inter.className} bg-[#fafafc]`}>{children}</body>
     </html>
   )
 }

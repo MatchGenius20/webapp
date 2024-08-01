@@ -1,68 +1,77 @@
-'use client';
+'use client'
 
-import { useState } from 'react';
-import CoachCard from './CoachCard';
-import CoachDetails from './CoachDetails';
-import PrimaryButton from './PrimaryButton';
-import FilterModal from './FilterCoach';
+import { useState } from 'react'
+import CoachCard from './CoachCard'
+import CoachDetails from './CoachDetails'
+import PrimaryButton from './PrimaryButton'
+import FilterModal from './FilterCoach'
 
-import { Coach } from '../../type';
-import { coaches } from '@/coachdata';
+import { Coach } from '../../type'
+import { coaches } from '@/coachdata'
 
 export default function FindCoachContent() {
-  const [selectedCoach, setSelectedCoach] = useState<Coach>(coaches[0]);
-  const [filteredCoaches, setFilteredCoaches] = useState<Coach[]>(coaches);
-  const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
-  
+  const [selectedCoach, setSelectedCoach] = useState<Coach>(coaches[0])
+  const [filteredCoaches, setFilteredCoaches] = useState<Coach[]>(coaches)
+  const [isFilterModalOpen, setIsFilterModalOpen] = useState(false)
+
   const applyFilters = (filters: {
-    search: string;
-    price: string;
-    rating: string;
-    experience: string;
+    search: string
+    price: string
+    rating: string
+    experience: string
   }) => {
-    let filtered = coaches;
-  
+    let filtered = coaches
+
     if (filters.search) {
-      filtered = filtered.filter(coach =>
-        coach.name.toLowerCase().includes(filters.search.toLowerCase()) ||
-        coach.skills.some(skill => skill.toLowerCase().includes(filters.search.toLowerCase())) ||
-        coach.location.toLowerCase().includes(filters.search.toLowerCase())
-      );
+      filtered = filtered.filter(
+        (coach) =>
+          coach.name.toLowerCase().includes(filters.search.toLowerCase()) ||
+          coach.skills.some((skill) =>
+            skill.toLowerCase().includes(filters.search.toLowerCase()),
+          ) ||
+          coach.location.toLowerCase().includes(filters.search.toLowerCase()),
+      )
     }
-  
+
     if (filters.price) {
-      const maxPrice = parseFloat(filters.price);
+      const maxPrice = parseFloat(filters.price)
       if (!isNaN(maxPrice)) {
-        filtered = filtered.filter(coach => coach.price <= maxPrice);
+        filtered = filtered.filter((coach) => coach.price <= maxPrice)
       }
     }
-  
+
     if (filters.rating) {
-      const minRating = parseFloat(filters.rating);
+      const minRating = parseFloat(filters.rating)
       if (!isNaN(minRating)) {
-        filtered = filtered.filter(coach => coach.rating >= minRating);
+        filtered = filtered.filter((coach) => coach.rating >= minRating)
       }
     }
-  
+
     if (filters.experience) {
-      const minExperience = parseInt(filters.experience, 10);
+      const minExperience = parseInt(filters.experience, 10)
       if (!isNaN(minExperience)) {
-        filtered = filtered.filter(coach => coach.experience >= minExperience);
+        filtered = filtered.filter((coach) => coach.experience >= minExperience)
       }
     }
-  
-    setFilteredCoaches(filtered);
-  };
-    
+
+    setFilteredCoaches(filtered)
+  }
 
   return (
     <div>
       <div className="flex flex-col md:flex-row justify-between mb-6 bg-white">
         <div className="space-x-3 mb-4 md:mb-0">
-          <button className="bg-white border border-[#C1BFFA] px-4 py-3 rounded-md font-semibold">4+ Rating</button>
-          <button className="bg-white border border-[#C1BFFA] px-3 py-3 rounded-md font-semibold">10+ Sessions</button>
+          <button className="bg-white border border-[#C1BFFA] px-4 py-3 rounded-md font-semibold">
+            4+ Rating
+          </button>
+          <button className="bg-white border border-[#C1BFFA] px-3 py-3 rounded-md font-semibold">
+            10+ Sessions
+          </button>
         </div>
-        <PrimaryButton text='Filters' onClick={() => setIsFilterModalOpen(true)} />
+        <PrimaryButton
+          text="Filters"
+          onClick={() => setIsFilterModalOpen(true)}
+        />
       </div>
       <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8">
         <div className="w-full md:w-1/2 overflow-y-auto h-[calc(100vh-300px)] pr-4 hide-scrollbar">
@@ -85,5 +94,5 @@ export default function FindCoachContent() {
         onApply={applyFilters}
       />
     </div>
-  );
+  )
 }

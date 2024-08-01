@@ -1,14 +1,5 @@
 import React, { useState, useEffect } from 'react'
-
-interface SignupProps {
-  onClose: () => void
-}
-
-interface FormData {
-  name: string
-  email: string
-  password: string
-}
+import { SignupProps,FormData } from '../../type'
 
 const Signup: React.FC<SignupProps> = ({ onClose }) => {
   const [formData, setFormData] = useState<FormData>({
@@ -49,9 +40,9 @@ const Signup: React.FC<SignupProps> = ({ onClose }) => {
   }
 
   return (
-    <div className="bg-white rounded-lg p-8 max-w-sm w-full">
+    <div className="bg-white rounded-lg  max-w-sm w-5xl">
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold text-[#443EDE]">Signup</h2>
+        <h2 className="text-2xl font-bold text-[#443EDE]">Register</h2>
         <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
           <svg
             className="h-6 w-6"

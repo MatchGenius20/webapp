@@ -26,7 +26,7 @@ const Stats = () => {
                 height={40}
                 width={40}
                 alt="coach"
-                src="/images/coach 1.png"
+                src="/images/coach.svg"
               />
             </div>
             <div className="flex flex-col">
@@ -44,7 +44,7 @@ const Stats = () => {
                 height={40}
                 width={40}
                 alt="category"
-                src="/images/category.png"
+                src="/images/category.svg"
               />
             </div>
             <div className="flex flex-col">
@@ -62,7 +62,7 @@ const Stats = () => {
                 height={40}
                 width={40}
                 alt="students"
-                src="/images/gra.png"
+                src="/images/graduated.svg"
               />
             </div>
             <div className="flex flex-col">

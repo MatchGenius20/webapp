@@ -16,7 +16,7 @@ const CategoryCard = ({ name, coaches, bgColor }: CategoryCardProps) => {
           height={80}
           width={80}
           alt="icon"
-          src="/images/assessment 1.png"
+          src="/images/assessment.svg"
           className="object-contain"
         />
       </div>

@@ -33,7 +33,7 @@ const CoachProfile: React.FC = () => {
 
   return (
     <div className="w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="flex flex-col md:flex-row justify-between items-start mb-8 md:mb-12">
+      <div className="flex flex-col md:flex-row justify-between items-start mb-8 md:mb-12 border rounded-md p-4">
         <div className="flex items-start">
           <img
             src={coach.image}
@@ -50,15 +50,15 @@ const CoachProfile: React.FC = () => {
           <PrimaryButton text="Book Session" onClick={handleBookSessionClick} />
         </div>
       </div>
-      <div className="flex flex-col md:flex-row justify-between items-start mb-8 md:mb-12 gap-8 md:gap-16">
+      <div className="flex flex-col md:flex-row justify-between items-start mb-8 md:mb-12 gap-8 md:gap-16 border  rounded-md p-4">
         <div className="w-full md:w-[30%]">
-          <div className="mb-6">
+          <div className="mb-6 border-b  pb-4">
             <p className="text-xl mb-2 font-medium">Rating: {coach.rating}⭐</p>
             <p className="text-xl font-medium">
               Price: ${coach.price} per hour
             </p>
           </div>
-          <div>
+          <div className="border-b  pb-4">
             <h3 className="text-lg font-semibold mb-2">Statistics</h3>
             <p className="text-md">
               Total Sessions: {coach.statistics.totalSessions}
@@ -74,7 +74,7 @@ const CoachProfile: React.FC = () => {
             <p className="text-md whitespace-pre-line">{coach.timings}</p>
           </div>
         </div>
-        <div className="w-full md:w-[70%] flex flex-col">
+        <div className="w-full md:w-[70%] flex flex-col border-l  pl-4">
           <div className="mb-8">
             <h2 className="text-2xl font-semibold mb-3">{coach.speciality}</h2>
             <p className="text-md text-[#A5A4A4]">{coach.description}</p>
@@ -82,7 +82,7 @@ const CoachProfile: React.FC = () => {
               {coach.skills.map((skill, index) => (
                 <div
                   key={index}
-                  className="bg-[#EDECFF] text-[#8480F6] rounded-md px-4 py-2 text-md font-medium mr-2 mb-2"
+                  className="bg-[#EDECFF] text-[#8480F6] rounded-md px-4 py-2 text-md font-medium mr-2 mb-2 border "
                 >
                   {skill}
                 </div>
@@ -91,7 +91,7 @@ const CoachProfile: React.FC = () => {
           </div>
           <div className="mb-8">
             <h3 className="text-xl font-semibold mb-4">Calendar</h3>
-            <div className="bg-white border border-gray-200 rounded p-6">
+            <div className="bg-white border  rounded p-6">
               <img
                 src="/images/calender.png"
                 alt="Calendar"
@@ -102,14 +102,13 @@ const CoachProfile: React.FC = () => {
           <div>
             <h3 className="text-xl font-semibold mb-4">Reviews</h3>
             {coach.reviews.map((review, index) => (
-              <div key={index} className="bg-[#F3F3FF] p-6 rounded mb-4">
+              <div key={index} className="bg-[#F3F3FF] p-6 rounded mb-4 border ">
                 <div className="flex flex-row gap-6">
-                  <div className="bg-gray-300 rounded-full h-16 w-16"></div>
+                  <div className="bg-gray-300 rounded-full h-16 w-16 border "></div>
                   <div>
                     <p className="text-lg">{review.text}</p>
                     <p className="text-md text-gray-600 mt-2">
-                      {review.rating} ⭐ | {review.date} | Duration:{' '}
-                      {review.duration} Minutes
+                      {review.rating} ⭐ | {review.date} | Duration: {review.duration} Minutes
                     </p>
                   </div>
                 </div>

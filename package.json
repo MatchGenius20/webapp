@@ -44,6 +44,7 @@
     "embla-carousel-react": "^8.1.6",
     "eslint": "^8.57.0",
     "eslint-config-next": "^14.2.4",
+    "gapi-script": "^1.2.0",
     "jest-environment-jsdom": "^29.7.0",
     "jquery": "^3.7.1",
     "lucide-react": "^0.408.0",

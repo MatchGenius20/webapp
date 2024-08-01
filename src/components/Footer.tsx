@@ -1,6 +1,7 @@
 // components/Footer.tsx
 import React from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 const Footer: React.FC = () => {
   return (
@@ -16,40 +17,50 @@ const Footer: React.FC = () => {
           </p>
           <div className="flex space-x-4 mt-4">
             <Link href="https://www.linkedin.com" aria-label="LinkedIn">
-              <img
-                src="/images/linkedin 1.png"
-                alt="LinkedIn"
-                className="w-5 h-5 md:w-6 md:h-6"
-              />
+              <div className="w-5 h-5 md:w-6 md:h-6 overflow-hidden p-1">
+                <Image
+                  src="/images/linkedin 1.png"
+                  alt="LinkedIn"
+                  width={100}
+                  height={100}
+                />
+              </div>
             </Link>
             <Link href="https://twitter.com" aria-label="Twitter">
-              <img
-                src="/images/twitter.png"
-                alt="Twitter"
-                className="w-5 h-5 md:w-6 md:h-6"
-              />
+              <div className="w-5 h-5 md:w-6 md:h-6 overflow-hidden p-1">
+                <Image
+                  src="/images/twitter.png"
+                  alt="Twitter"
+                  width={100}
+                  height={100}
+                />
+              </div>
             </Link>
             <Link href="https://www.instagram.com" aria-label="Instagram">
-              <img
-                src="/images/instagram 1.png"
-                alt="Instagram"
-                className="w-5 h-5 md:w-6 md:h-6"
-              />
+              <div className="w-5 h-5 md:w-6 md:h-6 overflow-hidden p-1">
+                <Image
+                  src="/images/instagram 1.png"
+                  alt="Instagram"
+                  width={100}
+                  height={100}
+                />
+              </div>
             </Link>
             <Link href="mailto:info@example.com" aria-label="Email">
-              <img
-                src="/images/mail 1.png"
-                alt="Email"
-                className="w-5 h-5 md:w-6 md:h-6"
-              />
+              <div className="w-5 h-5 md:w-6 md:h-6 overflow-hidden p-1">
+                <Image
+                  src="/images/mail 1.png"
+                  alt="Email"
+                  width={100}
+                  height={100}
+                />
+              </div>
             </Link>
           </div>
         </div>
         <div className="flex flex-col md:flex-row md:space-x-8 space-y-4 md:space-y-0">
           <div>
-            <h3 className="text-[#8480F6] font-bold text-lg md:text-xl">
-              Links
-            </h3>
+            <h3 className="text-[#8480F6] font-bold text-lg">Links</h3>
             <ul className="space-y-1 text-sm md:text-md text-[#A2A2A2]">
               <li>
                 <Link href="/" passHref>
@@ -73,9 +84,7 @@ const Footer: React.FC = () => {
             </ul>
           </div>
           <div>
-            <h3 className="text-[#8480F6] font-bold text-lg md:text-xl">
-              Community
-            </h3>
+            <h3 className="text-[#8480F6] font-bold text-lg">Community</h3>
             <ul className="space-y-1 text-sm md:text-md text-[#A2A2A2]">
               <li>
                 <Link href="/" passHref>
@@ -99,9 +108,7 @@ const Footer: React.FC = () => {
             </ul>
           </div>
           <div>
-            <h3 className="text-[#8480F6] font-bold text-lg md:text-xl">
-              Resources
-            </h3>
+            <h3 className="text-[#8480F6] font-bold text-lg">Resources</h3>
             <ul className="space-y-1 text-sm md:text-md text-[#A2A2A2]">
               <li>
                 <Link href="/" passHref>

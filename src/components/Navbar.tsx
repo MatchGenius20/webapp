@@ -15,7 +15,7 @@ const Navbar: React.FC = () => {
 
   return (
     <>
-      <nav className="bg-[#FFFFFF]">
+      <nav className="bg-gra-50">
         <div className="max-w-full mx-auto px-8 sm:px-8 lg:px-16">
           <div className="flex justify-between items-center h-20 relative">
             <div className="flex items-center">
@@ -51,19 +51,19 @@ const Navbar: React.FC = () => {
             <div className="hidden md:flex space-x-10">
               <Link
                 href="/"
-                className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-lg"
+                className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-md"
               >
                 Home
               </Link>
               <Link
                 href="/find-coach"
-                className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-lg"
+                className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-md"
               >
                 Find Coach
               </Link>
               <Link
                 href="/about"
-                className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-lg"
+                className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-md"
               >
                 About
               </Link>
@@ -73,13 +73,13 @@ const Navbar: React.FC = () => {
             <div className="hidden md:flex items-center space-x-6">
               <button
                 onClick={handleLoginToggle}
-                className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-lg px-4"
+                className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-md px-4"
               >
                 Sign In
               </button>
               <button
                 onClick={handleSignupToggle}
-                className="bg-[#443EDE] text-white font-semibold text-lg px-8 py-3 rounded-md hover:bg-[#3836c4]"
+                className="bg-[#443EDE] text-white font-semibold text-md px-5 py-3 rounded-md hover:bg-[#3836c4]"
               >
                 Register
               </button>

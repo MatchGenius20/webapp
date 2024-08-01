@@ -88,8 +88,8 @@ const ReviewCard: FC = () => {
   }
 
   return (
-    <div className="bg-gray-50 py-6 px-4 sm:px-6 lg:px-8">
-      <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 text-center mb-12">
+    <div className="bg-gray-50 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 text-left mb-12">
         What our students are <br className="hidden md:block" /> saying about us
       </h1>
       <div className="relative swiper-container">
@@ -145,7 +145,7 @@ const ReviewCard: FC = () => {
                         />
                       </div>
                       <p
-                        className={`ml-6 ${cardStyle.textColor} text-sm sm:text-base`}
+                        className={`ml-8 ${cardStyle.textColor} text-sm sm:text-base`}
                       >
                         {review.content}
                       </p>
@@ -156,9 +156,9 @@ const ReviewCard: FC = () => {
                       <Image
                         src={cardStyle.profilePicUrl}
                         alt="Profile picture"
-                        width={28}
-                        height={28}
-                        className="rounded-full"
+                        width={100}
+                        height={100}
+                        className="rounded-full m-0 p-1 object-contain"
                       />
                     </div>
                     <div className="ml-3">

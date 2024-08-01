@@ -14,12 +14,13 @@ const Stats = () => {
 
   return (
     <div className="bg-gray-50">
-      <div
-        className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 bg-[#EDECFF] py-8 border rounded-lg"
-        data-aos="slide-left"
-      >
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 bg-[#EDECFF] py-8 border rounded-lg overflow-hidden">
         <div className="flex flex-col md:flex-row justify-around items-center space-y-8 md:space-y-0">
-          <div className="flex flex-row items-center space-x-6">
+          <div
+            className="flex flex-row items-center space-x-6"
+            data-aos="slide-left"
+            data-aos-delay="100"
+          >
             <div className="px-4 py-4 bg-slate-50 border rounded-md h-24 w-24 flex items-center justify-center">
               <Image
                 height={40}
@@ -36,7 +37,7 @@ const Stats = () => {
           <div
             className="flex flex-row items-center space-x-6"
             data-aos="slide-left"
-            data-aos-delay="200"
+            data-aos-delay="100"
           >
             <div className="px-4 py-4 bg-slate-50 border rounded-md h-24 w-24 flex items-center justify-center">
               <Image
@@ -54,7 +55,7 @@ const Stats = () => {
           <div
             className="flex flex-row items-center space-x-6"
             data-aos="slide-left"
-            data-aos-delay="200"
+            data-aos-delay="100"
           >
             <div className="px-4 py-4 bg-slate-50 border rounded-md h-24 w-24 flex items-center justify-center">
               <Image

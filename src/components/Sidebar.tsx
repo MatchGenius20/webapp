@@ -1,13 +1,13 @@
-import Link from 'next/link';
-import React from 'react';
-import { SidebarProps } from '../../type';
+import Link from 'next/link'
+import React from 'react'
+import { SidebarProps } from '../../type'
 
 const Sidebar: React.FC<SidebarProps> = ({ selected, onSelect }) => {
   return (
     <div className="w-64 bg-[#FFFFFF] border-r-2 border-[#B2AFF8] h-screen p-4">
       <h1 className="text-xl font-bold mb-8 text-[#443EDE]">
-        <Link  href={'/'} >DebatesMatch</Link>
-        </h1>
+        <Link href={'/'}>DebatesMatch</Link>
+      </h1>
       <ul>
         <li
           className={`p-4  cursor-pointer mb-2 ${selected === 'ProfileSettings' ? 'bg-[#453EF1] text-white rounded-lg' : 'text-black'}`}
@@ -29,7 +29,7 @@ const Sidebar: React.FC<SidebarProps> = ({ selected, onSelect }) => {
         </li>
       </ul>
     </div>
-  );
-};
+  )
+}
 
-export default Sidebar;
+export default Sidebar

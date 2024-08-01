@@ -1,17 +1,17 @@
 'use client'
-import React, { useState } from 'react';
-import Link from 'next/link';
-import Signup from './signup';
-import Login from './login';
+import React, { useState } from 'react'
+import Link from 'next/link'
+import Signup from './signup'
+import Login from './login'
 
 const Navbar: React.FC = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [showSignup, setShowSignup] = useState<boolean>(false);
-  const [showLogin, setShowLogin] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [showSignup, setShowSignup] = useState<boolean>(false)
+  const [showLogin, setShowLogin] = useState<boolean>(false)
 
-  const handleToggle = (): void => setIsOpen(!isOpen);
-  const handleSignupToggle = (): void => setShowSignup(!showSignup);
-  const handleLoginToggle = (): void => setShowLogin(!showLogin);
+  const handleToggle = (): void => setIsOpen(!isOpen)
+  const handleSignupToggle = (): void => setShowSignup(!showSignup)
+  const handleLoginToggle = (): void => setShowLogin(!showLogin)
 
   return (
     <>
@@ -49,26 +49,35 @@ const Navbar: React.FC = () => {
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex space-x-10">
-              <Link href="/" className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-lg">
+              <Link
+                href="/"
+                className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-lg"
+              >
                 Home
               </Link>
-              <Link href="/find-coach" className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-lg">
+              <Link
+                href="/find-coach"
+                className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-lg"
+              >
                 Find Coach
               </Link>
-              <Link href="/about" className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-lg">
+              <Link
+                href="/about"
+                className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-lg"
+              >
                 About
               </Link>
             </div>
 
             {/* Desktop Sign In and Register Buttons */}
             <div className="hidden md:flex items-center space-x-6">
-              <button 
+              <button
                 onClick={handleLoginToggle}
                 className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-lg px-4"
               >
                 Sign In
               </button>
-              <button 
+              <button
                 onClick={handleSignupToggle}
                 className="bg-[#443EDE] text-white font-semibold text-lg px-8 py-3 rounded-md hover:bg-[#3836c4]"
               >
@@ -103,28 +112,40 @@ const Navbar: React.FC = () => {
                     />
                   </svg>
                 </button>
-                <Link href="/" className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-lg py-3" onClick={handleToggle}>
+                <Link
+                  href="/"
+                  className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-lg py-3"
+                  onClick={handleToggle}
+                >
                   Home
                 </Link>
-                <Link href="/find-coach" className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-lg py-3" onClick={handleToggle}>
+                <Link
+                  href="/find-coach"
+                  className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-lg py-3"
+                  onClick={handleToggle}
+                >
                   Find Coach
                 </Link>
-                <Link href="/about" className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-lg py-3" onClick={handleToggle}>
+                <Link
+                  href="/about"
+                  className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-lg py-3"
+                  onClick={handleToggle}
+                >
                   About
                 </Link>
-                <button 
+                <button
                   onClick={() => {
-                    handleToggle();
-                    handleLoginToggle();
+                    handleToggle()
+                    handleLoginToggle()
                   }}
                   className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-lg py-3"
                 >
                   Sign In
                 </button>
-                <button 
+                <button
                   onClick={() => {
-                    handleToggle();
-                    handleSignupToggle();
+                    handleToggle()
+                    handleSignupToggle()
                   }}
                   className="bg-[#443EDE] text-white font-semibold text-lg px-8 py-3 rounded-md hover:bg-[#3836c4] mt-6"
                 >
@@ -154,7 +175,7 @@ const Navbar: React.FC = () => {
         </div>
       )}
     </>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar

@@ -1,4 +1,4 @@
-import PrimaryButton from "./PrimaryButton";
+import PrimaryButton from './PrimaryButton'
 
 const Info = () => {
   return (
@@ -11,11 +11,12 @@ const Info = () => {
             <span className="text-[#443EDE]">instantly</span>.
           </h1>
           <p className="mt-6 text-md md:text-xl text-gray-600">
-            Get instant consultation and guidance<br /> from the coach of your choice,
-            and <br /> get ahead in your career.
+            Get instant consultation and guidance
+            <br /> from the coach of your choice, and <br /> get ahead in your
+            career.
           </p>
           <div className="mt-8 flex space-x-6">
-            <PrimaryButton text="Get Started"/>
+            <PrimaryButton text="Get Started" />
             <button className="bg-[#EDECFF] border border-[#443EDE] text-[#443EDE] px-6 py-3 rounded-md hover:bg-gray-200 font-semibold text-lg">
               Get Free Trial
             </button>
@@ -28,17 +29,26 @@ const Info = () => {
             backgroundSize: 'contain',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
-            height: '500px'
+            height: '500px',
           }}
         >
-          <video className="relative z-10 mr-8 md:mr-16 mt-10 mb-[128px]" width="400" height="380" controls autoPlay>
-            <source src="https://www.youtube.com/watch?v=3FIZwdzxNB4" type="video/mp4"  />
+          <video
+            className="relative z-10 mr-8 md:mr-16 mt-10 mb-[128px]"
+            width="400"
+            height="380"
+            controls
+            autoPlay
+          >
+            <source
+              src="https://www.youtube.com/watch?v=3FIZwdzxNB4"
+              type="video/mp4"
+            />
             Your browser does not support the video tag.
           </video>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Info;
+export default Info

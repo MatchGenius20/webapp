@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 
 interface SignupProps {
-  onClose: () => void;
+  onClose: () => void
 }
 
 interface FormData {
-  name: string;
-  email: string;
-  password: string;
+  name: string
+  email: string
+  password: string
 }
 
 const Signup: React.FC<SignupProps> = ({ onClose }) => {
@@ -15,47 +15,68 @@ const Signup: React.FC<SignupProps> = ({ onClose }) => {
     name: '',
     email: '',
     password: '',
-  });
-  const [agreeTerms, setAgreeTerms] = useState<boolean>(false);
-  const [isFormValid, setIsFormValid] = useState<boolean>(false);
+  })
+  const [agreeTerms, setAgreeTerms] = useState<boolean>(false)
+  const [isFormValid, setIsFormValid] = useState<boolean>(false)
 
   useEffect(() => {
-    const { name, email, password } = formData;
-    setIsFormValid(name.trim() !== '' && email.trim() !== '' && password.trim() !== '' && agreeTerms);
-  }, [formData, agreeTerms]);
+    const { name, email, password } = formData
+    setIsFormValid(
+      name.trim() !== '' &&
+        email.trim() !== '' &&
+        password.trim() !== '' &&
+        agreeTerms,
+    )
+  }, [formData, agreeTerms])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const { name, value } = e.target;
-    setFormData(prevState => ({
+    const { name, value } = e.target
+    setFormData((prevState) => ({
       ...prevState,
       [name]: value,
-    }));
-  };
+    }))
+  }
 
   const handleAgreeChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setAgreeTerms(e.target.checked);
-  };
+    setAgreeTerms(e.target.checked)
+  }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
-    e.preventDefault();
+    e.preventDefault()
     // Handle signup logic here
-    console.log('Signup:', formData);
-    onClose();
-  };
+    console.log('Signup:', formData)
+    onClose()
+  }
 
   return (
     <div className="bg-white rounded-lg p-8 max-w-sm w-full">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold text-[#443EDE]">Signup</h2>
         <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
-          <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          <svg
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M6 18L18 6M6 6l12 12"
+            />
           </svg>
         </button>
       </div>
-      <form onSubmit={handleSubmit} className="space-y-6 bg-[#EDECFF] p-6 rounded-lg">
+      <form
+        onSubmit={handleSubmit}
+        className="space-y-6 bg-[#EDECFF] p-6 rounded-lg"
+      >
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="name"
+            className="block text-sm font-medium text-gray-700"
+          >
             Name
           </label>
           <input
@@ -69,7 +90,10 @@ const Signup: React.FC<SignupProps> = ({ onClose }) => {
           />
         </div>
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-gray-700"
+          >
             Email
           </label>
           <input
@@ -83,7 +107,10 @@ const Signup: React.FC<SignupProps> = ({ onClose }) => {
           />
         </div>
         <div>
-          <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="password"
+            className="block text-sm font-medium text-gray-700"
+          >
             Password
           </label>
           <input
@@ -121,7 +148,7 @@ const Signup: React.FC<SignupProps> = ({ onClose }) => {
         </div>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default Signup;
+export default Signup

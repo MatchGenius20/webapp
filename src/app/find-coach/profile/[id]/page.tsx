@@ -1,35 +1,35 @@
 'use client'
-import { useParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { Coach } from '../../../../../type';
-import { coaches } from '@/coachdata';
-import PrimaryButton from '@/components/PrimaryButton';
-import BookingPopup from '@/components/BookingPopup';
+import { useParams } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import { Coach } from '../../../../../type'
+import { coaches } from '@/coachdata'
+import PrimaryButton from '@/components/PrimaryButton'
+import BookingPopup from '@/components/BookingPopup'
 
 const CoachProfile: React.FC = () => {
-  const params = useParams();
-  const [coach, setCoach] = useState<Coach | null>(null);
-  const [isBookingPopupOpen, setIsBookingPopupOpen] = useState(false);
+  const params = useParams()
+  const [coach, setCoach] = useState<Coach | null>(null)
+  const [isBookingPopupOpen, setIsBookingPopupOpen] = useState(false)
 
   useEffect(() => {
-    const id = params?.id;
+    const id = params?.id
     if (typeof id === 'string') {
-      const selectedCoach = coaches.find((coach) => coach.id === id);
-      setCoach(selectedCoach || null);
+      const selectedCoach = coaches.find((coach) => coach.id === id)
+      setCoach(selectedCoach || null)
     }
-  }, [params]);
+  }, [params])
 
   if (!coach) {
-    return <div>Loading...</div>;
+    return <div>Loading...</div>
   }
 
   const handleBookSessionClick = () => {
-    setIsBookingPopupOpen(true);
-  };
+    setIsBookingPopupOpen(true)
+  }
 
   const handleCloseBookingPopup = () => {
-    setIsBookingPopupOpen(false);
-  };
+    setIsBookingPopupOpen(false)
+  }
 
   return (
     <div className="w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -54,12 +54,18 @@ const CoachProfile: React.FC = () => {
         <div className="w-full md:w-[30%]">
           <div className="mb-6">
             <p className="text-xl mb-2 font-medium">Rating: {coach.rating}⭐</p>
-            <p className="text-xl font-medium">Price: ${coach.price} per hour</p>
+            <p className="text-xl font-medium">
+              Price: ${coach.price} per hour
+            </p>
           </div>
           <div>
             <h3 className="text-lg font-semibold mb-2">Statistics</h3>
-            <p className="text-md">Total Sessions: {coach.statistics.totalSessions}</p>
-            <p className="text-md">Total Duration: {coach.statistics.totalDuration} minutes</p>
+            <p className="text-md">
+              Total Sessions: {coach.statistics.totalSessions}
+            </p>
+            <p className="text-md">
+              Total Duration: {coach.statistics.totalDuration} minutes
+            </p>
           </div>
           <div className="mt-6">
             <h3 className="text-lg font-semibold mb-3">Availability Status</h3>
@@ -102,7 +108,8 @@ const CoachProfile: React.FC = () => {
                   <div>
                     <p className="text-lg">{review.text}</p>
                     <p className="text-md text-gray-600 mt-2">
-                      {review.rating} ⭐ | {review.date} | Duration: {review.duration} Minutes
+                      {review.rating} ⭐ | {review.date} | Duration:{' '}
+                      {review.duration} Minutes
                     </p>
                   </div>
                 </div>
@@ -113,7 +120,7 @@ const CoachProfile: React.FC = () => {
       </div>
       {isBookingPopupOpen && <BookingPopup onClose={handleCloseBookingPopup} />}
     </div>
-  );
-};
+  )
+}
 
-export default CoachProfile;
+export default CoachProfile

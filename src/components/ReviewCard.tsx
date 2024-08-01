@@ -1,86 +1,91 @@
 // components/ReviewCard.tsx
 'use client'
-import Image from 'next/image';
-import { FC, useState } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import Image from 'next/image'
+import { FC, useState } from 'react'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import 'swiper/css'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
+import { Navigation, Pagination, Autoplay } from 'swiper/modules'
 
 const reviews = [
   {
-    title: "Great Platform",
-    content: "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit. Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.",
-    name: "Piyush Jaiswal",
+    title: 'Great Platform',
+    content:
+      'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit. Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.',
+    name: 'Piyush Jaiswal',
     rating: 5,
-    backgroundColor: "bg-[#443EDE]",
-    textColor: "text-white",
-    quoteImage: "/images/feed.png",
-    profilePicUrl: "/images/user.png",
+    backgroundColor: 'bg-[#443EDE]',
+    textColor: 'text-white',
+    quoteImage: '/images/feed.png',
+    profilePicUrl: '/images/user.png',
   },
   {
-    title: "Great Platform",
-    content: "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit. Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.",
-    name: "Piyush Jaiswal",
+    title: 'Great Platform',
+    content:
+      'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit. Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.',
+    name: 'Piyush Jaiswal',
     rating: 5,
-    backgroundColor: "bg-white",
-    textColor: "text-gray-900",
-    quoteImage: "/images/feed2.png",
-    profilePicUrl: "/images/user.png",
+    backgroundColor: 'bg-white',
+    textColor: 'text-gray-900',
+    quoteImage: '/images/feed2.png',
+    profilePicUrl: '/images/user.png',
   },
   {
-    title: "Great Platform",
-    content: "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit. Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.",
-    name: "Piyush Jaiswal",
+    title: 'Great Platform',
+    content:
+      'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit. Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.',
+    name: 'Piyush Jaiswal',
     rating: 5,
-    backgroundColor: "bg-white",
-    textColor: "text-gray-900",
-    quoteImage: "/images/feed2.png",
-    profilePicUrl: "/images/user.png",
+    backgroundColor: 'bg-white',
+    textColor: 'text-gray-900',
+    quoteImage: '/images/feed2.png',
+    profilePicUrl: '/images/user.png',
   },
   {
-    title: "Great Platform",
-    content: "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit. Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.",
-    name: "Piyush Jaiswal",
+    title: 'Great Platform',
+    content:
+      'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit. Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.',
+    name: 'Piyush Jaiswal',
     rating: 5,
-    backgroundColor: "bg-white",
-    textColor: "text-gray-900",
-    quoteImage: "/images/feed2.png",
-    profilePicUrl: "/images/user.png",
+    backgroundColor: 'bg-white',
+    textColor: 'text-gray-900',
+    quoteImage: '/images/feed2.png',
+    profilePicUrl: '/images/user.png',
   },
   {
-    title: "Great Platform",
-    content: "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit. Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.",
-    name: "Piyush Jaiswal",
+    title: 'Great Platform',
+    content:
+      'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit. Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.',
+    name: 'Piyush Jaiswal',
     rating: 5,
-    backgroundColor: "bg-white",
-    textColor: "text-gray-900",
-    quoteImage: "/images/feed2.png",
-    profilePicUrl: "/images/user.png",
+    backgroundColor: 'bg-white',
+    textColor: 'text-gray-900',
+    quoteImage: '/images/feed2.png',
+    profilePicUrl: '/images/user.png',
   },
   // ... (repeat for the remaining reviews)
-];
+]
 
 const ReviewCard: FC = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0)
 
   const getCardStyle = (index: number) => {
     if (index % 3 === 0) {
       return {
-        backgroundColor: "bg-[#443EDE]",
-        textColor: "text-white",
-        quoteImage: "/images/feed.png",
-        profilePicUrl: "/images/user.png",
-      };
+        backgroundColor: 'bg-[#443EDE]',
+        textColor: 'text-white',
+        quoteImage: '/images/feed.png',
+        profilePicUrl: '/images/user.png',
+      }
     }
     return {
-      backgroundColor: "bg-white",
-      textColor: "text-gray-900",
-      quoteImage: "/images/feed2.png",
-      profilePicUrl: "/images/user.png",
-    };
-  };
+      backgroundColor: 'bg-white',
+      textColor: 'text-gray-900',
+      quoteImage: '/images/feed2.png',
+      profilePicUrl: '/images/user.png',
+    }
+  }
 
   return (
     <div className="bg-gray-50 py-6 px-4 sm:px-6 lg:px-8">
@@ -100,7 +105,7 @@ const ReviewCard: FC = () => {
           pagination={{
             clickable: true,
             renderBullet: (index, className) => {
-              return `<span class="${className} custom-bullet"></span>`;
+              return `<span class="${className} custom-bullet"></span>`
             },
           }}
           autoplay={{ delay: 3000 }}
@@ -109,7 +114,7 @@ const ReviewCard: FC = () => {
           onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
         >
           {reviews.map((review, index) => {
-            const cardStyle = getCardStyle(index - activeIndex);
+            const cardStyle = getCardStyle(index - activeIndex)
             return (
               <SwiperSlide key={index}>
                 <div
@@ -117,7 +122,9 @@ const ReviewCard: FC = () => {
                   style={{ minHeight: '400px', maxWidth: '300px' }}
                 >
                   <div>
-                    <h2 className={`text-lg sm:text-xl font-bold ${cardStyle.textColor} mb-4`}>
+                    <h2
+                      className={`text-lg sm:text-xl font-bold ${cardStyle.textColor} mb-4`}
+                    >
                       {review.title}
                     </h2>
                     <div className="relative">
@@ -137,7 +144,11 @@ const ReviewCard: FC = () => {
                           height={16}
                         />
                       </div>
-                      <p className={`ml-6 ${cardStyle.textColor} text-sm sm:text-base`}>{review.content}</p>
+                      <p
+                        className={`ml-6 ${cardStyle.textColor} text-sm sm:text-base`}
+                      >
+                        {review.content}
+                      </p>
                     </div>
                   </div>
                   <div className="flex mt-4 pt-4 border-t border-gray-200 items-center">
@@ -151,7 +162,9 @@ const ReviewCard: FC = () => {
                       />
                     </div>
                     <div className="ml-3">
-                      <p className={`font-semibold ${cardStyle.textColor}`}>{review.name}</p>
+                      <p className={`font-semibold ${cardStyle.textColor}`}>
+                        {review.name}
+                      </p>
                       <div className="flex items-center">
                         {[...Array(review.rating)].map((_, i) => (
                           <svg
@@ -168,7 +181,7 @@ const ReviewCard: FC = () => {
                   </div>
                 </div>
               </SwiperSlide>
-            );
+            )
           })}
         </Swiper>
       </div>
@@ -201,12 +214,11 @@ const ReviewCard: FC = () => {
         }
         .swiper-button-next,
         .swiper-button-prev {
-          display:none
-          
+          display: none;
         }
       `}</style>
     </div>
-  );
-};
+  )
+}
 
-export default ReviewCard;
+export default ReviewCard

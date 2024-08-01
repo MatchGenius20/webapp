@@ -41,7 +41,6 @@ export default function CoachDetails({ coach }: CoachDetailsProps) {
         <Link href={`/find-coach/profile/${coach.id}`}>
           <PrimaryButton text="View Profile" />
         </Link>
-        <PrimaryButton text="Book Session" />
       </div>
     </div>
   )

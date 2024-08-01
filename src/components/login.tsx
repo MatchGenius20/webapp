@@ -20,7 +20,7 @@ const Login: React.FC<LoginProps> = ({ onClose }) => {
   }
 
   return (
-    <div className="bg-white rounded-lg p-4 sm:p-6 md:p-8 w-90 max-w-sm">
+    <div className="bg-white rounded-lg p-1 sm:p-6 md:p-1 w-90 max-w-sm">
       <div className="flex justify-between items-center mb-3 sm:mb-6">
         <h2 className="text-xl sm:text-2xl font-bold text-[#443EDE]">Login</h2>
         <button onClick={onClose} className="text-gray-500 hover:text-gray-700">

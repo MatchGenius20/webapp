@@ -24,7 +24,7 @@ const GoToDashboard: React.FC = () => {
         <div className="h-5 w-5 rounded-full bg-white absolute bottom-3 left-[10rem]"></div>
       </div>
       <div className="relative w-full md:w-[600px] h-[200px] md:h-[400px]">
-        <div className="absolute top-0 right-0 w-full h-full">
+        <div className="absolute top-0 right-0 w-full h-full sm:bottom-2">
           <Image
             src="/images/dashboard2.svg"
             alt="Calendar Preview"
@@ -35,7 +35,7 @@ const GoToDashboard: React.FC = () => {
         </div>
         
         <div
-          className="absolute w-full h-full z-10"
+          className="absolute w-full h-full z-10 sm:bottom-2"
           style={{ left: 'calc(-20% + 20px)', top: '20%' }}
         >
           <Image

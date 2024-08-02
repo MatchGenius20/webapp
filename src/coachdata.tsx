@@ -11,7 +11,7 @@ export const coaches: Coach[] = [
     availability:
       'This week, I am available to take sessions till 20th July 2024.',
     timings: 'Weekdays: 10am to 5pm\nWeekends: 10am to 12pm',
-    image: '/images/user.png',
+    image: '/images/man2.svg',
     experience: 15,
     description:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime rem corporis esse asperiores eum in? Tempore enim odit reiciendis debitis eum voluptatem a quasi, aperiam magnam repellat sed modi amet mollitia, itaque assumenda! Iusto Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime rem corporis esse asperiores eum in? Tempore enim odit reiciendis debitis eum voluptatem a quasi, aperiam magnam repellat sed modi amet mollitia, itaque assumenda! Iusto!',
@@ -71,7 +71,7 @@ export const coaches: Coach[] = [
     availability:
       'This week, I am available to take sessions till 20th July 2024.',
     timings: 'Weekdays: 10am to 5pm\nWeekends: 10am to 12pm',
-    image: '/images/user.png',
+    image: '/images/man2.svg',
     experience: 15,
     description:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime rem corporis esse asperiores eum in? Tempore enim odit reiciendis debitis eum voluptatem a quasi, aperiam magnam repellat sed modi amet mollitia, itaque assumenda! Iusto!',

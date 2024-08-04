@@ -10,7 +10,7 @@ const Sidebar: React.FC<SidebarProps> = ({ selected, onSelect }) => {
           <Link href={'/'}>DebatesMatch</Link>
         </h1>
       </div>
-      <ul className="pt-16"> {/* Adjust padding to ensure the list items are not hidden behind the header */}
+      <ul className="pt-16"> 
         <li
           className={`p-4 cursor-pointer mb-2 ${selected === 'ProfileSettings' ? 'bg-[#453EF1] text-white rounded-lg' : 'text-black'}`}
           onClick={() => onSelect('ProfileSettings')}

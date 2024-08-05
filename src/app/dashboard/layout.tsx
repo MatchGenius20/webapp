@@ -1,29 +1,22 @@
 'use client'
-import React, { useState } from 'react'
-import dynamic from 'next/dynamic'
+import React from 'react'
 import Sidebar from '../../components/Sidebar'
+import { usePathname } from 'next/navigation'
 
-const PaymentsWallets = dynamic(() => import('./payments&wallets/page'))
-const ProfileSettings = dynamic(() => import('./profile/page'))
+const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const pathname = usePathname()
 
-const Layout: React.FC = () => {
-  const [selectedComponent, setSelectedComponent] = useState('ProfileSettings')
-
-  const renderComponent = () => {
-    switch (selectedComponent) {
-      case 'ProfileSettings':
-        return <ProfileSettings />
-      case 'PaymentsWallets':
-        return <PaymentsWallets />
-      default:
-        return null
-    }
+  const getSelectedComponent = () => {
+    if (pathname?.includes('profilesettings')) return 'ProfileSettings'
+    if (pathname?.includes('payments&wallets')) return 'PaymentsWallets'
+    if (pathname?.includes('scheduleSession')) return 'ScheduleSession'
+    return 'ProfileSettings'
   }
 
   return (
     <div className="flex md:flex-row flex-col h-screen">
-      <Sidebar selected={selectedComponent} onSelect={setSelectedComponent} />
-      <div className="flex-1 p-8 bg-white">{renderComponent()}</div>
+      <Sidebar selected={getSelectedComponent()} />
+      <div className="flex-1 p-8 bg-white">{children}</div>
     </div>
   )
 }

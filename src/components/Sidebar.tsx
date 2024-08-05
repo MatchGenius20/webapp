@@ -1,14 +1,15 @@
 'use client'
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 interface SidebarProps {
   selected: string;
-  onSelect: (component: string) => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ selected, onSelect }) => {
+const Sidebar: React.FC<SidebarProps> = ({ selected }) => {
   const [isOpen, setIsOpen] = useState(false)
+  const pathname = usePathname()
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen)
@@ -22,17 +23,18 @@ const Sidebar: React.FC<SidebarProps> = ({ selected, onSelect }) => {
         setIsOpen(false)
       }
     }
-
     window.addEventListener('resize', handleResize)
     handleResize()
-
     return () => window.removeEventListener('resize', handleResize)
   }, [])
+
+  const linkClass = (path: string) => 
+    `block px-6 py-3 cursor-pointer ${pathname === path ? 'bg-[#453EF1] text-white rounded-lg' : 'text-black hover:bg-[#F0F0F0] rounded-lg'}`
 
   return (
     <>
       <button 
-        className="md:hidden fixed top-4 left-4 z-20 p-2  text-black rounded"
+        className="md:hidden fixed top-4 left-4 z-20 p-2 text-black rounded"
         onClick={toggleSidebar}
       >
         {isOpen ? '✕' : '☰'}
@@ -43,33 +45,21 @@ const Sidebar: React.FC<SidebarProps> = ({ selected, onSelect }) => {
             <Link href={'/'}>DebatesMatch</Link>
           </h1>
         </div>
-        <ul className="pt-16">
-          <li
-            className={`p-4 cursor-pointer mb-2 ${selected === 'ProfileSettings' ? 'bg-[#453EF1] text-white rounded-lg' : 'text-black'}`}
-            onClick={() => {
-              onSelect('ProfileSettings')
-              if (window.innerWidth <= 768) toggleSidebar()
-            }}
-          >
-            Profile Settings
+        <ul className="pt-20 space-y-4"> {/* Adjusted spacing */}
+          <li> 
+            <Link href="/dashboard/profilesettings" className={linkClass('/dashboard/profilesettings')} onClick={() => { if (window.innerWidth <= 768) toggleSidebar() }}>
+              Profile Settings
+            </Link>
           </li>
-          <li
-            className={`p-4 cursor-pointer mb-2 ${selected === 'PaymentsWallets' ? 'bg-[#453EF1] text-white rounded-lg' : 'text-black'}`}
-            onClick={() => {
-              onSelect('PaymentsWallets')
-              if (window.innerWidth <= 768) toggleSidebar()
-            }}
-          >
-            Payments & Wallets
+          <li>
+            <Link href="/dashboard/payments&wallets" className={linkClass('/dashboard/payments&wallets')} onClick={() => { if (window.innerWidth <= 768) toggleSidebar() }}>
+              Payments & Wallets
+            </Link>
           </li>
-          <li
-            className={`p-4 cursor-pointer mb-2 ${selected === 'ScheduledSessions' ? 'bg-[#453EF1] text-white rounded-lg' : 'text-black'}`}
-            onClick={() => {
-              onSelect('ScheduledSessions')
-              if (window.innerWidth <= 768) toggleSidebar()
-            }}
-          >
-            Scheduled Sessions
+          <li>
+            <Link href="/dashboard/scheduleSession" className={linkClass('/dashboard/scheduleSession')} onClick={() => { if (window.innerWidth <= 768) toggleSidebar() }}>
+              Scheduled Sessions
+            </Link>
           </li>
         </ul>
       </div>

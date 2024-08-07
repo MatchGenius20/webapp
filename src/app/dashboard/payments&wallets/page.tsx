@@ -33,8 +33,8 @@ const PaymentsAndWallets: React.FC = () => {
 
   return (
     <div className="p-4">
-      <div className="flex justify-around mb-6 space-y-4 md:space-y-0 bg-[#EBEBFE] rounded-md w-4/5 mx-auto">
-        <div className="relative w-60 mx-2 ">
+      <div className="flex flex-wrap justify-around mb-6 space-y-4 md:space-y-0 bg-[#EBEBFE] rounded-md w-full md:w-4/5 mx-auto">
+        <div className="relative w-full md:w-60 mx-2 ">
           <div className="p-4 md:p-6 rounded-lg ">
             <div className="p-3 md:p-4 bg-white rounded-lg shadow-lg transform hover:scale-105 transition-transform">
               <div className="text-sm md:text-sm font-semibold ">Wallet Balance</div>
@@ -44,7 +44,7 @@ const PaymentsAndWallets: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className="relative w-60  mx-2">
+        <div className="relative w-full md:w-60 mx-2">
           <div className="p-4 md:p-6  rounded-lg">
             <div className="p-3 md:p-4 bg-white rounded-lg shadow-lg transform hover:scale-105 transition-transform  justify-center">
               <div className="text-sm md:text-sm font-semibold">Amount Spent</div>
@@ -54,7 +54,7 @@ const PaymentsAndWallets: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className="relative w-60 mx-2">
+        <div className="relative w-full md:w-60 mx-2">
           <div className="p-4 md:p-6  rounded-lg">
             <div className="p-3 md:p-4  bg-white rounded-lg shadow-lg transform hover:scale-105 transition-transform">
               <div className="text-sm md:text-sm">Total Sessions</div>
@@ -77,21 +77,21 @@ const PaymentsAndWallets: React.FC = () => {
               checked={selectedMethods.includes(method.id)}
               onChange={() => handleSelect(method.id)}
             />
-            <label htmlFor={`method-${method.id}`} className="flex-1 flex justify-between text-sm md:text-md shadow-[#F4F4FE]">
+            <label htmlFor={`method-${method.id}`} className="flex-1 flex justify-between text-xs md:text-sm shadow-[#F4F4FE]">
               Test Card ({method.cardNumber})
               <span>{method.bank} | Expiry {method.expiry}</span>
             </label>
           </div>
         ))}
         <div className="flex justify-end mt-4 gap-2">
-           <button
-            onClick={handleDelete}
-            className="bg-[#EFEFFE] text-[#443EDE] px-4 py-1 md:px-6 md:py-3 rounded-lg text-md md:text-lg font-semibold "
+          <button
+            className="bg-[#EFEFFE] text-[#443EDE] px-4 py-1 md:px-6 md:py-3 rounded-lg text-xs md:text-lg font-semibold "
           >
             ADD
           </button>
           <button
-            className="bg-[#EFEFFE] text-[#443EDE] px-4 py-1 md:px-6 md:py-3 rounded-lg text-md md:text-lg font-semibold "
+            onClick={handleDelete}
+            className="bg-[#EFEFFE] text-[#443EDE] px-4 py-1 md:px-6 md:py-3 rounded-lg text-xs md:text-lg font-semibold "
           >
             DELETE
           </button>

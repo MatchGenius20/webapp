@@ -13,6 +13,16 @@
 .custom-placeholder::placeholder {
   color: #443ede; /* Change this to your desired color */
 }
+/* styles/globals.css */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
 
 @layer base {
   :root {

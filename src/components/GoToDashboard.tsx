@@ -16,7 +16,7 @@ const GoToDashboard: React.FC = () => {
           Phasellus fermentum enim eget, eget faucibus leo pellentesque vel. Sed
           quis neque ornare, semper lectus ut.
         </p>
-        <Link href={'/dashboard/profile'}>
+        <Link href={'/dashboard/profilesettings'}>
           <button className="px-6 py-3 bg-[#443EDE] text-white font-bold border border-white rounded-md transition-colors">
             Go to Dashboard
           </button>

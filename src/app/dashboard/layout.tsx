@@ -1,17 +1,21 @@
 'use client'
-import React, { useState, ReactNode } from 'react'
+import React from 'react'
 import Sidebar from '../../components/Sidebar'
+import { usePathname } from 'next/navigation'
 
-type LayoutProps = {
-  children: ReactNode
-}
+const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const pathname = usePathname()
 
-const Layout: React.FC<LayoutProps> = ({ children }) => {
-  const [selectedComponent, setSelectedComponent] = useState('ProfileSettings')
+  const getSelectedComponent = () => {
+    if (pathname?.includes('profilesettings')) return 'ProfileSettings'
+    if (pathname?.includes('payments&wallets')) return 'PaymentsWallets'
+    if (pathname?.includes('scheduleSession')) return 'ScheduleSession'
+    return 'ProfileSettings'
+  }
 
   return (
-    <div className="flex h-screen">
-      <Sidebar selected={selectedComponent} onSelect={setSelectedComponent} />
+    <div className="flex md:flex-row flex-col h-screen">
+      <Sidebar selected={getSelectedComponent()} />
       <div className="flex-1 p-8 bg-white">{children}</div>
     </div>
   )

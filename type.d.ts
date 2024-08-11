@@ -80,19 +80,19 @@ interface BookingPopupProps {
   onClose: () => void
 }
 export interface Review {
-  text: string;
-  rating: number;
-  date: string;
-  duration: number;
+  text: string
+  rating: number
+  date: string
+  duration: number
 }
 
 export interface Event {
-  id: string;
-  summary: string;
+  id: string
+  summary: string
   start: {
-    dateTime: string;
-  };
+    dateTime: string
+  }
   end: {
-    dateTime: string;
-  };
+    dateTime: string
+  }
 }

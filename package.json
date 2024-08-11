@@ -36,7 +36,7 @@
     "animejs": "^3.2.2",
     "aos": "^2.3.4",
     "autoprefixer": "^10.4.19",
-    "axios": "^1.7.2",
+    "axios": "^1.7.3",
     "bootstrap": "^5.3.3",
     "carousel": "^0.0.3",
     "class-variance-authority": "^0.7.0",

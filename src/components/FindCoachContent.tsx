@@ -1,18 +1,36 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import CoachCard from './CoachCard'
 import CoachDetails from './CoachDetails'
 import PrimaryButton from './PrimaryButton'
 import FilterModal from './FilterCoach'
-
 import { Coach } from '../../type'
-import { coaches } from '@/coachdata'
 
 export default function FindCoachContent() {
-  const [selectedCoach, setSelectedCoach] = useState<Coach>(coaches[0])
-  const [filteredCoaches, setFilteredCoaches] = useState<Coach[]>(coaches)
+  const [coaches, setCoaches] = useState<Coach[]>([])
+  const [selectedCoach, setSelectedCoach] = useState<Coach | null>(null)
+  const [filteredCoaches, setFilteredCoaches] = useState<Coach[]>([])
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false)
+
+  useEffect(() => {
+    const fetchCoaches = async () => {
+      try {
+        const response = await fetch('http://localhost:8080/api/v1/coach')
+        if (!response.ok) {
+          throw new Error('Failed to fetch coaches')
+        }
+        const data = await response.json()
+        setCoaches(data)
+        setFilteredCoaches(data)
+        setSelectedCoach(data[0])
+      } catch (error) {
+        console.error('Error fetching coaches:', error)
+      }
+    }
+
+    fetchCoaches()
+  }, [])
 
   const applyFilters = (filters: {
     search: string
@@ -79,13 +97,13 @@ export default function FindCoachContent() {
             <CoachCard
               key={coach.id}
               coach={coach}
-              isSelected={selectedCoach.id === coach.id}
+              isSelected={selectedCoach?.id === coach.id}
               onClick={() => setSelectedCoach(coach)}
             />
           ))}
         </div>
         <div className="w-full md:w-1/2">
-          <CoachDetails coach={selectedCoach} />
+          {selectedCoach && <CoachDetails coach={selectedCoach} />}
         </div>
       </div>
       <FilterModal

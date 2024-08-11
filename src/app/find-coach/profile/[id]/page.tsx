@@ -102,13 +102,17 @@ const CoachProfile: React.FC = () => {
           <div>
             <h3 className="text-xl font-semibold mb-4">Reviews</h3>
             {coach.reviews.map((review, index) => (
-              <div key={index} className="bg-[#F3F3FF] p-6 rounded mb-4 border ">
+              <div
+                key={index}
+                className="bg-[#F3F3FF] p-6 rounded mb-4 border "
+              >
                 <div className="flex flex-row gap-6">
                   <div className="bg-gray-300 rounded-full h-16 w-16 border "></div>
                   <div>
                     <p className="text-lg">{review.text}</p>
                     <p className="text-md text-gray-600 mt-2">
-                      {review.rating} ⭐ | {review.date} | Duration: {review.duration} Minutes
+                      {review.rating} ⭐ | {review.date} | Duration:{' '}
+                      {review.duration} Minutes
                     </p>
                   </div>
                 </div>

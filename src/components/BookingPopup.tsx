@@ -1,7 +1,8 @@
 import React, { useState, ChangeEvent, FormEvent, useEffect } from 'react'
 import { BookingPopupProps } from '../../type'
 import PrimaryButton from './PrimaryButton'
-
+import axios from 'axios'
+import { adexperiencereport } from 'googleapis/build/src/apis/adexperiencereport'
 const BookingPopup: React.FC<BookingPopupProps> = ({ onClose }) => {
   const [form, setForm] = useState({
     date: '',
@@ -15,10 +16,20 @@ const BookingPopup: React.FC<BookingPopupProps> = ({ onClose }) => {
     setForm((prevForm) => ({ ...prevForm, [name]: value }))
   }
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     // Handle form submission logic here
-    onClose()
+    try {
+      const token = localStorage.getItem('token')
+      await axios.post('http://localhost:8080/api/event', form, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      onClose()
+    } catch (error) {
+      console.error('Error creating booking:', error)
+    }
   }
 
   const handleClickOutside = (e: MouseEvent) => {

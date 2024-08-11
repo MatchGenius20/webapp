@@ -39,7 +39,10 @@ const Signup: React.FC<SignupProps> = ({ onClose }) => {
     e.preventDefault()
     if (!isFormValid) return
     try {
-      const response = await axios.post('/api/signup', formData)
+      const response = await axios.post(
+        'http://localhost:8080/api/signup',
+        formData,
+      )
       console.log('Signup successful:', response.data)
       onClose()
     } catch (error: any) {

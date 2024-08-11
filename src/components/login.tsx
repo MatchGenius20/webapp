@@ -17,7 +17,10 @@ const Login: React.FC<LoginProps> = ({ onClose }) => {
     e.preventDefault()
     if (!isFormValid) return
     try {
-      const response = await axios.post('/api/signup', { email, password })
+      const response = await axios.post('http://localhost:8080/api/signup', {
+        email,
+        password,
+      })
       console.log('Login successful:', response.data)
       onClose()
     } catch (error: any) {

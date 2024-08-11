@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { LoginProps } from '../../type'
+import axios from 'axios'
 
 const Login: React.FC<LoginProps> = ({ onClose }) => {
   const [email, setEmail] = useState('')
@@ -10,12 +11,20 @@ const Login: React.FC<LoginProps> = ({ onClose }) => {
     setIsFormValid(email.trim() !== '' && password.trim() !== '')
   }, [email, password])
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (
+    e: React.FormEvent<HTMLFormElement>,
+  ): Promise<any> => {
     e.preventDefault()
-    if (isFormValid) {
-      // Handle login logic here
-      console.log('Login:', { email, password })
+    if (!isFormValid) return
+    try {
+      const response = await axios.post('http://localhost:8080/api/signup', {
+        email,
+        password,
+      })
+      console.log('Login successful:', response.data)
       onClose()
+    } catch (error: any) {
+      console.error('Login error:', error.response?.data || error.message)
     }
   }
 

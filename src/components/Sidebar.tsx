@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 interface SidebarProps {
-  selected: string;
+  selected: string
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ selected }) => {
@@ -30,8 +30,8 @@ const Sidebar: React.FC<SidebarProps> = ({ selected }) => {
 
   const linkClass = (path: string) =>
     `block px-4 py-2 lg:px-6 lg:py-3 cursor-pointer ${
-      pathname === path 
-        ? 'bg-[#453EF1] text-white rounded-lg' 
+      pathname === path
+        ? 'bg-[#453EF1] text-white rounded-lg'
         : 'text-black hover:bg-[#F0F0F0] rounded-lg'
     }`
 
@@ -43,12 +43,23 @@ const Sidebar: React.FC<SidebarProps> = ({ selected }) => {
           onClick={toggleSidebar}
           aria-label="Open sidebar"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M4 6h16M4 12h16M4 18h16"
+            />
           </svg>
         </button>
       )}
-      <div 
+      <div
         className={`
           fixed lg:relative w-full sm:w-64 bg-[#FFFFFF] border-r-2 border-[#B2AFF8] 
           h-screen p-2 sm:p-4 transition-transform duration-300 ease-in-out 
@@ -66,25 +77,54 @@ const Sidebar: React.FC<SidebarProps> = ({ selected }) => {
               onClick={toggleSidebar}
               aria-label="Close sidebar"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             </button>
           )}
         </div>
         <ul className="pt-16 sm:pt-20 space-y-2 sm:space-y-4">
           <li>
-            <Link href="/dashboard/profilesettings" className={linkClass('/dashboard/profilesettings')} onClick={() => { if (window.innerWidth < 1024) toggleSidebar() }}>
+            <Link
+              href="/dashboard/profilesettings"
+              className={linkClass('/dashboard/profilesettings')}
+              onClick={() => {
+                if (window.innerWidth < 1024) toggleSidebar()
+              }}
+            >
               Profile Settings
             </Link>
           </li>
           <li>
-            <Link href="/dashboard/payments&wallets" className={linkClass('/dashboard/payments&wallets')} onClick={() => { if (window.innerWidth < 1024) toggleSidebar() }}>
+            <Link
+              href="/dashboard/payments&wallets"
+              className={linkClass('/dashboard/payments&wallets')}
+              onClick={() => {
+                if (window.innerWidth < 1024) toggleSidebar()
+              }}
+            >
               Payments & Wallets
             </Link>
           </li>
           <li>
-            <Link href="/dashboard/scheduleSession" className={linkClass('/dashboard/scheduleSession')} onClick={() => { if (window.innerWidth < 1024) toggleSidebar() }}>
+            <Link
+              href="/dashboard/scheduleSession"
+              className={linkClass('/dashboard/scheduleSession')}
+              onClick={() => {
+                if (window.innerWidth < 1024) toggleSidebar()
+              }}
+            >
               Scheduled Sessions
             </Link>
           </li>

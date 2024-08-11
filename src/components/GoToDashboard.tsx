@@ -33,7 +33,7 @@ const GoToDashboard: React.FC = () => {
             className="rounded-sm"
           />
         </div>
-        
+
         <div
           className="absolute w-full h-full z-10 sm:bottom-2"
           style={{ left: 'calc(-20% + 20px)', top: '20%' }}
@@ -53,7 +53,7 @@ const GoToDashboard: React.FC = () => {
             alt="E24 Logo"
           />
         </div>
-        
+
         {/* Circular divs on the right side */}
         <div className="h-20 w-20 rounded-full bg-white opacity-[0.6] absolute top-[-2rem] right-[-2rem] z-20"></div>
         <div className="h-12 w-12 rounded-full bg-white opacity-[0.6] absolute top-[23rem] right-[5rem] z-20"></div>

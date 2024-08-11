@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { SignupProps,FormData } from '../../type'
+import { SignupProps, FormData } from '../../type'
+import axios from 'axios'
 
 const Signup: React.FC<SignupProps> = ({ onClose }) => {
   const [formData, setFormData] = useState<FormData>({
@@ -32,11 +33,21 @@ const Signup: React.FC<SignupProps> = ({ onClose }) => {
     setAgreeTerms(e.target.checked)
   }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = async (
+    e: React.FormEvent<HTMLFormElement>,
+  ): Promise<any> => {
     e.preventDefault()
-    // Handle signup logic here
-    console.log('Signup:', formData)
-    onClose()
+    if (!isFormValid) return
+    try {
+      const response = await axios.post(
+        'http://localhost:8080/api/signup',
+        formData,
+      )
+      console.log('Signup successful:', response.data)
+      onClose()
+    } catch (error: any) {
+      console.error('Signup error:', error.response?.data || error.message)
+    }
   }
 
   return (

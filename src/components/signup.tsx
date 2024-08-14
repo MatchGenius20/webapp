@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { SignupProps, FormData } from '../../type'
+import { useUser } from '@/context/UserContext'
 import axios from 'axios'
 
 const Signup: React.FC<SignupProps> = ({ onClose }) => {
+  const { setUser } = useUser()
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
@@ -39,8 +41,10 @@ const Signup: React.FC<SignupProps> = ({ onClose }) => {
     e.preventDefault()
     if (!isFormValid) return
     try {
+      console.log(formData)
+
       const response = await axios.post(
-        'http://localhost:8080/api/signup',
+        'http://localhost:8080/api/v1/auth/signup?isCoach=false',
         formData,
       )
       console.log('Signup successful:', response.data)

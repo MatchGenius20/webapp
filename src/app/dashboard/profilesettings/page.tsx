@@ -1,10 +1,12 @@
 'use client'
 import React, { useState } from 'react'
 import axios from 'axios'
+import { useUser } from '@/context/UserContext'
 
 const ProfileSettings: React.FC = () => {
+  const { user } = useUser()
   const [form, setForm] = useState({
-    name: '',
+    name: user?.name || '',
     oldPassword: '',
     newPassword: '',
   })
@@ -18,13 +20,15 @@ const ProfileSettings: React.FC = () => {
         formData.append('image', fileInput.files[0])
 
         try {
-          const token = localStorage.getItem('token')
+          const accessToken = localStorage.getItem('accessToken')
+          const refreshToken = localStorage.getItem('refreshToken')
           await axios.patch(
-            'http://localhost:8080/api/user/profile/image',
+            'http://localhost:8080/api/v1/user/profile/image',
             formData,
             {
               headers: {
-                Authorization: `Bearer ${token}`,
+                'access-token': `Bearer ${accessToken}`,
+                'refresh-token': `Bearer ${refreshToken}`,
               },
             },
           )
@@ -39,15 +43,21 @@ const ProfileSettings: React.FC = () => {
 
   const handleUpdateDetails = async (e: React.FormEvent) => {
     e.preventDefault()
-    const userId = ''
+    const userId = user?.id
 
     try {
-      const token = localStorage.getItem('token')
-      await axios.patch(`http://localhost:8080/api/user/${userId}`, form, {
-        headers: {
-          Authorization: `Bearer ${token}`,
+      const accessToken = localStorage.getItem('accessToken')
+      const refreshToken = localStorage.getItem('refreshToken')
+      await axios.patch(
+        `http://localhost:8080/api/v1/auth/resetPassword?isUser=true`,
+        form,
+        {
+          headers: {
+            'access-token': `Bearer ${accessToken}`,
+            'refresh-token': `Bearer ${refreshToken}`,
+          },
         },
-      })
+      )
       alert('Details updated successfully!')
     } catch (error) {
       console.error('Error updating details:', error)
@@ -64,14 +74,14 @@ const ProfileSettings: React.FC = () => {
       <div className="flex flex-col sm:flex-row items-center mb-8 space-y-4 sm:space-y-0 sm:space-x-6">
         <div className="w-24 h-24 sm:w-32 sm:h-32 lg:w-36 lg:h-36 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden">
           <img
-            src="/images/man2.svg"
+            src={user?.profileImage || '/images/man2.svg'}
             alt="Profile"
             className="w-full h-full object-cover"
           />
         </div>
         <div className="text-center sm:text-left">
           <p className="text-xl sm:text-2xl lg:text-3xl font-semibold break-all">
-            piyushjaiswal@gmail.com
+            {user?.email || 'User Email'}
           </p>
           <button
             className="mt-2 py-1 px-2 text-sm sm:text-base text-[#736EE6] border rounded-md border-[#b8b6F2] hover:bg-[#736EE6] hover:text-white transition-colors"

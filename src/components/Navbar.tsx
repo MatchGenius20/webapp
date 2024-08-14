@@ -3,8 +3,10 @@ import React, { useState } from 'react'
 import Link from 'next/link'
 import Signup from './signup'
 import Login from './login'
+import { useUser } from '@/context/UserContext'
 
 const Navbar: React.FC = () => {
+  const { user, logout } = useUser()
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [showSignup, setShowSignup] = useState<boolean>(false)
   const [showLogin, setShowLogin] = useState<boolean>(false)
@@ -12,6 +14,11 @@ const Navbar: React.FC = () => {
   const handleToggle = (): void => setIsOpen(!isOpen)
   const handleSignupToggle = (): void => setShowSignup(!showSignup)
   const handleLoginToggle = (): void => setShowLogin(!showLogin)
+
+  const handleLogout = (): void => {
+    logout() // Call the logout function
+    // Optionally, you might want to redirect the user or update the UI
+  }
 
   return (
     <>
@@ -69,20 +76,31 @@ const Navbar: React.FC = () => {
               </Link>
             </div>
 
-            {/* Desktop Sign In and Register Buttons */}
+            {/* Desktop Sign In/Register/Logout Buttons */}
             <div className="hidden md:flex items-center space-x-6">
-              <button
-                onClick={handleLoginToggle}
-                className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-md px-4"
-              >
-                Sign In
-              </button>
-              <button
-                onClick={handleSignupToggle}
-                className="bg-[#443EDE] text-white font-semibold text-md px-5 py-3 rounded-md hover:bg-[#3836c4]"
-              >
-                Register
-              </button>
+              {user ? (
+                <button
+                  onClick={handleLogout}
+                  className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-md px-4"
+                >
+                  Logout
+                </button>
+              ) : (
+                <>
+                  <button
+                    onClick={handleLoginToggle}
+                    className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-md px-4"
+                  >
+                    Sign In
+                  </button>
+                  <button
+                    onClick={handleSignupToggle}
+                    className="bg-[#443EDE] text-white font-semibold text-md px-5 py-3 rounded-md hover:bg-[#3836c4]"
+                  >
+                    Register
+                  </button>
+                </>
+              )}
             </div>
 
             {/* Mobile Menu */}
@@ -133,24 +151,38 @@ const Navbar: React.FC = () => {
                 >
                   About
                 </Link>
-                <button
-                  onClick={() => {
-                    handleToggle()
-                    handleLoginToggle()
-                  }}
-                  className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-lg py-3"
-                >
-                  Sign In
-                </button>
-                <button
-                  onClick={() => {
-                    handleToggle()
-                    handleSignupToggle()
-                  }}
-                  className="bg-[#443EDE] text-white font-semibold text-lg px-8 py-3 rounded-md hover:bg-[#3836c4] mt-6"
-                >
-                  Register
-                </button>
+                {user ? (
+                  <button
+                    onClick={() => {
+                      handleToggle()
+                      handleLogout()
+                    }}
+                    className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-lg py-3"
+                  >
+                    Logout
+                  </button>
+                ) : (
+                  <>
+                    <button
+                      onClick={() => {
+                        handleToggle()
+                        handleLoginToggle()
+                      }}
+                      className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-lg py-3"
+                    >
+                      Sign In
+                    </button>
+                    <button
+                      onClick={() => {
+                        handleToggle()
+                        handleSignupToggle()
+                      }}
+                      className="bg-[#443EDE] text-white font-semibold text-lg px-8 py-3 rounded-md hover:bg-[#3836c4] mt-6"
+                    >
+                      Register
+                    </button>
+                  </>
+                )}
               </div>
             </div>
           </div>

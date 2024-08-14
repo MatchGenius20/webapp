@@ -2,6 +2,7 @@ import './globals.css'
 import { Inter } from 'next/font/google'
 import type { Metadata } from 'next'
 import React from 'react'
+import { UserProvider } from '@/context/UserContext'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,7 +21,9 @@ export default function RootLayout({
       <head>
         <link rel="icon" type="image/png" href="/logo/logo5.png" />
       </head>
-      <body className={`${inter.className} bg-[#fafafc]`}>{children}</body>
+      <body className={`${inter.className} bg-[#fafafc]`}>
+        <UserProvider>{children}</UserProvider>
+      </body>
     </html>
   )
 }

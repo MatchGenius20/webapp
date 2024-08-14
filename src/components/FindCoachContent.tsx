@@ -13,24 +13,23 @@ export default function FindCoachContent() {
   const [filteredCoaches, setFilteredCoaches] = useState<Coach[]>([])
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false)
 
-  useEffect(() => {
-    const fetchCoaches = async () => {
-      try {
-        const response = await fetch('http://localhost:8080/api/v1/coach')
-        if (!response.ok) {
-          throw new Error('Failed to fetch coaches')
-        }
-        const data = await response.json()
-        setCoaches(data)
-        setFilteredCoaches(data)
-        setSelectedCoach(data[0])
-      } catch (error) {
-        console.error('Error fetching coaches:', error)
+  const fetchCoaches = async () => {
+    try {
+      const response = await fetch('http://localhost:8080/api/v1/coach')
+      if (!response.ok) {
+        throw new Error('Failed to fetch coaches')
       }
+      const data = await response.json()
+      console.log('Fetched data:', data)
+      setCoaches(Array.isArray(data) ? data : [])
+      setFilteredCoaches(Array.isArray(data) ? data : [])
+      setSelectedCoach(data[0])
+    } catch (error) {
+      console.error('Error fetching coaches:', error)
+      setCoaches([])
+      setFilteredCoaches([])
     }
-
-    fetchCoaches()
-  }, [])
+  }
 
   const applyFilters = (filters: {
     search: string

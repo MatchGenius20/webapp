@@ -21,6 +21,10 @@ export type Coach = {
   timings: string
   image: string
   experience: number
+  education: string           // Added education field
+  travelAvailability: string  // Added travel availability field
+  schedulingAvailability: string // Added scheduling availability field
+  sessionSize: string         // Added session size field
   statistics: {
     totalSessions: number
     totalDuration: number
@@ -38,6 +42,7 @@ export type Coach = {
     end: string
   }[]
 }
+
 
 type CoachCardProps = {
   coach: Coach
@@ -59,18 +64,25 @@ interface LoginProps {
 interface ButtonProps {
   text: string
 }
-interface FilterModalProps {
+// Updated FilterState interface
+export interface FilterState {
+  search: string
+  price: string
+  rating: string
+  experience: string
+  education: string  // New field
+  travelAvailability: string  // New field
+  schedulingAvailability: string  // New field
+  sessionSize: string  // New field
+}
+
+// Updated FilterModalProps interface
+export interface FilterModalProps {
   isOpen: boolean
   onClose: () => void
   onApply: (filters: FilterState) => void
 }
 
-interface FilterState {
-  search: string
-  price: string
-  rating: string
-  experience: string
-}
 type SidebarProps = {
   selected: string
   onSelect: (option: string) => void

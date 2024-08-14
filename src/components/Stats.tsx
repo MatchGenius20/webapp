@@ -49,7 +49,7 @@ const Stats = () => {
             </div>
             <div className="flex flex-col">
               <p className="text-4xl font-bold text-[#443EDE]">500+</p>
-              <p className="text-xl font-semibold">Categories</p>
+              <p className="text-xl font-semibold">Top Rated Coaches</p>
             </div>
           </div>
           <div

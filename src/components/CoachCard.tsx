@@ -8,7 +8,7 @@ export default function CoachCard({
   return (
     <div
       className={`mb-4 p-4 border-[#B9B9B9] rounded-lg cursor-pointer border ${
-        isSelected ? 'bg-[#443EDE] text-white' : 'bg-white'
+        isSelected ? 'bg-primary text-white' : 'bg-white'
       }`}
       onClick={onClick}
     >

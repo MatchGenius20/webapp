@@ -31,7 +31,7 @@ const Sidebar: React.FC<SidebarProps> = ({ selected }) => {
   const linkClass = (path: string) =>
     `block px-4 py-2 lg:px-6 lg:py-3 cursor-pointer ${
       pathname === path
-        ? 'bg-[#453EF1] text-white rounded-lg'
+        ? 'bg-primary text-white rounded-lg'
         : 'text-black hover:bg-[#F0F0F0] rounded-lg'
     }`
 
@@ -68,7 +68,7 @@ const Sidebar: React.FC<SidebarProps> = ({ selected }) => {
         `}
       >
         <div className="absolute top-0 left-0 right-0 bg-[#EDECFF] p-2 sm:p-4 flex justify-between items-center">
-          <h1 className="text-lg sm:text-xl font-bold text-[#443EDE]">
+          <h1 className="text-lg sm:text-xl font-bold text-primary">
             <Link href={'/'}>DebatesMatch</Link>
           </h1>
           {isOpen && (

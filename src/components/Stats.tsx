@@ -30,7 +30,7 @@ const Stats = () => {
               />
             </div>
             <div className="flex flex-col">
-              <p className="text-4xl font-bold text-[#443EDE]">10k+</p>
+              <p className="text-4xl font-bold text-primary">10k+</p>
               <p className="text-xl font-semibold">Total Coaches</p>
             </div>
           </div>
@@ -48,7 +48,7 @@ const Stats = () => {
               />
             </div>
             <div className="flex flex-col">
-              <p className="text-4xl font-bold text-[#443EDE]">500+</p>
+              <p className="text-4xl font-bold text-primary">500+</p>
               <p className="text-xl font-semibold">Top Rated Coaches</p>
             </div>
           </div>
@@ -66,7 +66,7 @@ const Stats = () => {
               />
             </div>
             <div className="flex flex-col">
-              <p className="text-4xl font-bold text-[#443EDE]">300k+</p>
+              <p className="text-4xl font-bold text-primary">300k+</p>
               <p className="text-xl font-semibold">Students</p>
             </div>
           </div>

@@ -29,7 +29,7 @@ const CategoryPage: React.FC = () => {
         </div>
         <div className="mt-4 md:mt-0">
           <Link href="/find-coach">
-            <button className="text-[#443EDE] border border-[#443EDE] px-6 py-3 rounded-md cursor-pointer font-semibold text-center hover:text-purple-700">
+            <button className="text-primary border border-primary px-6 py-3 rounded-md cursor-pointer font-semibold text-center hover:text-purple-700">
               Browse All
             </button>
           </Link>

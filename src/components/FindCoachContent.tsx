@@ -89,7 +89,7 @@ export default function FindCoachContent() {
 
   return (
     <div>
-      <div className="flex flex-col md:flex-row justify-between mb-6 bg-[#FAFAFC]">
+      <div className="flex flex-col md:flex-row justify-between mb-6 bg-secondary">
         <div className="space-x-3 mb-4 md:mb-0">
           <button className="bg-white border border-[#C1BFFA] px-4 py-3 rounded-md font-semibold">
             4+ Rating

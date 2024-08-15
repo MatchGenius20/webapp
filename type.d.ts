@@ -108,3 +108,9 @@ export interface Event {
     dateTime: string
   }
 }
+interface CoachCategoryCardProps {
+  name: string;
+  description: string;
+  rating: number;
+  imageUrl: string;
+}

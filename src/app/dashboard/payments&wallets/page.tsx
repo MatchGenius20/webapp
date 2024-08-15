@@ -59,7 +59,7 @@ const PaymentsAndWallets: React.FC = () => {
               <div className="text-sm md:text-sm font-semibold ">
                 Wallet Balance
               </div>
-              <div className="text-2xl md:text-4xl font-bold text-center text-[#443EDE]">
+              <div className="text-2xl md:text-4xl font-bold text-center text-primary">
                 $<CountUp end={walletBalance} />
               </div>
             </div>
@@ -71,7 +71,7 @@ const PaymentsAndWallets: React.FC = () => {
               <div className="text-sm md:text-sm font-semibold">
                 Amount Spent
               </div>
-              <div className="text-2xl md:text-4xl font-bold text-center text-[#443EDE] ">
+              <div className="text-2xl md:text-4xl font-bold text-center text-primary ">
                 $<CountUp end={amountSpent} />
               </div>
             </div>
@@ -81,7 +81,7 @@ const PaymentsAndWallets: React.FC = () => {
           <div className="p-4 md:p-6  rounded-lg">
             <div className="p-3 md:p-4  bg-white rounded-lg shadow-lg transform hover:scale-105 transition-transform">
               <div className="text-sm md:text-sm">Total Sessions</div>
-              <div className="text-2xl md:text-4xl font-bold text-center text-[#443EDE]">
+              <div className="text-2xl md:text-4xl font-bold text-center text-primary">
                 <CountUp end={totalSessions} />
               </div>
             </div>
@@ -114,12 +114,12 @@ const PaymentsAndWallets: React.FC = () => {
           </div>
         ))}
         <div className="flex justify-end mt-4 gap-2">
-          <button className="bg-[#EFEFFE] text-[#443EDE] px-4 py-1 md:px-6 md:py-3 rounded-lg text-xs md:text-lg font-semibold ">
+          <button className="bg-[#EFEFFE] text-primary px-4 py-1 md:px-6 md:py-3 rounded-lg text-xs md:text-lg font-semibold ">
             ADD
           </button>
           <button
             onClick={handleDelete}
-            className="bg-[#EFEFFE] text-[#443EDE] px-4 py-1 md:px-6 md:py-3 rounded-lg text-xs md:text-lg font-semibold "
+            className="bg-[#EFEFFE] text-primary px-4 py-1 md:px-6 md:py-3 rounded-lg text-xs md:text-lg font-semibold "
           >
             DELETE
           </button>

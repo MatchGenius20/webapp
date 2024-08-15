@@ -46,9 +46,9 @@ const Signup: React.FC = () => {
   }
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <div className="bg-white rounded-lg shadow-xl p-8 max-w-md w-full">
-        <h2 className="text-xl sm:text-2xl font-bold text-[#443EDE] mb-6">Sign Up</h2>
+    <div className="flex justify-center items-center md:mt-16 mt-10">
+      <div className="bg-white rounded-lg shadow-lg p-8 max-w-md w-full">
+        <h2 className="text-xl sm:text-2xl font-bold text-primary mb-6">Sign Up</h2>
         <form
           onSubmit={handleSubmit}
           className="space-y-4 sm:space-y-6 bg-[#EDECFF] p-6 rounded-lg"
@@ -128,7 +128,7 @@ const Signup: React.FC = () => {
             <button
               type="submit"
               disabled={!isFormValid}
-              className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#443EDE] hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${
+              className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${
                 !isFormValid ? 'opacity-50 cursor-not-allowed' : ''
               }`}
             >

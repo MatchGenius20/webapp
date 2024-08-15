@@ -28,7 +28,7 @@ const Modal: React.FC<ModalProps> = ({
             className="bg-white rounded-lg shadow-lg p-4 sm:p-6 md:p-8 lg:p-10 relative"
             onClick={(e) => e.stopPropagation()}
           >
-            <h2 className="text-sm sm:text-md md:text-xl lg:text-2xl font-semibold mb-4 text-[#443EDE]">
+            <h2 className="text-sm sm:text-md md:text-xl lg:text-2xl font-semibold mb-4 text-primary">
               Enter Email
             </h2>
             <input

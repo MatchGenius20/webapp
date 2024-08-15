@@ -12,7 +12,7 @@ const Navbar: React.FC = () => {
       <div className="max-w-full mx-auto px-8 sm:px-8 lg:px-16">
         <div className="flex justify-between items-center h-20 relative">
           <div className="flex items-center">
-            <Link href="/" className="text-2xl text-[#443EDE] font-bold">
+            <Link href="/" className="text-2xl text-primary font-bold">
               DebatesMatch
             </Link>
           </div>
@@ -21,7 +21,7 @@ const Navbar: React.FC = () => {
           <div className="md:hidden flex items-center">
             <button
               onClick={handleToggle}
-              className="text-[#443EDE] hover:text-[#3836c4] focus:outline-none"
+              className="text-primary hover:text-[#3836c4] focus:outline-none"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -72,7 +72,7 @@ const Navbar: React.FC = () => {
             </Link>
             <Link
               href="/signup"
-              className="bg-[#443EDE] text-white font-semibold text-md px-5 py-3 rounded-md hover:bg-[#3836c4]"
+              className="bg-primary text-white font-semibold text-md px-5 py-3 rounded-md hover:bg-[#3836c4]"
             >
               Register
             </Link>
@@ -88,7 +88,7 @@ const Navbar: React.FC = () => {
             <div className="flex flex-col items-start pt-16 px-8">
               <button
                 onClick={handleToggle}
-                className="text-[#443EDE] hover:text-[#3836c4] focus:outline-none mb-6"
+                className="text-primary hover:text-[#3836c4] focus:outline-none mb-6"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -135,7 +135,7 @@ const Navbar: React.FC = () => {
               </Link>
               <Link
                 href="/signup"
-                className="bg-[#443EDE] text-white font-semibold text-lg px-8 py-3 rounded-md hover:bg-[#3836c4] mt-6"
+                className="bg-primary text-white font-semibold text-lg px-8 py-3 rounded-md hover:bg-[#3836c4] mt-6"
                 onClick={handleToggle}
               >
                 Register

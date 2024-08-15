@@ -82,7 +82,7 @@ const ProfileSettings: React.FC = () => {
         </div>
       </div>
       <div className="bg-[#EDECFF] p-4 sm:p-6 lg:p-8 rounded-lg relative">
-        <h3 className="text-lg sm:text-xl lg:text-2xl font-bold mb-4 text-[#443EDE]">
+        <h3 className="text-lg sm:text-xl lg:text-2xl font-bold mb-4 text-primary">
           Update Details
         </h3>
         <form onSubmit={handleUpdateDetails} className="space-y-4">
@@ -125,7 +125,7 @@ const ProfileSettings: React.FC = () => {
           <div className="flex justify-end mt-6">
             <button
               type="submit"
-              className="py-2 px-4 bg-[#443EDE] text-white rounded hover:bg-[#3632b3] transition-colors"
+              className="py-2 px-4 bg-primary text-white rounded hover:bg-[#3632b3] transition-colors"
             >
               Update
             </button>

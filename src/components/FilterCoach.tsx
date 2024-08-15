@@ -35,7 +35,7 @@ export default function FilterModal({
     <div className="fixed inset-0 flex justify-end z-50">
       <div className="w-full max-w-md h-full bg-white shadow-xl">
         <div className="flex justify-between items-center mb-6 bg-[#E8E7FF] p-2">
-          <h2 className="text-xl font-bold text-[#443EDE] px-4">Filters</h2>
+          <h2 className="text-xl font-bold text-primary px-4">Filters</h2>
           <button onClick={onClose} className="text-gray-500 text-2xl">
             &times;
           </button>
@@ -48,10 +48,10 @@ export default function FilterModal({
               placeholder="Search"
               value={filters.search}
               onChange={handleInputChange}
-              className="w-full p-3 pr-10 border border-[#443EDE] rounded-md bg-white custom-placeholder"
+              className="w-full p-3 pr-10 border border-primary rounded-md bg-white custom-placeholder"
             />
             <svg
-              className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-[#443EDE]"
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-primary"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"

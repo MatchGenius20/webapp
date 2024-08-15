@@ -52,7 +52,7 @@ const BookingPopup: React.FC<BookingPopupProps> = ({ onClose }) => {
         id="booking-popup"
         className="bg-white p-4 md:p-8 rounded-lg max-w-lg w-full shadow-md shadow-[#9794EC]"
       >
-        <h2 className="text-2xl font-semibold mb-4 text-[#443EDE]">
+        <h2 className="text-2xl font-semibold mb-4 text-primary">
           Book Session
         </h2>
         <form onSubmit={handleSubmit}>

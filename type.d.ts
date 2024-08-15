@@ -9,39 +9,39 @@ type CoachCardProps = {
   onClick: () => void
 }
 export type Coach = {
-  id: string
-  name: string
-  location: string
-  rating: number
-  skills: string[]
-  speciality: string
-  description: string
-  price: number
-  availability: string
-  timings: string
-  image: string
-  experience: number
-  education: string           // Added education field
-  travelAvailability: string  // Added travel availability field
-  schedulingAvailability: string // Added scheduling availability field
-  sessionSize: string         // Added session size field
-  statistics: {
-    totalSessions: number
-    totalDuration: number
-  }
-  reviews: {
-    rating: number
-    date: string
-    text: string
-    duration: number
-  }[]
-  calendar: {
-    session: string
-    date: string
-    start: string
-    end: string
-  }[]
-}
+  id?: string;
+  name?: string;
+  location?: string;
+  rating?: number;
+  skills?: string[];
+  speciality?: string;
+  description?: string;
+  price?: number;
+  availability?: string;
+  timings?: string;
+  image?: string;
+  experience?: number;
+  education?: string;           // Education field
+  travelAvailability?: string;  // Travel availability field
+  schedulingAvailability?: string; // Scheduling availability field
+  sessionSize?: string;         // Session size field
+  statistics?: {
+    totalSessions?: number;
+    totalDuration?: number;
+  };
+  reviews?: {
+    rating?: number;
+    date?: string;
+    text?: string;
+    duration?: number;
+  }[];
+  calendar?: {
+    session?: string;
+    date?: string;
+    start?: string;
+    end?: string;
+  }[];
+};
 
 
 type CoachCardProps = {
@@ -113,4 +113,5 @@ interface CoachCategoryCardProps {
   description: string;
   rating: number;
   imageUrl: string;
+  id:number
 }

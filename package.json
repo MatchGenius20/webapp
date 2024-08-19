@@ -34,6 +34,8 @@
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.0",
     "@reduxjs/toolkit": "^2.2.6",
+    "@stripe/react-stripe-js": "^2.7.3",
+    "@stripe/stripe-js": "^4.2.0",
     "animejs": "^3.2.2",
     "aos": "^2.3.4",
     "autoprefixer": "^10.4.19",

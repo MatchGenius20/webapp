@@ -1,8 +1,14 @@
 'use client'
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import { useUser } from '@/context/UserContext'
 
+<<<<<<< HEAD
 const Login: React.FC = () => {
+=======
+const Login: React.FC<LoginProps> = ({ onClose }) => {
+  const { setUser } = useUser()
+>>>>>>> b31e12ab8f65061917d9c55c291ce5916a52654a
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isFormValid, setIsFormValid] = useState(false)
@@ -17,11 +23,37 @@ const Login: React.FC = () => {
     e.preventDefault()
     if (!isFormValid) return
     try {
+<<<<<<< HEAD
       const response = await axios.post('http://localhost:8080/api/login', {
         email,
         password,
       })
       console.log('Login successful:', response.data)
+=======
+      const response = await axios.post(
+        'http://localhost:8080/api/v1/auth/login?isUser=true',
+        {
+          email,
+          password,
+        },
+      )
+      console.log(response.data.data)
+
+      const { accessToken, refreshToken, user } = response.data.data
+      console.log(accessToken)
+      console.log(refreshToken)
+
+      localStorage.setItem('accessToken', accessToken)
+      localStorage.setItem('refreshToken', refreshToken)
+      setUser({
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        profileImage: user.profileUrl,
+      })
+
+      onClose()
+>>>>>>> b31e12ab8f65061917d9c55c291ce5916a52654a
     } catch (error: any) {
       console.error('Login error:', error.response?.data || error.message)
     }

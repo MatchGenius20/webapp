@@ -1,9 +1,19 @@
 'use client'
 import React, { useState, useEffect } from 'react'
+<<<<<<< HEAD
+=======
+import { SignupProps, FormData } from '../../type'
+import { useUser } from '@/context/UserContext'
+>>>>>>> b31e12ab8f65061917d9c55c291ce5916a52654a
 import axios from 'axios'
 import { FormData } from '../../type'
 
+<<<<<<< HEAD
 const Signup: React.FC = () => {
+=======
+const Signup: React.FC<SignupProps> = ({ onClose }) => {
+  const { setUser } = useUser()
+>>>>>>> b31e12ab8f65061917d9c55c291ce5916a52654a
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
@@ -35,8 +45,10 @@ const Signup: React.FC = () => {
     e.preventDefault()
     if (!isFormValid) return
     try {
+      console.log(formData)
+
       const response = await axios.post(
-        'http://localhost:8080/api/signup',
+        'http://localhost:8080/api/v1/auth/signup?isCoach=false',
         formData,
       )
       console.log('Signup successful:', response.data)

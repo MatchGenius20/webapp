@@ -1,11 +1,23 @@
 'use client'
 import React, { useState } from 'react'
 import Link from 'next/link'
+<<<<<<< HEAD
+=======
+import Signup from './signup'
+import Login from './login'
+import { useUser } from '@/context/UserContext'
+>>>>>>> b31e12ab8f65061917d9c55c291ce5916a52654a
 
 const Navbar: React.FC = () => {
+  const { user, logout } = useUser()
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
   const handleToggle = (): void => setIsOpen(!isOpen)
+
+  const handleLogout = (): void => {
+    logout() // Call the logout function
+    // Optionally, you might want to redirect the user or update the UI
+  }
 
   return (
     <nav className="bg-gray-50">
@@ -126,6 +138,7 @@ const Navbar: React.FC = () => {
               >
                 About
               </Link>
+<<<<<<< HEAD
               <Link
                 href="/login"
                 className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-lg py-3"
@@ -140,6 +153,118 @@ const Navbar: React.FC = () => {
               >
                 Register
               </Link>
+=======
+            </div>
+
+            {/* Desktop Sign In/Register/Logout Buttons */}
+            <div className="hidden md:flex items-center space-x-6">
+              {user ? (
+                <button
+                  onClick={handleLogout}
+                  className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-md px-4"
+                >
+                  Logout
+                </button>
+              ) : (
+                <>
+                  <button
+                    onClick={handleLoginToggle}
+                    className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-md px-4"
+                  >
+                    Sign In
+                  </button>
+                  <button
+                    onClick={handleSignupToggle}
+                    className="bg-[#443EDE] text-white font-semibold text-md px-5 py-3 rounded-md hover:bg-[#3836c4]"
+                  >
+                    Register
+                  </button>
+                </>
+              )}
+            </div>
+
+            {/* Mobile Menu */}
+            <div
+              className={`fixed top-0 right-0 h-full bg-white z-50 transition-transform duration-300 ease-in-out md:hidden ${
+                isOpen ? 'translate-x-0' : 'translate-x-full'
+              }`}
+              style={{ width: '300px' }}
+            >
+              <div className="flex flex-col items-start pt-16 px-8">
+                <button
+                  onClick={handleToggle}
+                  className="text-[#443EDE] hover:text-[#3836c4] focus:outline-none mb-6"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-8 w-8"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+                <Link
+                  href="/"
+                  className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-lg py-3"
+                  onClick={handleToggle}
+                >
+                  Home
+                </Link>
+                <Link
+                  href="/find-coach"
+                  className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-lg py-3"
+                  onClick={handleToggle}
+                >
+                  Find Coach
+                </Link>
+                <Link
+                  href="/about"
+                  className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-lg py-3"
+                  onClick={handleToggle}
+                >
+                  About
+                </Link>
+                {user ? (
+                  <button
+                    onClick={() => {
+                      handleToggle()
+                      handleLogout()
+                    }}
+                    className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-lg py-3"
+                  >
+                    Logout
+                  </button>
+                ) : (
+                  <>
+                    <button
+                      onClick={() => {
+                        handleToggle()
+                        handleLoginToggle()
+                      }}
+                      className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-lg py-3"
+                    >
+                      Sign In
+                    </button>
+                    <button
+                      onClick={() => {
+                        handleToggle()
+                        handleSignupToggle()
+                      }}
+                      className="bg-[#443EDE] text-white font-semibold text-lg px-8 py-3 rounded-md hover:bg-[#3836c4] mt-6"
+                    >
+                      Register
+                    </button>
+                  </>
+                )}
+              </div>
+>>>>>>> b31e12ab8f65061917d9c55c291ce5916a52654a
             </div>
           </div>
         </div>

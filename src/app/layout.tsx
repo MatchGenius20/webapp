@@ -21,9 +21,13 @@ export default function RootLayout({
       <head>
         <link rel="icon" type="image/png" href="/logo/logo5.png" />
       </head>
+<<<<<<< HEAD
+      <body className={`${inter.className} bg-secondary`}>{children}</body>
+=======
       <body className={`${inter.className} bg-[#fafafc]`}>
         <UserProvider>{children}</UserProvider>
       </body>
+>>>>>>> b31e12ab8f65061917d9c55c291ce5916a52654a
     </html>
   )
 }

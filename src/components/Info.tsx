@@ -9,9 +9,9 @@ const Info = () => {
       >
         <div className="md:w-1/2 md:pr-6 mb-10 md:mb-0 lg:mt-2">
           <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900 ">
-            Find your <span className="text-[#443EDE]">Coach</span>,<br />
+            Find your <span className="text-primary">Coach</span>,<br />
             and connect <br />
-            <span className="text-[#443EDE]">instantly</span>.
+            <span className="text-primary">instantly</span>.
           </h1>
           <p className="mt-6 text-md md:text-xl text-gray-600">
             Get instant consultation and guidance
@@ -20,7 +20,7 @@ const Info = () => {
           </p>
           <div className="mt-8 flex space-x-6">
             <PrimaryButton text="Get Started" />
-            <button className="bg-[#EDECFF] border border-[#443EDE] text-[#443EDE] px-6 py-3 rounded-md hover:bg-gray-200 font-semibold text-lg">
+            <button className="bg-[#EDECFF] border border-primary text-primary px-6 py-3 rounded-md hover:bg-gray-200 font-semibold text-lg">
               Get Free Trial
             </button>
           </div>

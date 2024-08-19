@@ -27,7 +27,7 @@ export default function CoachDetails({ coach }: CoachDetailsProps) {
       <hr className="text-[#A2A2A2]" />
       <p className="font-semibold mb-2 text-sm py-4">
         Price:{' '}
-        <span className="text-[#443EDE] font-semibold text-lg">
+        <span className="text-primary font-semibold text-lg">
           ${coach.price} per hour{' '}
         </span>
       </p>

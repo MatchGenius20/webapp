@@ -62,10 +62,10 @@ const ChatInterface: React.FC = () => {
 
   return (
     <div className="relative flex flex-col h-screen bg-gray-100 md:ml-3 md:mr-3">
-      <div className="font-bold text-[#443EDE] mb-2 mt-1 lg:text-lg md:text-md sm:text-sm">
+      <div className="font-bold text-primary mb-2 mt-1 lg:text-lg md:text-md sm:text-sm">
         <Link href={'/'}>DebatesMatch</Link>
       </div>
-      <header className="bg-[#443EDE] md:rounded-md text-white p-1 sm:p-2 md:p-3 lg:p-3 flex justify-between items-center">
+      <header className="bg-primary md:rounded-md text-white p-1 sm:p-2 md:p-3 lg:p-3 flex justify-between items-center">
         <div className="flex items-center">
           <div className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 lg:w-12 lg:h-12 bg-gray-300 rounded-full mr-2 sm:mr-3">
             <img src="/images/man2.svg" alt="" />
@@ -75,12 +75,12 @@ const ChatInterface: React.FC = () => {
           </span>
         </div>
         <div className="space-x-1 sm:space-x-2 md:space-x-4">
-          <button className="text-[#443EDE] bg-[#EBEBEB] py-1 px-2 sm:py-1.5 sm:px-3 md:py-2 md:px-4 lg:py-2.5 lg:px-5 rounded-md text-xs sm:text-sm md:text-base lg:text-lg font-medium">
+          <button className="text-primary bg-[#EBEBEB] py-1 px-2 sm:py-1.5 sm:px-3 md:py-2 md:px-4 lg:py-2.5 lg:px-5 rounded-md text-xs sm:text-sm md:text-base lg:text-lg font-medium">
             <Link href={'/dashboard/scheduleSession'}>EXIT</Link>
           </button>
           <button
             onClick={handleInviteClick}
-            className="text-[#443EDE] bg-[#EBEBEB] py-1 px-2 sm:py-1.5 sm:px-3 md:py-2 md:px-4 lg:py-2.5 lg:px-5 rounded text-xs sm:text-sm md:text-base lg:text-lg font-medium"
+            className="text-primary bg-[#EBEBEB] py-1 px-2 sm:py-1.5 sm:px-3 md:py-2 md:px-4 lg:py-2.5 lg:px-5 rounded text-xs sm:text-sm md:text-base lg:text-lg font-medium"
           >
             INVITE
           </button>
@@ -131,7 +131,7 @@ const ChatInterface: React.FC = () => {
             onChange={(e) => setInputText(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Type a message..."
-            className="flex-1 border border-[#443EDE] rounded-full py-1 px-3 sm:py-1.5 sm:px-3.5 md:py-2 md:px-4 lg:py-2.5 lg:px-5 text-sm sm:text-base md:text-lg lg:text-xl focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="flex-1 border border-primary rounded-full py-1 px-3 sm:py-1.5 sm:px-3.5 md:py-2 md:px-4 lg:py-2.5 lg:px-5 text-sm sm:text-base md:text-lg lg:text-xl focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
           <button
             onClick={handleSend}

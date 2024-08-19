@@ -61,10 +61,10 @@ const CoachProfile: React.FC = () => {
           <div className="border-b  pb-4">
             <h3 className="text-lg font-semibold mb-2">Statistics</h3>
             <p className="text-md">
-              Total Sessions: {coach.statistics.totalSessions}
+              Total Sessions: {coach.statistics?.totalSessions}
             </p>
             <p className="text-md">
-              Total Duration: {coach.statistics.totalDuration} minutes
+              Total Duration: {coach.statistics?.totalDuration} minutes
             </p>
           </div>
           <div className="mt-6">
@@ -79,7 +79,7 @@ const CoachProfile: React.FC = () => {
             <h2 className="text-2xl font-semibold mb-3">{coach.speciality}</h2>
             <p className="text-md text-[#A5A4A4]">{coach.description}</p>
             <div className="flex flex-wrap mt-6">
-              {coach.skills.map((skill, index) => (
+              {coach.skills?.map((skill, index) => (
                 <div
                   key={index}
                   className="bg-[#EDECFF] text-[#8480F6] rounded-md px-4 py-2 text-md font-medium mr-2 mb-2 border "
@@ -101,7 +101,7 @@ const CoachProfile: React.FC = () => {
           </div>
           <div>
             <h3 className="text-xl font-semibold mb-4">Reviews</h3>
-            {coach.reviews.map((review, index) => (
+            {coach.reviews?.map((review, index) => (
               <div
                 key={index}
                 className="bg-[#F3F3FF] p-6 rounded mb-4 border "

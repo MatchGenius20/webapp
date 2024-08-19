@@ -8,7 +8,7 @@ export default function CoachCard({
   return (
     <div
       className={`mb-4 p-4 border-[#B9B9B9] rounded-lg cursor-pointer border ${
-        isSelected ? 'bg-[#443EDE] text-white' : 'bg-white'
+        isSelected ? 'bg-primary text-white' : 'bg-white'
       }`}
       onClick={onClick}
     >
@@ -35,7 +35,7 @@ export default function CoachCard({
         {coach.description}
       </p>
       <div className="flex flex-wrap gap-2">
-        {coach.skills.map((skill) => (
+        {coach.skills?.map((skill) => (
           <span
             key={skill}
             className={`text-sm px-4 py-1 rounded-md ${

@@ -2,6 +2,8 @@ import Image from 'next/image';
 import React from 'react';
 import { Coach } from '../../type';
 import Link from 'next/link';
+import { REACT_LOADABLE_MANIFEST } from 'next/dist/shared/lib/constants';
+import PrimaryButton from './PrimaryButton';
 
 const CoachCategoryCard: React.FC<Coach> = ({ name, description, rating = 0, image, id }) => {
   // Use default rating of 0 if rating is null
@@ -10,6 +12,7 @@ const CoachCategoryCard: React.FC<Coach> = ({ name, description, rating = 0, ima
   // Calculate full and half stars based on effective rating
   const fullStars = Math.floor(effectiveRating);
   const halfStar = effectiveRating % 1 >= 0.5 ? 1 : 0;
+ 
 
   // Create star arrays
   const stars = [
@@ -27,7 +30,7 @@ const CoachCategoryCard: React.FC<Coach> = ({ name, description, rating = 0, ima
       <div className="mt-6 font-medium text-lg">Rating: {stars.join('')}</div>
       <div className="flex justify-end mt-6">
         <Link href={`/find-coach/profile/${id}`}>
-          <button className="px-5 py-3 bg-[#453EF1] text-white rounded-lg text-base">Book Session</button>
+          <PrimaryButton text='Book Session' />
         </Link>
       </div>
     </div>

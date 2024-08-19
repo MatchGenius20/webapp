@@ -35,7 +35,7 @@ export default function CoachCard({
         {coach.description}
       </p>
       <div className="flex flex-wrap gap-2">
-        {coach.skills.map((skill) => (
+        {coach.skills?.map((skill) => (
           <span
             key={skill}
             className={`text-sm px-4 py-1 rounded-md ${

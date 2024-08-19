@@ -24,7 +24,7 @@ const CoachList: React.FC = () => {
         </div>
         <div className="mt-6 lg:mt-0">
           <Link href="/find-coach" passHref>
-            <button className="border border-[#443EDE] px-6 py-3 lg:px-7 lg:py-4 bg-[#FFFFFF] text-[#443EDE]  rounded-lg font-bold text-base lg:text-lg">Browse All</button>
+            <button className="border border-primary px-6 py-3 lg:px-7 lg:py-4 bg-[#FFFFFF] text-primary  rounded-lg font-bold text-base lg:text-lg">Browse All</button>
           </Link>
         </div>
       </div>
@@ -43,5 +43,5 @@ const CoachList: React.FC = () => {
     </div>
   );
 };
-
+ 
 export default CoachList;

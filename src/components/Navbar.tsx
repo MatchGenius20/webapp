@@ -1,12 +1,9 @@
 'use client'
 import React, { useState } from 'react'
 import Link from 'next/link'
-<<<<<<< HEAD
-=======
 import Signup from './signup'
 import Login from './login'
 import { useUser } from '@/context/UserContext'
->>>>>>> b31e12ab8f65061917d9c55c291ce5916a52654a
 
 const Navbar: React.FC = () => {
   const { user, logout } = useUser()
@@ -138,22 +135,6 @@ const Navbar: React.FC = () => {
               >
                 About
               </Link>
-<<<<<<< HEAD
-              <Link
-                href="/login"
-                className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-lg py-3"
-                onClick={handleToggle}
-              >
-                Sign In
-              </Link>
-              <Link
-                href="/signup"
-                className="bg-primary text-white font-semibold text-lg px-8 py-3 rounded-md hover:bg-[#3836c4] mt-6"
-                onClick={handleToggle}
-              >
-                Register
-              </Link>
-=======
             </div>
 
             {/* Desktop Sign In/Register/Logout Buttons */}
@@ -168,13 +149,13 @@ const Navbar: React.FC = () => {
               ) : (
                 <>
                   <button
-                    onClick={handleLoginToggle}
+                    onClick={handleToggle}
                     className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-md px-4"
                   >
                     Sign In
                   </button>
                   <button
-                    onClick={handleSignupToggle}
+                    onClick={handleToggle}
                     className="bg-[#443EDE] text-white font-semibold text-md px-5 py-3 rounded-md hover:bg-[#3836c4]"
                   >
                     Register
@@ -246,7 +227,6 @@ const Navbar: React.FC = () => {
                     <button
                       onClick={() => {
                         handleToggle()
-                        handleLoginToggle()
                       }}
                       className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-lg py-3"
                     >
@@ -255,7 +235,6 @@ const Navbar: React.FC = () => {
                     <button
                       onClick={() => {
                         handleToggle()
-                        handleSignupToggle()
                       }}
                       className="bg-[#443EDE] text-white font-semibold text-lg px-8 py-3 rounded-md hover:bg-[#3836c4] mt-6"
                     >
@@ -264,7 +243,6 @@ const Navbar: React.FC = () => {
                   </>
                 )}
               </div>
->>>>>>> b31e12ab8f65061917d9c55c291ce5916a52654a
             </div>
           </div>
         </div>

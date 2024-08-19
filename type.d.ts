@@ -9,40 +9,39 @@ type CoachCardProps = {
   onClick: () => void
 }
 export type Coach = {
-  id?: string;
-  name?: string;
-  location?: string;
-  rating?: number;
-  skills?: string[];
-  speciality?: string;
-  description?: string;
-  price?: number;
-  availability?: string;
-  timings?: string;
-  image?: string;
-  experience?: number;
-  education?: string;           // Education field
-  travelAvailability?: string;  // Travel availability field
-  schedulingAvailability?: string; // Scheduling availability field
-  sessionSize?: string;         // Session size field
+  id?: string
+  name?: string
+  location?: string
+  rating?: number
+  skills?: string[]
+  speciality?: string
+  description?: string
+  price?: number
+  availability?: string
+  timings?: string
+  image?: string
+  experience?: number
+  education?: string // Education field
+  travelAvailability?: string // Travel availability field
+  schedulingAvailability?: string // Scheduling availability field
+  sessionSize?: string // Session size field
   statistics?: {
-    totalSessions?: number;
-    totalDuration?: number;
-  };
+    totalSessions?: number
+    totalDuration?: number
+  }
   reviews?: {
-    rating?: number;
-    date?: string;
-    text?: string;
-    duration?: number;
-  }[];
+    rating?: number
+    date?: string
+    text?: string
+    duration?: number
+  }[]
   calendar?: {
-    session?: string;
-    date?: string;
-    start?: string;
-    end?: string;
-  }[];
-};
-
+    session?: string
+    date?: string
+    start?: string
+    end?: string
+  }[]
+}
 
 type CoachCardProps = {
   coach: Coach
@@ -70,10 +69,10 @@ export interface FilterState {
   price: string
   rating: string
   experience: string
-  education: string  // New field
-  travelAvailability: string  // New field
-  schedulingAvailability: string  // New field
-  sessionSize: string  // New field
+  education: string // New field
+  travelAvailability: string // New field
+  schedulingAvailability: string // New field
+  sessionSize: string // New field
 }
 
 // Updated FilterModalProps interface
@@ -109,9 +108,9 @@ export interface Event {
   }
 }
 interface CoachCategoryCardProps {
-  name: string;
-  description: string;
-  rating: number;
-  imageUrl: string;
-  id:number
+  name: string
+  description: string
+  rating: number
+  imageUrl: string
+  id: number
 }

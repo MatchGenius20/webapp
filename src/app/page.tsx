@@ -12,7 +12,7 @@ export default async function Home() {
       <Navbar />
       <Info />
       <Stats />
-      <CoachList/>
+      <CoachList />
       <GoToDashboard />
       <ReviewCard />
       <Footer />

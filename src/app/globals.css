@@ -25,9 +25,8 @@
 
 @layer base {
   :root {
-    --color-primary: #443EDE;
-    --color-secondary: #FAFAFC
-    --background: 0 0% 100%;
+    --color-primary: #443ede;
+    --color-secondary: #fafafc --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;

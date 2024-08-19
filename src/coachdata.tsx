@@ -1,4 +1,4 @@
-import { Coach } from "../type";
+import { Coach } from '../type'
 export const coaches: Coach[] = [
   {
     id: '1',
@@ -332,4 +332,4 @@ export const coaches: Coach[] = [
       },
     ],
   },
-];
+]

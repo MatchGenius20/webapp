@@ -1,19 +1,11 @@
 'use client'
 import React, { useState, useEffect } from 'react'
-<<<<<<< HEAD
-=======
 import { SignupProps, FormData } from '../../type'
 import { useUser } from '@/context/UserContext'
->>>>>>> b31e12ab8f65061917d9c55c291ce5916a52654a
 import axios from 'axios'
-import { FormData } from '../../type'
 
-<<<<<<< HEAD
-const Signup: React.FC = () => {
-=======
 const Signup: React.FC<SignupProps> = ({ onClose }) => {
   const { setUser } = useUser()
->>>>>>> b31e12ab8f65061917d9c55c291ce5916a52654a
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
@@ -32,9 +24,7 @@ const Signup: React.FC<SignupProps> = ({ onClose }) => {
     )
   }, [formData, agreeTerms])
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-  ): void => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target
     setFormData((prevData) => ({ ...prevData, [name]: value }))
   }
@@ -60,7 +50,9 @@ const Signup: React.FC<SignupProps> = ({ onClose }) => {
   return (
     <div className="flex justify-center items-center md:mt-16 mt-10">
       <div className="bg-white rounded-lg shadow-lg p-8 max-w-md w-full">
-        <h2 className="text-xl sm:text-2xl font-bold text-primary mb-6">Sign Up</h2>
+        <h2 className="text-xl sm:text-2xl font-bold text-primary mb-6">
+          Sign Up
+        </h2>
         <form
           onSubmit={handleSubmit}
           className="space-y-4 sm:space-y-6 bg-[#EDECFF] p-6 rounded-lg"
@@ -128,10 +120,7 @@ const Signup: React.FC<SignupProps> = ({ onClose }) => {
               />
             </div>
             <div className="ml-3 text-sm">
-              <label
-                htmlFor="terms"
-                className="font-medium text-gray-700"
-              >
+              <label htmlFor="terms" className="font-medium text-gray-700">
                 I agree to the Terms and Conditions
               </label>
             </div>

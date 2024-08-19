@@ -38,49 +38,64 @@ export default function FindCoachContent() {
     if (filters.search) {
       filtered = filtered.filter(
         (coach) =>
-          coach.name.toLowerCase().includes(filters.search.toLowerCase()) ||
-          coach.skills.some((skill) =>
+          coach.name?.toLowerCase().includes(filters.search.toLowerCase()) ||
+          coach?.skills?.some((skill) =>
             skill.toLowerCase().includes(filters.search.toLowerCase()),
           ) ||
-          coach.location.toLowerCase().includes(filters.search.toLowerCase()),
+          coach.location?.toLowerCase().includes(filters.search.toLowerCase()),
       )
     }
 
     if (filters.price) {
       const maxPrice = parseFloat(filters.price)
       if (!isNaN(maxPrice)) {
-        filtered = filtered.filter((coach) => coach.price <= maxPrice)
+        filtered = filtered.filter(
+          (coach) => (coach.price as number) <= maxPrice,
+        )
       }
     }
 
     if (filters.rating) {
       const minRating = parseFloat(filters.rating)
       if (!isNaN(minRating)) {
-        filtered = filtered.filter((coach) => coach.rating >= minRating)
+        filtered = filtered.filter(
+          (coach) => (coach.rating as number) >= minRating,
+        )
       }
     }
 
     if (filters.experience) {
       const minExperience = parseInt(filters.experience, 10)
       if (!isNaN(minExperience)) {
-        filtered = filtered.filter((coach) => coach.experience >= minExperience)
+        filtered = filtered.filter(
+          (coach) => (coach.experience as number) >= minExperience,
+        )
       }
     }
 
     if (filters.education) {
-      filtered = filtered.filter((coach) => coach.education === filters.education)
+      filtered = filtered.filter(
+        (coach) => coach.education === filters.education,
+      )
     }
 
     if (filters.travelAvailability) {
-      filtered = filtered.filter((coach) => coach.travelAvailability === filters.travelAvailability)
+      filtered = filtered.filter(
+        (coach) => coach.travelAvailability === filters.travelAvailability,
+      )
     }
 
     if (filters.schedulingAvailability) {
-      filtered = filtered.filter((coach) => coach.schedulingAvailability === filters.schedulingAvailability)
+      filtered = filtered.filter(
+        (coach) =>
+          coach.schedulingAvailability === filters.schedulingAvailability,
+      )
     }
 
     if (filters.sessionSize) {
-      filtered = filtered.filter((coach) => coach.sessionSize === filters.sessionSize)
+      filtered = filtered.filter(
+        (coach) => coach.sessionSize === filters.sessionSize,
+      )
     }
 
     setFilteredCoaches(filtered)

@@ -19,7 +19,9 @@ export default function FilterModal({
     sessionSize: '', // New field
   })
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
     const { name, value } = e.target
     setFilters((prev) => ({ ...prev, [name]: value }))
   }
@@ -148,7 +150,9 @@ export default function FilterModal({
               <option value="Once a week">Once a week</option>
               <option value="Twice a week">Twice a week</option>
               <option value="Thrice a week">Thrice a week</option>
-              <option value="More than four times a week">More than four times a week</option>
+              <option value="More than four times a week">
+                More than four times a week
+              </option>
             </select>
           </div>
           <div className="flex items-center space-x-4">

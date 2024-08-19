@@ -7,7 +7,7 @@ export default function FindCoachPage() {
         <div className="flex flex-col md:flex-row">
           <div className="w-full md:w-1/3 flex flex-col px-7 py-2">
             <h1 className="text-3xl font-bold mb-4">
-              Find your <span className="text-[#443EDE]">Coach</span>
+              Find your <span className="text-primary">Coach</span>
             </h1>
             <p className="mb-8 text-sm text-[#A2A2A2]">
               Looking for an online coach? <br /> Use our advanced filters to

@@ -6,6 +6,7 @@ import CoachDetails from './CoachDetails'
 import PrimaryButton from './PrimaryButton'
 import FilterModal from './FilterCoach'
 import { Coach } from '../../type'
+import { FilterState } from '../../type'
 
 export default function FindCoachContent() {
   const [coaches, setCoaches] = useState<Coach[]>([])
@@ -31,12 +32,7 @@ export default function FindCoachContent() {
     }
   }
 
-  const applyFilters = (filters: {
-    search: string
-    price: string
-    rating: string
-    experience: string
-  }) => {
+  const applyFilters = (filters: FilterState) => {
     let filtered = coaches
 
     if (filters.search) {
@@ -71,12 +67,28 @@ export default function FindCoachContent() {
       }
     }
 
+    if (filters.education) {
+      filtered = filtered.filter((coach) => coach.education === filters.education)
+    }
+
+    if (filters.travelAvailability) {
+      filtered = filtered.filter((coach) => coach.travelAvailability === filters.travelAvailability)
+    }
+
+    if (filters.schedulingAvailability) {
+      filtered = filtered.filter((coach) => coach.schedulingAvailability === filters.schedulingAvailability)
+    }
+
+    if (filters.sessionSize) {
+      filtered = filtered.filter((coach) => coach.sessionSize === filters.sessionSize)
+    }
+
     setFilteredCoaches(filtered)
   }
 
   return (
     <div>
-      <div className="flex flex-col md:flex-row justify-between mb-6 bg-[#FAFAFC]">
+      <div className="flex flex-col md:flex-row justify-between mb-6 bg-secondary">
         <div className="space-x-3 mb-4 md:mb-0">
           <button className="bg-white border border-[#C1BFFA] px-4 py-3 rounded-md font-semibold">
             4+ Rating

@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 const GoToDashboard: React.FC = () => {
   return (
-    <div className="flex flex-col md:flex-row justify-between items-start p-4 md:p-14 bg-[#443EDE] text-white overflow-hidden relative h-[600px]">
+    <div className="flex flex-col md:flex-row justify-between items-start p-4 md:p-14 bg-primary text-white overflow-hidden relative h-[600px]">
       <div className="max-w-full md:max-w-lg mb-5 md:mb-0">
         <div className="h-3 w-3 rounded-full bg-white absolute top-2 left-[22rem]"></div>
         <h1 className="text-2xl font-semibold mb-4 md:mb-0">
@@ -17,7 +17,7 @@ const GoToDashboard: React.FC = () => {
           quis neque ornare, semper lectus ut.
         </p>
         <Link href={'/dashboard/profilesettings'}>
-          <button className="px-6 py-3 bg-[#443EDE] text-white font-bold border border-white rounded-md transition-colors">
+          <button className="px-6 py-3 bg-primary text-white font-bold border border-white rounded-md transition-colors">
             Go to Dashboard
           </button>
         </Link>

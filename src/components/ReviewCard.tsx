@@ -15,7 +15,7 @@ const reviews = [
       'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit. Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.',
     name: 'Piyush Jaiswal',
     rating: 5,
-    backgroundColor: 'bg-[#443EDE]',
+    backgroundColor: 'bg-primary',
     textColor: 'text-white',
     quoteImage: '/images/feed.png',
     profilePicUrl: '/images/user.png',
@@ -73,7 +73,7 @@ const ReviewCard: FC = () => {
   const getCardStyle = (index: number) => {
     if (index % 3 === 0) {
       return {
-        backgroundColor: 'bg-[#443EDE]',
+        backgroundColor: 'bg-primary',
         textColor: 'text-white',
         quoteImage: '/images/feed.png',
         profilePicUrl: '/images/user.png',
@@ -132,7 +132,7 @@ const ReviewCard: FC = () => {
                         className="absolute top-0 left-0 transform -translate-x-2 -translate-y-2 w-8 h-8 rounded-full flex justify-center items-center"
                         style={{
                           backgroundColor:
-                            cardStyle.backgroundColor === 'bg-[#443EDE]'
+                            cardStyle.backgroundColor === 'bg-primary'
                               ? 'white'
                               : '#443EDE',
                         }}

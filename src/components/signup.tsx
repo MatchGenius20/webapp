@@ -3,16 +3,20 @@ import React, { useState, useEffect } from 'react'
 import { SignupProps, FormData } from '../../type'
 import { useUser } from '@/context/UserContext'
 import axios from 'axios'
+import { useRouter } from 'next/navigation'
 
 const Signup: React.FC<SignupProps> = ({ onClose }) => {
   const { setUser } = useUser()
+  const router = useRouter()
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
     password: '',
   })
   const [agreeTerms, setAgreeTerms] = useState<boolean>(false)
+  const [isCoach, setIsCoach] = useState(false)
   const [isFormValid, setIsFormValid] = useState<boolean>(false)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     const { name, email, password } = formData
@@ -35,15 +39,20 @@ const Signup: React.FC<SignupProps> = ({ onClose }) => {
     e.preventDefault()
     if (!isFormValid) return
     try {
-      console.log(formData)
-
       const response = await axios.post(
-        'http://localhost:8080/api/v1/auth/signup?isCoach=false',
+        `http://localhost:8080/api/v1/auth/signup?isCoach=${isCoach}`,
         formData,
       )
       console.log('Signup successful:', response.data)
+
+      // Redirect to login page after successful signup
+      onClose()
+      router.push('/login')
     } catch (error: any) {
       console.error('Signup error:', error.response?.data || error.message)
+      setError(
+        error.response?.data?.message || 'Signup failed. Please try again.',
+      )
     }
   }
 
@@ -108,6 +117,21 @@ const Signup: React.FC<SignupProps> = ({ onClose }) => {
               className="w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-white"
             />
           </div>
+          <div className="flex items-center">
+            <input
+              type="checkbox"
+              id="isCoach"
+              checked={isCoach}
+              onChange={(e) => setIsCoach(e.target.checked)}
+              className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+            />
+            <label
+              htmlFor="isCoach"
+              className="ml-2 text-sm font-medium text-gray-700"
+            >
+              Sign Up as Coach (uncheck to sign up as User)
+            </label>
+          </div>
           <div className="flex items-start">
             <div className="flex items-center h-5">
               <input
@@ -116,15 +140,19 @@ const Signup: React.FC<SignupProps> = ({ onClose }) => {
                 type="checkbox"
                 checked={agreeTerms}
                 onChange={(e) => setAgreeTerms(e.target.checked)}
-                className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
               />
             </div>
             <div className="ml-3 text-sm">
               <label htmlFor="terms" className="font-medium text-gray-700">
-                I agree to the Terms and Conditions
+                I agree to the{' '}
+                <a href="#" className="text-indigo-600 hover:text-indigo-500">
+                  terms and conditions
+                </a>
               </label>
             </div>
           </div>
+          {error && <div className="text-red-600 text-sm mt-2">{error}</div>}
           <div>
             <button
               type="submit"
@@ -133,7 +161,7 @@ const Signup: React.FC<SignupProps> = ({ onClose }) => {
                 !isFormValid ? 'opacity-50 cursor-not-allowed' : ''
               }`}
             >
-              Sign Up
+              Submit
             </button>
           </div>
         </form>

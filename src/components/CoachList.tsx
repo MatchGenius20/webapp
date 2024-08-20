@@ -1,17 +1,44 @@
 'use client'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 import Link from 'next/link'
 import CoachCategoryCard from './CoachCategoryCard'
-import { coaches } from '@/coachdata'
+
+interface Coach {
+  id: string
+  name: string
+  email: string
+  isCoachVerified: boolean
+  profileUrl: string | null
+}
 
 const CoachList: React.FC = () => {
+  const [coaches, setCoaches] = useState<Coach[]>([])
+  const [loading, setLoading] = useState<boolean>(true)
+  const [error, setError] = useState<string | null>(null)
+
   useEffect(() => {
-    AOS.init({
-      duration: 1000,
-      once: true,
-    })
+    const fetchCoaches = async () => {
+      try {
+        const response = await fetch('http://localhost:8080/api/v1/coach')
+        if (!response.ok) {
+          throw new Error('Failed to fetch coaches')
+        }
+        const result = await response.json()
+        console.log('Fetched data:', result)
+        const coachesData = Array.isArray(result.data) ? result.data : []
+        setCoaches(coachesData)
+        console.log('Coaches data:', coachesData)
+      } catch (error) {
+        console.error('Error fetching coaches:', error)
+        setError('Failed to fetch coaches')
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchCoaches()
   }, [])
 
   return (
@@ -38,16 +65,20 @@ const CoachList: React.FC = () => {
         </div>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-16 lg:gap-20 justify-center">
-        {coaches.map((coach, index) => (
-          <CoachCategoryCard
-            id={coach.id}
-            key={index}
-            name={coach.name}
-            description={coach.description}
-            rating={coach.rating}
-            image={coach.image}
-          />
-        ))}
+        {coaches.length > 0 ? (
+          coaches.map((coach, index) => (
+            <CoachCategoryCard
+              key={index}
+              id={coach.id}
+              name={coach.name}
+              description={coach.email} // Use email as a description placeholder
+              rating={0} // Assuming a default value since rating is not in the API response
+              image={coach.profileUrl || '/images/man2.svg'} // Fallback to a default image if profileUrl is null
+            />
+          ))
+        ) : (
+          <div>No coaches available</div>
+        )}
       </div>
     </div>
   )

@@ -14,23 +14,31 @@ export default function FindCoachContent() {
   const [filteredCoaches, setFilteredCoaches] = useState<Coach[]>([])
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false)
 
-  const fetchCoaches = async () => {
-    try {
-      const response = await fetch('http://localhost:8080/api/v1/coach')
-      if (!response.ok) {
-        throw new Error('Failed to fetch coaches')
+  // Fetch coaches when the component is mounted
+  useEffect(() => {
+    const fetchCoaches = async () => {
+      try {
+        const response = await fetch('http://localhost:8080/api/v1/coach')
+        if (!response.ok) {
+          throw new Error('Failed to fetch coaches')
+        }
+        const result = await response.json()
+        console.log('Fetched data:', result)
+        const coachesData = Array.isArray(result.data) ? result.data : []
+        setCoaches(coachesData)
+        setFilteredCoaches(coachesData)
+        if (coachesData.length > 0) {
+          setSelectedCoach(coachesData[0])
+        }
+      } catch (error) {
+        console.error('Error fetching coaches:', error)
+        setCoaches([])
+        setFilteredCoaches([])
       }
-      const data = await response.json()
-      console.log('Fetched data:', data)
-      setCoaches(Array.isArray(data) ? data : [])
-      setFilteredCoaches(Array.isArray(data) ? data : [])
-      setSelectedCoach(data[0])
-    } catch (error) {
-      console.error('Error fetching coaches:', error)
-      setCoaches([])
-      setFilteredCoaches([])
     }
-  }
+
+    fetchCoaches()
+  }, [])
 
   const applyFilters = (filters: FilterState) => {
     let filtered = coaches

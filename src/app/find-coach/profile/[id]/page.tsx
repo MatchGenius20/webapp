@@ -5,6 +5,7 @@ import { Coach } from '../../../../../type'
 import PrimaryButton from '@/components/PrimaryButton'
 import BookingPopup from '@/components/BookingPopup'
 import axios from 'axios'
+import Image from 'next/image'
 
 const CoachProfile: React.FC = () => {
   const params = useParams()
@@ -68,9 +69,9 @@ const CoachProfile: React.FC = () => {
     <div className="w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="flex flex-col md:flex-row justify-between items-start mb-8 md:mb-12 border rounded-md p-4">
         <div className="flex items-start">
-          <img
-            src={coach.image}
-            alt={coach.name}
+          <Image
+            src={coach.image || '/'}
+            alt={coach.name || ''}
             className="w-16 h-16 bg-gray-200 rounded-full mr-4 md:mr-8"
           />
           <div>
@@ -121,9 +122,10 @@ const CoachProfile: React.FC = () => {
           <div className="mb-8">
             <h3 className="text-xl font-semibold mb-4">Calendar</h3>
             <div className="bg-white border  rounded p-6">
-              <img
+              <Image
                 src="/images/calender.png"
                 alt="Calendar"
+                layout="responsive"
                 className="w-full"
               />
             </div>

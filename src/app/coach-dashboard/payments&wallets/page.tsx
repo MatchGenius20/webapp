@@ -215,10 +215,10 @@ const PaymentsAndWallets: React.FC = () => {
             Add New Method
           </button>
           <button
+            className="bg-[#443EDE] text-white px-4 py-1 md:px-6 md:py-3 rounded-lg shadow-md"
             onClick={handleDelete}
-            className="bg-[#EFEFFE] text-[#443EDE] px-4 py-1 md:px-6 md:py-3 rounded-lg shadow-md"
           >
-            Remove
+            Remove Selected
           </button>
         </div>
       </div>

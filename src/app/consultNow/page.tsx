@@ -1,6 +1,7 @@
 'use client'
 import Link from 'next/link'
 import React, { useState, useRef } from 'react'
+import Image from 'next/image'
 import Modal from '../../components/Modal'
 
 interface Message {
@@ -9,6 +10,8 @@ interface Message {
   isOutgoing: boolean
   attachment?: File
 }
+
+// Other imports
 
 const ChatInterface: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([])
@@ -50,7 +53,6 @@ const ChatInterface: React.FC = () => {
   }
 
   const handleModalSubmit = () => {
-    // Handle email submission logic here
     console.log('Email submitted:', email)
     setIsModalOpen(false)
   }
@@ -68,92 +70,132 @@ const ChatInterface: React.FC = () => {
       <header className="bg-primary md:rounded-md text-white p-1 sm:p-2 md:p-3 lg:p-3 flex justify-between items-center">
         <div className="flex items-center">
           <div className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 lg:w-12 lg:h-12 bg-gray-300 rounded-full mr-2 sm:mr-3">
-            <img src="/images/man2.svg" alt="" />
+            <Image
+              src="/images/man2.svg"
+              alt="User Avatar"
+              width={48}
+              height={48}
+            />{' '}
+            {/* Update here */}
           </div>
           <span className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold">
             Coach Ben
           </span>
         </div>
         <div className="space-x-1 sm:space-x-2 md:space-x-4">
-          <button className="text-primary bg-[#EBEBEB] py-1 px-2 sm:py-1.5 sm:px-3 md:py-2 md:px-4 lg:py-2.5 lg:px-5 rounded-md text-xs sm:text-sm md:text-base lg:text-lg font-medium">
-            <Link href={'/dashboard/scheduleSession'}>EXIT</Link>
+          <button className="text-primary bg-[#EBEBEB] py-1 px-2 sm:py-1.5 sm:px-3 md:py-2 md:px-4 lg:py-2 lg:px-4 rounded-full hover:bg-[#736EE6] hover:text-white transition-colors">
+            Chat
           </button>
           <button
+            className="text-primary bg-[#EBEBEB] py-1 px-2 sm:py-1.5 sm:px-3 md:py-2 md:px-4 lg:py-2 lg:px-4 rounded-full hover:bg-[#736EE6] hover:text-white transition-colors"
             onClick={handleInviteClick}
-            className="text-primary bg-[#EBEBEB] py-1 px-2 sm:py-1.5 sm:px-3 md:py-2 md:px-4 lg:py-2.5 lg:px-5 rounded text-xs sm:text-sm md:text-base lg:text-lg font-medium"
           >
-            INVITE
+            Invite
           </button>
         </div>
       </header>
 
-      <main className="flex-1 overflow-y-auto p-2 sm:p-3 md:p-4 lg:p-5 space-y-2 sm:space-y-3 md:space-y-4 no-scrollbar">
+      <div className="flex-grow p-1 sm:p-2 md:p-3 lg:p-4 overflow-y-auto">
         {messages.map((message) => (
           <div
             key={message.id}
-            className={`flex ${message.isOutgoing ? 'justify-end' : 'justify-start'}`}
+            className={`flex items-center mb-1 sm:mb-2 md:mb-3 ${
+              message.isOutgoing ? 'justify-end' : 'justify-start'
+            }`}
           >
-            <div
-              className={`inline-block max-w-[80%] sm:max-w-[75%] md:max-w-[70%] lg:max-w-[60%] ${
-                message.isOutgoing
-                  ? 'bg-indigo-600 text-white'
-                  : 'bg-white text-gray-800'
-              } px-3 py-2 sm:px-3.5 sm:py-2.5 md:px-4 md:py-3 lg:px-5 lg:py-3.5 rounded-lg text-sm sm:text-base md:text-lg lg:text-xl`}
-            >
-              <p className="break-words">{message.text}</p>
-              {message.attachment && (
-                <div className="mt-1 sm:mt-1.5 md:mt-2 text-xs sm:text-sm md:text-base lg:text-lg">
-                  Attachment: {message.attachment.name}
-                </div>
-              )}
-            </div>
+            {message.isOutgoing && (
+              <div className="text-right">
+                {message.text && (
+                  <p className="bg-primary text-white p-1 sm:p-2 md:p-3 rounded-lg inline-block mb-1 sm:mb-2 md:mb-3">
+                    {message.text}
+                  </p>
+                )}
+                {message.attachment && (
+                  <p className="bg-gray-300 p-1 sm:p-2 md:p-3 rounded-lg inline-block">
+                    Attachment: {message.attachment.name}
+                  </p>
+                )}
+              </div>
+            )}
+            {!message.isOutgoing && (
+              <div className="text-left">
+                {message.text && (
+                  <p className="bg-gray-200 p-1 sm:p-2 md:p-3 rounded-lg inline-block mb-1 sm:mb-2 md:mb-3">
+                    {message.text}
+                  </p>
+                )}
+                {message.attachment && (
+                  <p className="bg-gray-300 p-1 sm:p-2 md:p-3 rounded-lg inline-block">
+                    Attachment: {message.attachment.name}
+                  </p>
+                )}
+              </div>
+            )}
           </div>
         ))}
-      </main>
+      </div>
 
-      <footer className="bg-white p-2 sm:p-3 md:p-4 lg:p-5 border-t border-gray-200">
-        <div className="flex items-center space-x-2 sm:space-x-3 md:space-x-4">
-          <button
-            onClick={() => fileInputRef.current?.click()}
-            className="text-gray-500 hover:text-gray-700"
-          >
-            <img src="/images/at.svg" alt="" />
-          </button>
+      <footer className="p-1 sm:p-2 md:p-3 lg:p-4 bg-gray-200">
+        <input
+          type="text"
+          placeholder="Type your message..."
+          className="w-full p-1 sm:p-2 md:p-3 rounded-lg border border-gray-300"
+          value={inputText}
+          onChange={(e) => setInputText(e.target.value)}
+          onKeyDown={handleKeyDown}
+        />
+        <div className="flex items-center justify-between mt-1 sm:mt-2 md:mt-3">
           <input
-            ref={fileInputRef}
             type="file"
-            onChange={handleAttachment}
             className="hidden"
-          />
-          <input
-            type="text"
-            value={inputText}
-            onChange={(e) => setInputText(e.target.value)}
-            onKeyDown={handleKeyDown}
-            placeholder="Type a message..."
-            className="flex-1 border border-primary rounded-full py-1 px-3 sm:py-1.5 sm:px-3.5 md:py-2 md:px-4 lg:py-2.5 lg:px-5 text-sm sm:text-base md:text-lg lg:text-xl focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            ref={fileInputRef}
+            onChange={handleAttachment}
           />
           <button
-            onClick={handleSend}
-            className="bg-[#FFFFFF] text-white rounded-full p-1 sm:p-1.5 md:p-2 lg:p-2.5"
+            className="py-1 px-2 sm:py-1.5 sm:px-3 md:py-2 md:px-4 lg:py-2 lg:px-4 bg-primary text-white rounded-full hover:bg-[#3632b3] transition-colors"
+            onClick={() => fileInputRef.current?.click()}
           >
-            <img src="/images/arrow.svg" alt="" />
+            Attach
+          </button>
+          <button
+            className="py-1 px-2 sm:py-1.5 sm:px-3 md:py-2 md:px-4 lg:py-2 lg:px-4 bg-primary text-white rounded-full hover:bg-[#3632b3] transition-colors"
+            onClick={handleSend}
+          >
+            Send
           </button>
         </div>
-        {attachment && (
-          <div className="mt-1 sm:mt-1.5 md:mt-2 lg:mt-2.5 text-xs sm:text-sm md:text-base lg:text-lg text-gray-600">
-            Attached: {attachment.name}
-          </div>
-        )}
       </footer>
 
-      <Modal
-        isModalOpen={isModalOpen}
-        email={email}
-        setEmail={setEmail}
-        handleModalClose={handleModalClose}
-        handleModalSubmit={handleModalSubmit}
-      />
+      {isModalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-white p-4 sm:p-6 md:p-8 lg:p-10 rounded-lg">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold mb-4">
+              Invite via Email
+            </h2>
+            <input
+              type="email"
+              placeholder="Enter email address"
+              className="w-full p-1 sm:p-2 md:p-3 border border-gray-300 rounded-lg"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <div className="flex justify-end mt-4">
+              <button
+                className="py-1 px-2 sm:py-1.5 sm:px-3 md:py-2 md:px-4 lg:py-2 lg:px-4 bg-gray-200 rounded-lg mr-2"
+                onClick={handleModalClose}
+              >
+                Cancel
+              </button>
+              <button
+                className="py-1 px-2 sm:py-1.5 sm:px-3 md:py-2 md:px-4 lg:py-2 lg:px-4 bg-primary text-white rounded-lg"
+                onClick={handleModalSubmit}
+              >
+                Send
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

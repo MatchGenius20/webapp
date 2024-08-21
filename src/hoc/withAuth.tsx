@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import { useUser } from '@/context/UserContext'
 
 const withAuth = (WrappedComponent: React.FC) => {
-  return (props: any) => {
+  const ComponentWithAuth = (props: any) => {
     const { user } = useUser()
     const router = useRouter()
 
@@ -19,6 +19,10 @@ const withAuth = (WrappedComponent: React.FC) => {
 
     return <WrappedComponent {...props} />
   }
+
+  ComponentWithAuth.displayName = `withAuth(${WrappedComponent.displayName || WrappedComponent.name || 'Component'})`
+
+  return ComponentWithAuth
 }
 
 export default withAuth

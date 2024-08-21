@@ -47,7 +47,7 @@ const GoToDashboard: React.FC = () => {
           />
         </div>
         <div className="absolute bottom-0 left-0 md:left-auto">
-          <img
+          <Image
             className="w-[20px] h-[20px] md:w-[27px] md:h-[27px]"
             src="/images/e24.png"
             alt="E24 Logo"

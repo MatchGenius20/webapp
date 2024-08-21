@@ -2,6 +2,7 @@
 import React from 'react'
 import withAuth from '@/hoc/withAuth'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 
 const ScheduleSession: React.FC = () => {
   return (

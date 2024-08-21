@@ -16,5 +16,5 @@ export default function useEventListener(
     window.addEventListener(eventType, handler)
 
     return () => window.removeEventListener(eventType, handler)
-  }, [eventType, window])
+  }, [eventType])
 }

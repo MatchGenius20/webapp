@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { Coach } from '../../type'
 import PrimaryButton from './PrimaryButton'
+import Image from 'next/image'
 
 type CoachDetailsProps = {
   coach: Coach
@@ -11,9 +12,9 @@ export default function CoachDetails({ coach }: CoachDetailsProps) {
     <div className="bg-white p-6 rounded-lg shadow-md border border-[#D0D0D0]">
       <div className="flex items-center mb-4">
         <div className="w-16 h-16 rounded-full mr-4 flex items-center justify-center">
-          <img
-            src={coach.image}
-            alt={coach.name}
+          <Image
+            src={coach.image || ''}
+            alt={coach.name || ''}
             className="w-full h-full rounded-full object-cover"
           />
         </div>

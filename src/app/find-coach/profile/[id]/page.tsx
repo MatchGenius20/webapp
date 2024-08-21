@@ -2,21 +2,51 @@
 import { useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { Coach } from '../../../../../type'
-import { coaches } from '@/coachdata'
 import PrimaryButton from '@/components/PrimaryButton'
 import BookingPopup from '@/components/BookingPopup'
+import axios from 'axios'
 
 const CoachProfile: React.FC = () => {
   const params = useParams()
   const [coach, setCoach] = useState<Coach | null>(null)
   const [isBookingPopupOpen, setIsBookingPopupOpen] = useState(false)
+  const [onlineStatus, setOnlineStatus] = useState<string>('')
+  const [rating, setRating] = useState<number | null>(null)
+  const [price, setPrice] = useState<number | null>(null)
+  const [totalSessions, setTotalSessions] = useState<number | null>(null)
+  const [totalDuration, setTotalDuration] = useState<number | null>(null)
+  const [availability, setAvailability] = useState<string>('')
+  const [timings, setTimings] = useState<string>('')
 
   useEffect(() => {
-    const id = params?.id
-    if (typeof id === 'string') {
-      const selectedCoach = coaches.find((coach) => coach.id === id)
-      setCoach(selectedCoach || null)
+    const fetchCoachData = async () => {
+      const id = params?.id
+      if (typeof id === 'string') {
+        try {
+          // Fetch coach details
+          const coachResponse = await axios.get(
+            `${process.env.NEXT_PUBLIC_API_URL}/coach/${id}`,
+          )
+          setCoach(coachResponse.data.data || null)
+          setRating(coachResponse.data.data.rating)
+          setPrice(coachResponse.data.data.price)
+          setTotalSessions(coachResponse.data.data.statistics?.totalSessions)
+          setTotalDuration(coachResponse.data.data.statistics?.totalDuration)
+          setAvailability(coachResponse.data.data.availability)
+          setTimings(coachResponse.data.data.timings)
+
+          // Fetch online status
+          const statusResponse = await axios.get(
+            `${process.env.NEXT_PUBLIC_API_URL}/coach/onlineStatus/${id}`,
+          )
+          setOnlineStatus(statusResponse.data.isOnline ? 'Online' : 'Offline')
+        } catch (error) {
+          console.error('Error fetching coach data:', error)
+        }
+      }
     }
+
+    fetchCoachData()
   }, [params])
 
   if (!coach) {
@@ -31,6 +61,9 @@ const CoachProfile: React.FC = () => {
     setIsBookingPopupOpen(false)
   }
 
+  const statusColor =
+    onlineStatus === 'Online' ? 'text-green-500' : 'text-red-500'
+
   return (
     <div className="w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="flex flex-col md:flex-row justify-between items-start mb-8 md:mb-12 border rounded-md p-4">
@@ -43,7 +76,9 @@ const CoachProfile: React.FC = () => {
           <div>
             <h2 className="text-2xl font-bold">{coach.name}</h2>
             <p className="text-md text-gray-600">{coach.location}</p>
-            <p className="text-md text-green-500">• Online</p>
+            <p className={`text-md font-medium ${statusColor}`}>
+              • {onlineStatus}
+            </p>
           </div>
         </div>
         <div className="mt-4 md:mt-0">
@@ -53,25 +88,19 @@ const CoachProfile: React.FC = () => {
       <div className="flex flex-col md:flex-row justify-between items-start mb-8 md:mb-12 gap-8 md:gap-16 border  rounded-md p-4">
         <div className="w-full md:w-[30%]">
           <div className="mb-6 border-b  pb-4">
-            <p className="text-xl mb-2 font-medium">Rating: {coach.rating}⭐</p>
-            <p className="text-xl font-medium">
-              Price: ${coach.price} per hour
-            </p>
+            <p className="text-xl mb-2 font-medium">Rating: {rating}⭐</p>
+            <p className="text-xl font-medium">Price: ${price} per hour</p>
           </div>
           <div className="border-b  pb-4">
             <h3 className="text-lg font-semibold mb-2">Statistics</h3>
-            <p className="text-md">
-              Total Sessions: {coach.statistics?.totalSessions}
-            </p>
-            <p className="text-md">
-              Total Duration: {coach.statistics?.totalDuration} minutes
-            </p>
+            <p className="text-md">Total Sessions: {totalSessions}</p>
+            <p className="text-md">Total Duration: {totalDuration} minutes</p>
           </div>
           <div className="mt-6">
             <h3 className="text-lg font-semibold mb-3">Availability Status</h3>
-            <p className="text-md">{coach.availability}</p>
+            <p className="text-md">{availability}</p>
             <h3 className="text-lg font-semibold mt-4 mb-3">Timings</h3>
-            <p className="text-md whitespace-pre-line">{coach.timings}</p>
+            <p className="text-md whitespace-pre-line">{timings}</p>
           </div>
         </div>
         <div className="w-full md:w-[70%] flex flex-col border-l  pl-4">

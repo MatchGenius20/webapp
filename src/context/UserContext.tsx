@@ -15,6 +15,7 @@ interface User {
   name: string
   email: string
   profileImage: string
+  role: string
 }
 
 interface UserContextProps {

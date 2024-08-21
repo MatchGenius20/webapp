@@ -2,13 +2,17 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useUser } from '@/context/UserContext'
+import { useRouter } from 'next/navigation'
 import { LoginProps } from '../../type'
 
 const Login: React.FC<LoginProps> = ({ onClose }) => {
   const { setUser } = useUser()
+  const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [isUser, setIsUser] = useState(true)
   const [isFormValid, setIsFormValid] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     setIsFormValid(email.trim() !== '' && password.trim() !== '')
@@ -19,19 +23,17 @@ const Login: React.FC<LoginProps> = ({ onClose }) => {
   ): Promise<any> => {
     e.preventDefault()
     if (!isFormValid) return
+
     try {
       const response = await axios.post(
-        'http://localhost:8080/api/v1/auth/login?isUser=true',
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/login?isUser=${isUser}`,
         {
           email,
           password,
         },
       )
-      console.log(response.data.data)
 
       const { accessToken, refreshToken, user } = response.data.data
-      console.log(accessToken)
-      console.log(refreshToken)
 
       localStorage.setItem('accessToken', accessToken)
       localStorage.setItem('refreshToken', refreshToken)
@@ -40,11 +42,17 @@ const Login: React.FC<LoginProps> = ({ onClose }) => {
         name: user.name,
         email: user.email,
         profileImage: user.profileUrl,
+        role: isUser ? 'user' : 'coach',
       })
+      console.log(response)
 
       onClose()
+      router.push('/')
     } catch (error: any) {
       console.error('Login error:', error.response?.data || error.message)
+      setError(
+        error.response?.data?.message || 'Login failed. Please try again.',
+      )
     }
   }
 
@@ -90,6 +98,22 @@ const Login: React.FC<LoginProps> = ({ onClose }) => {
               className="w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-white"
             />
           </div>
+          <div className="flex items-center">
+            <input
+              type="checkbox"
+              id="isUser"
+              checked={isUser}
+              onChange={(e) => setIsUser(e.target.checked)}
+              className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+            />
+            <label
+              htmlFor="isUser"
+              className="ml-2 text-sm font-medium text-gray-700"
+            >
+              Login as User (uncheck to login as Coach)
+            </label>
+          </div>
+          {error && <div className="text-red-600 text-sm mt-2">{error}</div>}
           <div>
             <button
               type="submit"

@@ -21,7 +21,7 @@ const BookingPopup: React.FC<BookingPopupProps> = ({ onClose }) => {
     // Handle form submission logic here
     try {
       const token = localStorage.getItem('token')
-      await axios.post('http://localhost:8080/api/event', form, {
+      await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/event`, form, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

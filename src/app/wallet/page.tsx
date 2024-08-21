@@ -22,7 +22,7 @@ const RechargeWallet = () => {
       const accessToken = localStorage.getItem('accessToken')
       const refreshToken = localStorage.getItem('refreshToken')
       const { data } = await axios.post(
-        'http://localhost:8080/api/v1/stripe/recharge',
+        `${process.env.NEXT_PUBLIC_API_URL}/stripe/recharge`,
         { amount },
         {
           headers: {

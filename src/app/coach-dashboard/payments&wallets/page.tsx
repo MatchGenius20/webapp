@@ -226,4 +226,4 @@ const PaymentsAndWallets: React.FC = () => {
   )
 }
 
-export default PaymentsAndWallets
+export default withAuth(PaymentsAndWallets)

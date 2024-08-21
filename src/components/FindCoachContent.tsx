@@ -18,7 +18,7 @@ export default function FindCoachContent() {
   useEffect(() => {
     const fetchCoaches = async () => {
       try {
-        const response = await fetch('http://localhost:8080/api/v1/coach')
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/coach`)
         if (!response.ok) {
           throw new Error('Failed to fetch coaches')
         }

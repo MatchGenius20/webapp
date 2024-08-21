@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import { useUser } from '@/context/UserContext'
+import withAuth from '@/hoc/withAuth'
 
 const ProfileSettings: React.FC = () => {
   const { user } = useUser()
@@ -23,7 +24,7 @@ const ProfileSettings: React.FC = () => {
           const accessToken = localStorage.getItem('accessToken')
           const refreshToken = localStorage.getItem('refreshToken')
           await axios.patch(
-            'http://localhost:8080/api/v1/user/profile/image',
+            `${process.env.NEXT_PUBLIC_API_URL}/user/profile/image`,
             formData,
             {
               headers: {
@@ -49,7 +50,7 @@ const ProfileSettings: React.FC = () => {
       const accessToken = localStorage.getItem('accessToken')
       const refreshToken = localStorage.getItem('refreshToken')
       await axios.patch(
-        `http://localhost:8080/api/v1/auth/resetPassword?isUser=true`,
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/resetPassword?isUser=true`,
         form,
         {
           headers: {
@@ -146,4 +147,4 @@ const ProfileSettings: React.FC = () => {
   )
 }
 
-export default ProfileSettings
+export default withAuth(ProfileSettings)

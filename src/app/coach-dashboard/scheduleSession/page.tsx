@@ -1,30 +1,55 @@
-import PrimaryButton from '@/components/PrimaryButton'
-import Image from 'next/image'
-import Link from 'next/link'
+'use client'
 import React from 'react'
+import withAuth from '@/hoc/withAuth'
+import Image from 'next/image'
 
 const ScheduleSession: React.FC = () => {
   return (
-    <div className="p-8">
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-2xl font-bold">Calendar View</h2>
-        <Link href={'/consultNow'}>
-          <PrimaryButton text="Consult Now" />
-        </Link>
-      </div>
-      <div className="flex justify-center items-center mt-8">
-        <div className="border border-gray-300 rounded-lg p-4">
-          <Image
-            src={'/images/calender.png'}
-            height={400}
-            width={880}
-            alt="Calendar"
-            className="w-full h-auto rounded-lg"
-          />
+    <div className="container mx-auto p-4">
+      <div className="bg-white p-6 rounded-lg shadow-lg">
+        <div className="flex items-center justify-center mb-4">
+          <div className="relative w-32 h-32">
+            <Image
+              src="/images/calender.png"
+              alt="Calendar"
+              layout="fill"
+              className="rounded-full object-cover"
+            />
+          </div>
         </div>
+        <form className="space-y-4">
+          <div>
+            <label htmlFor="session-date" className="block text-sm font-medium">
+              Session Date
+            </label>
+            <input
+              type="date"
+              id="session-date"
+              className="mt-1 p-2 w-full border border-gray-300 rounded-lg shadow-sm"
+            />
+          </div>
+          <div>
+            <label htmlFor="session-time" className="block text-sm font-medium">
+              Session Time
+            </label>
+            <input
+              type="time"
+              id="session-time"
+              className="mt-1 p-2 w-full border border-gray-300 rounded-lg shadow-sm"
+            />
+          </div>
+          <div className="flex justify-end">
+            <button
+              type="submit"
+              className="bg-[#443EDE] text-white px-6 py-2 rounded-lg shadow-md"
+            >
+              Schedule Session
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   )
 }
 
-export default ScheduleSession
+export default withAuth(ScheduleSession)

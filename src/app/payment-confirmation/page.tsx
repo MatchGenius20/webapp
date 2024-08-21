@@ -17,7 +17,7 @@ const PaymentConfirmation = () => {
       if (sessionId) {
         try {
           const response = await axios.get(
-            `http://localhost:8080/api/v1/stripe/check-payment-status?sessionId=${sessionId}`,
+            `${process.env.NEXT_PUBLIC_API_URL}/stripe/check-payment-status?sessionId=${sessionId}`,
           )
           setStatus(
             response.data.success ? 'Payment successful!' : 'Payment failed',

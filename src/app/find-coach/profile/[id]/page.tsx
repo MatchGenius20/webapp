@@ -25,7 +25,7 @@ const CoachProfile: React.FC = () => {
         try {
           // Fetch coach details
           const coachResponse = await axios.get(
-            `http://localhost:8080/api/v1/coach/${id}`,
+            `${process.env.NEXT_PUBLIC_API_URL}/coach/${id}`,
           )
           setCoach(coachResponse.data.data || null)
           setRating(coachResponse.data.data.rating)
@@ -37,7 +37,7 @@ const CoachProfile: React.FC = () => {
 
           // Fetch online status
           const statusResponse = await axios.get(
-            `http://localhost:8080/api/v1/coach/onlineStatus/${id}`,
+            `${process.env.NEXT_PUBLIC_API_URL}/coach/onlineStatus/${id}`,
           )
           setOnlineStatus(statusResponse.data.isOnline ? 'Online' : 'Offline')
         } catch (error) {

@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import { useUser } from '@/context/UserContext'
+import withAuth from '@/hoc/withAuth'
 
 const ProfileSettings: React.FC = () => {
   const { user } = useUser()
@@ -23,7 +24,7 @@ const ProfileSettings: React.FC = () => {
           const accessToken = localStorage.getItem('accessToken')
           const refreshToken = localStorage.getItem('refreshToken')
           await axios.patch(
-            'http://localhost:8080/api/v1/user/profile/image',
+            `${process.env.NEXT_PUBLIC_API_URL}/user/profile/image`,
             formData,
             {
               headers: {
@@ -49,7 +50,7 @@ const ProfileSettings: React.FC = () => {
       const accessToken = localStorage.getItem('accessToken')
       const refreshToken = localStorage.getItem('refreshToken')
       await axios.patch(
-        `http://localhost:8080/api/v1/auth/resetPassword?isUser=true`,
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/resetPassword?isUser=true`,
         form,
         {
           headers: {
@@ -92,7 +93,7 @@ const ProfileSettings: React.FC = () => {
         </div>
       </div>
       <div className="bg-[#EDECFF] p-4 sm:p-6 lg:p-8 rounded-lg relative">
-        <h3 className="text-lg sm:text-xl lg:text-2xl font-bold mb-4 text-primary">
+        <h3 className="text-lg sm:text-xl lg:text-2xl font-bold mb-4 text-[#443EDE]">
           Update Details
         </h3>
         <form onSubmit={handleUpdateDetails} className="space-y-4">
@@ -135,7 +136,7 @@ const ProfileSettings: React.FC = () => {
           <div className="flex justify-end mt-6">
             <button
               type="submit"
-              className="py-2 px-4 bg-primary text-white rounded hover:bg-[#3632b3] transition-colors"
+              className="py-2 px-4 bg-[#443EDE] text-white rounded hover:bg-[#3632b3] transition-colors"
             >
               Update
             </button>

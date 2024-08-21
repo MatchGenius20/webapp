@@ -26,7 +26,7 @@ const Login: React.FC<LoginProps> = ({ onClose }) => {
 
     try {
       const response = await axios.post(
-        `http://localhost:8080/api/v1/auth/login?isUser=${isUser}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/login?isUser=${isUser}`,
         {
           email,
           password,
@@ -42,11 +42,12 @@ const Login: React.FC<LoginProps> = ({ onClose }) => {
         name: user.name,
         email: user.email,
         profileImage: user.profileUrl,
+        role: isUser ? 'user' : 'coach',
       })
       console.log(response)
 
       onClose()
-      router.push('/') // Redirect to home page
+      router.push('/')
     } catch (error: any) {
       console.error('Login error:', error.response?.data || error.message)
       setError(

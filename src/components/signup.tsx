@@ -40,7 +40,7 @@ const Signup: React.FC<SignupProps> = ({ onClose }) => {
     if (!isFormValid) return
     try {
       const response = await axios.post(
-        `http://localhost:8080/api/v1/auth/signup?isCoach=${isCoach}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/signup?isCoach=${isCoach}`,
         formData,
       )
       console.log('Signup successful:', response.data)

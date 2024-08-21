@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import Sidebar from '../../components/Sidebar'
+import SidebarCoach from '../../components/SidebarCoach'
 import { usePathname } from 'next/navigation'
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -15,7 +15,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
   return (
     <div className="flex md:flex-row flex-col h-screen">
-      <Sidebar selected={getSelectedComponent()} />
+      <SidebarCoach selected={getSelectedComponent()} />
       <div className="flex-1 p-8 bg-white">{children}</div>
     </div>
   )

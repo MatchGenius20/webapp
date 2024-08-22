@@ -72,6 +72,7 @@ const CoachProfile: React.FC = () => {
           <Image
             src={coach.image || '/'}
             alt={coach.name || ''}
+            fill={true}
             className="w-16 h-16 bg-gray-200 rounded-full mr-4 md:mr-8"
           />
           <div>
@@ -127,6 +128,8 @@ const CoachProfile: React.FC = () => {
                 alt="Calendar"
                 layout="responsive"
                 className="w-full"
+                width={20}
+                height={20}
               />
             </div>
           </div>

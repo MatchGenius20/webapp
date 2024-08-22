@@ -79,8 +79,8 @@ const ProfileSettings: React.FC = () => {
             src={user?.profileImage || '/images/man2.svg'}
             alt="Profile"
             className="w-full h-full object-cover"
-            width={144} // Adjust width according to your design
-            height={144} // Adjust height according to your design
+            width={20}
+            height={20}
           />
         </div>
         <div className="text-center sm:text-left">

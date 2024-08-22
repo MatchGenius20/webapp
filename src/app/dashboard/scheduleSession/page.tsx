@@ -16,8 +16,8 @@ const ScheduleSession: React.FC = () => {
         <div className="border border-gray-300 rounded-lg p-4">
           <Image
             src={'/images/calender.png'}
-            height={400}
-            width={880}
+            width={20}
+            height={20}
             alt="Calendar"
             className="w-full h-auto rounded-lg"
           />

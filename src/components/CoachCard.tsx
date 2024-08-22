@@ -20,6 +20,8 @@ export default function CoachCard({
             src={coach.image || ''}
             alt={coach.name || ''}
             className="w-full h-full rounded-full object-cover"
+            width={20}
+            height={20}
           />
         </div>
         {/* Rest of the component */}

@@ -78,6 +78,8 @@ const ProfileSettings: React.FC = () => {
             src={user?.profileImage || '/images/man2.svg'}
             alt="Profile"
             className="w-full h-full object-cover"
+            width={20}
+            height={20}
           />
         </div>
         <div className="text-center sm:text-left">

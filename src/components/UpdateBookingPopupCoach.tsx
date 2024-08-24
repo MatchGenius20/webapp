@@ -24,7 +24,7 @@ interface BookingPopupProps {
   setBookings: React.Dispatch<React.SetStateAction<Booking[]>>
 }
 
-const UpdateBookingPopup: React.FC<BookingPopupProps> = ({
+const UpdateBookingPopupCoach: React.FC<BookingPopupProps> = ({
   onClose,
   booking,
   setBookings,
@@ -64,7 +64,7 @@ const UpdateBookingPopup: React.FC<BookingPopupProps> = ({
       const refreshToken = localStorage.getItem('refreshToken')
       if (booking) {
         await axios.patch(
-          `${process.env.NEXT_PUBLIC_API_URL}/booking/update/request/${booking.id}`,
+          `${process.env.NEXT_PUBLIC_API_URL}/booking/update/respond/${booking.id}`,
           form,
           {
             headers: {
@@ -169,4 +169,4 @@ const UpdateBookingPopup: React.FC<BookingPopupProps> = ({
   )
 }
 
-export default UpdateBookingPopup
+export default UpdateBookingPopupCoach

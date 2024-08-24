@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import PrimaryButton from '@/components/PrimaryButton'
-import UpdateBookingPopup from '@/components/UpdateBookingPopup'
+import UpdateBookingPopupCoach from '@/components/UpdateBookingPopupCoach'
 import withAuth from '@/hoc/withAuth'
 
 interface Booking {
@@ -28,7 +28,7 @@ const ScheduleSession: React.FC = () => {
 
         // Fetch session requests
         const requestsResponse = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}/coach/requests`,
+          `${process.env.NEXT_PUBLIC_API_URL}/booking/coach/requests`,
           {
             headers: {
               'access-token': `Bearer ${accessToken}`,
@@ -40,7 +40,7 @@ const ScheduleSession: React.FC = () => {
 
         // Fetch scheduled events
         const eventsResponse = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}/coach/scheduled-events`,
+          `${process.env.NEXT_PUBLIC_API_URL}/booking/coach/confirmed`,
           {
             headers: {
               'access-token': `Bearer ${accessToken}`,
@@ -57,13 +57,13 @@ const ScheduleSession: React.FC = () => {
     fetchBookings()
   }, [])
 
-  const handleAccept = async (bookingId: number) => {
+  const handleRespond = async (bookingId: number, status: string) => {
     try {
       const accessToken = localStorage.getItem('accessToken')
       const refreshToken = localStorage.getItem('refreshToken')
       await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/coach/accept-request/${bookingId}`,
-        {},
+        `${process.env.NEXT_PUBLIC_API_URL}/coach/create/respond/${bookingId}`,
+        { status },
         {
           headers: {
             'access-token': `Bearer ${accessToken}`,
@@ -71,41 +71,26 @@ const ScheduleSession: React.FC = () => {
           },
         },
       )
-      // Move the booking from requests to scheduled events
-      const acceptedBooking = requests.find(
-        (request) => request.id === bookingId,
-      )
-      if (acceptedBooking) {
-        setScheduledEvents((prev) => [
-          ...prev,
-          { ...acceptedBooking, status: 'Scheduled' },
-        ])
+      if (status === 'ACCEPTED') {
+        const acceptedBooking = requests.find(
+          (request) => request.id === bookingId,
+        )
+        if (acceptedBooking) {
+          setScheduledEvents((prev) => [
+            ...prev,
+            { ...acceptedBooking, status: 'Scheduled' },
+          ])
+          setRequests((prev) =>
+            prev.filter((request) => request.id !== bookingId),
+          )
+        }
+      } else {
         setRequests((prev) =>
           prev.filter((request) => request.id !== bookingId),
         )
       }
     } catch (error) {
-      console.error('Error accepting request:', error)
-    }
-  }
-
-  const handleReject = async (bookingId: number) => {
-    try {
-      const accessToken = localStorage.getItem('accessToken')
-      const refreshToken = localStorage.getItem('refreshToken')
-      await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/coach/reject-request/${bookingId}`,
-        {},
-        {
-          headers: {
-            'access-token': `Bearer ${accessToken}`,
-            'refresh-token': `Bearer ${refreshToken}`,
-          },
-        },
-      )
-      setRequests((prev) => prev.filter((request) => request.id !== bookingId))
-    } catch (error) {
-      console.error('Error rejecting request:', error)
+      console.error('Error responding to request:', error)
     }
   }
 
@@ -114,7 +99,7 @@ const ScheduleSession: React.FC = () => {
       const accessToken = localStorage.getItem('accessToken')
       const refreshToken = localStorage.getItem('refreshToken')
       await axios.delete(
-        `${process.env.NEXT_PUBLIC_API_URL}/coach/delete-event/${bookingId}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/delete/request/${bookingId}`,
         {
           headers: {
             'access-token': `Bearer ${accessToken}`,
@@ -158,11 +143,11 @@ const ScheduleSession: React.FC = () => {
             <div className="flex justify-end space-x-2 mt-2">
               <PrimaryButton
                 text="Accept"
-                onClick={() => handleAccept(request.id)}
+                onClick={() => handleRespond(request.id, 'ACCEPTED')}
               />
               <PrimaryButton
                 text="Reject"
-                onClick={() => handleReject(request.id)}
+                onClick={() => handleRespond(request.id, 'REJECTED')}
               />
             </div>
           </div>
@@ -171,7 +156,7 @@ const ScheduleSession: React.FC = () => {
 
       <h2 className="text-2xl font-bold mb-4 mt-8">Scheduled Events</h2>
       {showPopup && (
-        <UpdateBookingPopup
+        <UpdateBookingPopupCoach
           onClose={handleClosePopup}
           booking={selectedBooking}
           setBookings={setScheduledEvents}

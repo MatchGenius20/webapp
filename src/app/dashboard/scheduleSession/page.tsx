@@ -15,7 +15,8 @@ interface Booking {
 }
 
 const ScheduleSession: React.FC = () => {
-  const [bookings, setBookings] = useState<Booking[]>([])
+  const [pendingRequests, setPendingRequests] = useState<Booking[]>([])
+  const [confirmedBookings, setConfirmedBookings] = useState<Booking[]>([])
   const [showPopup, setShowPopup] = useState(false)
   const [selectedBooking, setSelectedBooking] = useState<Booking | null>(null)
 
@@ -24,8 +25,10 @@ const ScheduleSession: React.FC = () => {
       try {
         const accessToken = localStorage.getItem('accessToken')
         const refreshToken = localStorage.getItem('refreshToken')
-        const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}/booking/event/redirect`,
+
+        // Fetch pending requests
+        const pendingResponse = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_URL}/booking/user/pending`,
           {
             headers: {
               'access-token': `Bearer ${accessToken}`,
@@ -33,7 +36,19 @@ const ScheduleSession: React.FC = () => {
             },
           },
         )
-        setBookings(response.data)
+        setPendingRequests(pendingResponse.data)
+
+        // Fetch confirmed bookings
+        const confirmedResponse = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_URL}/booking/user/confirmed`,
+          {
+            headers: {
+              'access-token': `Bearer ${accessToken}`,
+              'refresh-token': `Bearer ${refreshToken}`,
+            },
+          },
+        )
+        setConfirmedBookings(confirmedResponse.data)
       } catch (error) {
         console.error('Error fetching bookings:', error)
       }
@@ -55,7 +70,9 @@ const ScheduleSession: React.FC = () => {
           },
         },
       )
-      setBookings((prev) => prev.filter((booking) => booking.id !== bookingId))
+      setPendingRequests((prev) =>
+        prev.filter((booking) => booking.id !== bookingId),
+      )
     } catch (error) {
       console.error('Error deleting booking:', error)
     }
@@ -73,24 +90,51 @@ const ScheduleSession: React.FC = () => {
 
   return (
     <div className="p-8">
-      <h2 className="text-2xl font-bold mb-4">Your Bookings</h2>
+      <h2 className="text-2xl font-bold mb-4">Your Booking Requests</h2>
 
       <Link href={`/find-coach`}>
         <PrimaryButton text="Create Event" />
       </Link>
 
-      {showPopup && (
+      {showPopup && selectedBooking && (
         <UpdateBookingPopup
           onClose={handleClosePopup}
           booking={selectedBooking}
-          setBookings={setBookings}
+          setBookings={setConfirmedBookings} // Updated to reflect confirmed bookings after updating
         />
       )}
+
+      <h3 className="text-xl font-bold mb-4 mt-8">Pending Requests</h3>
       <div className="mt-4">
-        {bookings.length === 0 ? (
-          <p>No bookings found.</p>
+        {pendingRequests.length === 0 ? (
+          <p>No pending requests found.</p>
         ) : (
-          bookings.map((booking) => (
+          pendingRequests.map((request) => (
+            <div
+              key={request.id}
+              className="p-4 border border-gray-300 rounded-lg mb-2"
+            >
+              <p>Date: {request.date}</p>
+              <p>Start Time: {request.startTime}</p>
+              <p>End Time: {request.endTime}</p>
+              <p>Message: {request.message}</p>
+              <div className="flex justify-end space-x-2 mt-2">
+                <PrimaryButton
+                  text="Cancel"
+                  onClick={() => handleDelete(request.id)}
+                />
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+
+      <h3 className="text-xl font-bold mb-4 mt-8">Confirmed Bookings</h3>
+      <div className="mt-4">
+        {confirmedBookings.length === 0 ? (
+          <p>No confirmed bookings found.</p>
+        ) : (
+          confirmedBookings.map((booking) => (
             <div
               key={booking.id}
               className="p-4 border border-gray-300 rounded-lg mb-2"

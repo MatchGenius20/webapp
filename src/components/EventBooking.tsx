@@ -14,7 +14,7 @@ interface Booking {
   status: string
 }
 
-const ScheduleSession: React.FC = () => {
+const EventBooking: React.FC = () => {
   const [pendingRequests, setPendingRequests] = useState<Booking[]>([])
   const [confirmedBookings, setConfirmedBookings] = useState<Booking[]>([])
   const [showPopup, setShowPopup] = useState(false)
@@ -161,4 +161,4 @@ const ScheduleSession: React.FC = () => {
   )
 }
 
-export default ScheduleSession
+export default EventBooking

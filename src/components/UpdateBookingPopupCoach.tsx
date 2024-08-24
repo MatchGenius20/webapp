@@ -5,14 +5,29 @@ import React, {
   useEffect,
   useCallback,
 } from 'react'
-import { BookingPopupProps } from '../../type'
 import PrimaryButton from './PrimaryButton'
 import axios from 'axios'
 import { useUser } from '@/context/UserContext'
-const BookingPopup: React.FC<BookingPopupProps> = ({
+
+interface Booking {
+  id: number
+  date: string
+  startTime: string
+  endTime: string
+  message: string
+  status: string
+}
+
+interface BookingPopupProps {
+  onClose: () => void
+  booking?: Booking | null
+  setBookings: React.Dispatch<React.SetStateAction<Booking[]>>
+}
+
+const UpdateBookingPopupCoach: React.FC<BookingPopupProps> = ({
   onClose,
-  coachId,
-  price,
+  booking,
+  setBookings,
 }) => {
   const { user } = useUser()
   const [form, setForm] = useState({
@@ -20,10 +35,20 @@ const BookingPopup: React.FC<BookingPopupProps> = ({
     bookingDate: '',
     bookingTime: '',
     duration: '',
-    price: price,
-    paymentId: '',
     message: '',
   })
+
+  useEffect(() => {
+    if (booking) {
+      setForm({
+        userId: user?.id,
+        bookingDate: booking.date,
+        bookingTime: booking.startTime,
+        duration: '',
+        message: booking.message,
+      })
+    }
+  }, [booking])
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -37,19 +62,28 @@ const BookingPopup: React.FC<BookingPopupProps> = ({
     try {
       const accessToken = localStorage.getItem('accessToken')
       const refreshToken = localStorage.getItem('refreshToken')
-      await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/booking/create/request/${coachId}`,
-        form,
-        {
-          headers: {
-            'access-token': `Bearer ${accessToken}`,
-            'refresh-token': `Bearer ${refreshToken}`,
+      if (booking) {
+        await axios.patch(
+          `${process.env.NEXT_PUBLIC_API_URL}/booking/update/respond/${booking.id}`,
+          form,
+          {
+            headers: {
+              'access-token': `Bearer ${accessToken}`,
+              'refresh-token': `Bearer ${refreshToken}`,
+            },
           },
-        },
-      )
+        )
+        setBookings((prevBookings) =>
+          prevBookings.map((b) =>
+            b.id === booking.id ? { ...b, ...form } : b,
+          ),
+        )
+      } else {
+        console.error(`Booking doen't exist`)
+      }
       onClose()
     } catch (error) {
-      console.error('Error creating booking:', error)
+      console.error('Error creating or updating booking:', error)
     }
   }
 
@@ -77,7 +111,7 @@ const BookingPopup: React.FC<BookingPopupProps> = ({
         className="bg-white p-4 md:p-8 rounded-lg max-w-lg w-full shadow-md shadow-[#9794EC]"
       >
         <h2 className="text-2xl font-semibold mb-4 text-primary">
-          Book Session
+          {booking ? 'Update Booking' : 'Book Session'}
         </h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4"></div>
@@ -127,7 +161,7 @@ const BookingPopup: React.FC<BookingPopupProps> = ({
             />
           </div>
           <div className="flex justify-center">
-            <PrimaryButton text="Book" />
+            <PrimaryButton text="Update" />
           </div>
         </form>
       </div>
@@ -135,4 +169,4 @@ const BookingPopup: React.FC<BookingPopupProps> = ({
   )
 }
 
-export default BookingPopup
+export default UpdateBookingPopupCoach

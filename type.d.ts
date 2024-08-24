@@ -89,6 +89,20 @@ type SidebarProps = {
 
 interface BookingPopupProps {
   onClose: () => void
+  coachId: Coach.id
+  price: Number
+}
+interface Booking {
+  id: number
+  date: string
+  startTime: string
+  endTime: string
+  message: string
+}
+interface UpdateBookingPopupProps {
+  onClose: () => void
+  coachId: Coach.id
+  booking: Booking
 }
 export interface Review {
   text: string

@@ -1,175 +1,192 @@
 'use client'
 import React, { useState, useEffect } from 'react'
-import withAuth from '@/hoc/withAuth'
-import Image from 'next/image'
 import axios from 'axios'
+import PrimaryButton from '@/components/PrimaryButton'
+import UpdateBookingPopupCoach from '@/components/UpdateBookingPopupCoach'
+import withAuth from '@/hoc/withAuth'
+
+interface Booking {
+  id: number
+  date: string
+  startTime: string
+  endTime: string
+  message: string
+  status: string // Added status to differentiate between requests and scheduled events
+}
 
 const ScheduleSession: React.FC = () => {
-  const [events, setEvents] = useState<any[]>([])
-  const [sessionDate, setSessionDate] = useState('')
-  const [sessionTime, setSessionTime] = useState('')
-  const [selectedEventId, setSelectedEventId] = useState<number | null>(null)
+  const [requests, setRequests] = useState<Booking[]>([])
+  const [scheduledEvents, setScheduledEvents] = useState<Booking[]>([])
+  const [showPopup, setShowPopup] = useState(false)
+  const [selectedBooking, setSelectedBooking] = useState<Booking | null>(null)
 
-  const fetchEvents = async () => {
-    try {
-      const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/booking/event`,
-      )
-      setEvents(response.data.data)
-    } catch (error) {
-      console.error('Error fetching events:', error)
+  useEffect(() => {
+    const fetchBookings = async () => {
+      try {
+        const accessToken = localStorage.getItem('accessToken')
+        const refreshToken = localStorage.getItem('refreshToken')
+
+        // Fetch session requests
+        const requestsResponse = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_URL}/booking/coach/requests`,
+          {
+            headers: {
+              'access-token': `Bearer ${accessToken}`,
+              'refresh-token': `Bearer ${refreshToken}`,
+            },
+          },
+        )
+        setRequests(requestsResponse.data)
+
+        // Fetch scheduled events
+        const eventsResponse = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_URL}/booking/coach/confirmed`,
+          {
+            headers: {
+              'access-token': `Bearer ${accessToken}`,
+              'refresh-token': `Bearer ${refreshToken}`,
+            },
+          },
+        )
+        setScheduledEvents(eventsResponse.data)
+      } catch (error) {
+        console.error('Error fetching bookings:', error)
+      }
     }
-  }
 
-  const handleCreateEvent = async (e: React.FormEvent) => {
-    e.preventDefault()
+    fetchBookings()
+  }, [])
+
+  const handleRespond = async (bookingId: number, status: string) => {
     try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/booking/event`,
+      const accessToken = localStorage.getItem('accessToken')
+      const refreshToken = localStorage.getItem('refreshToken')
+      await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/coach/create/respond/${bookingId}`,
+        { status },
         {
-          bookingDate: sessionDate,
-          bookingTime: sessionTime,
-          bookingStatus: 'Confirmed',
-          duration: 60,
-          price: 100,
-          paymentId: 'example-payment-id',
-          userId: 1,
-          coachId: 1,
+          headers: {
+            'access-token': `Bearer ${accessToken}`,
+            'refresh-token': `Bearer ${refreshToken}`,
+          },
         },
       )
-      console.log('Event created:', response.data)
-      fetchEvents()
+      if (status === 'ACCEPTED') {
+        const acceptedBooking = requests.find(
+          (request) => request.id === bookingId,
+        )
+        if (acceptedBooking) {
+          setScheduledEvents((prev) => [
+            ...prev,
+            { ...acceptedBooking, status: 'Scheduled' },
+          ])
+          setRequests((prev) =>
+            prev.filter((request) => request.id !== bookingId),
+          )
+        }
+      } else {
+        setRequests((prev) =>
+          prev.filter((request) => request.id !== bookingId),
+        )
+      }
     } catch (error) {
-      console.error('Error creating event:', error)
+      console.error('Error responding to request:', error)
     }
   }
 
-  const handleUpdateEvent = async () => {
-    if (!selectedEventId) return
+  const handleDelete = async (bookingId: number) => {
     try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/booking/event`,
-        {
-          id: selectedEventId,
-          bookingDate: sessionDate,
-          bookingTime: sessionTime,
-          bookingStatus: 'Updated',
-        },
-      )
-      console.log('Event updated:', response.data)
-      fetchEvents()
-    } catch (error) {
-      console.error('Error updating event:', error)
-    }
-  }
-
-  const handleDeleteEvent = async (eventId: string) => {
-    try {
+      const accessToken = localStorage.getItem('accessToken')
+      const refreshToken = localStorage.getItem('refreshToken')
       await axios.delete(
-        `${process.env.NEXT_PUBLIC_API_URL}/booking/event?eventId=${eventId}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/delete/request/${bookingId}`,
+        {
+          headers: {
+            'access-token': `Bearer ${accessToken}`,
+            'refresh-token': `Bearer ${refreshToken}`,
+          },
+        },
       )
-      console.log('Event deleted')
-      fetchEvents()
+      setScheduledEvents((prev) =>
+        prev.filter((event) => event.id !== bookingId),
+      )
     } catch (error) {
       console.error('Error deleting event:', error)
     }
   }
 
-  useEffect(() => {
-    fetchEvents()
-  }, [])
+  const handleUpdate = (booking: Booking) => {
+    setSelectedBooking(booking)
+    setShowPopup(true)
+  }
+
+  const handleClosePopup = () => {
+    setShowPopup(false)
+    setSelectedBooking(null)
+  }
 
   return (
-    <div className="container mx-auto p-4">
-      <div className="bg-white p-6 rounded-lg shadow-lg">
-        <div className="flex items-center justify-center mb-4">
-          <div className="relative w-32 h-32">
-            <Image
-              src="/images/calender.png"
-              alt="Calendar"
-              width={20}
-              height={20}
-              className="rounded-full object-cover"
-            />
+    <div className="p-8">
+      <h2 className="text-2xl font-bold mb-4">Session Requests</h2>
+      {requests.length === 0 ? (
+        <p>No session requests found.</p>
+      ) : (
+        requests.map((request) => (
+          <div
+            key={request.id}
+            className="p-4 border border-gray-300 rounded-lg mb-2"
+          >
+            <p>Date: {request.date}</p>
+            <p>Start Time: {request.startTime}</p>
+            <p>End Time: {request.endTime}</p>
+            <p>Message: {request.message}</p>
+            <div className="flex justify-end space-x-2 mt-2">
+              <PrimaryButton
+                text="Accept"
+                onClick={() => handleRespond(request.id, 'ACCEPTED')}
+              />
+              <PrimaryButton
+                text="Reject"
+                onClick={() => handleRespond(request.id, 'REJECTED')}
+              />
+            </div>
           </div>
-        </div>
-        <form onSubmit={handleCreateEvent} className="space-y-4">
-          <div>
-            <label htmlFor="session-date" className="block text-sm font-medium">
-              Session Date
-            </label>
-            <input
-              type="date"
-              id="session-date"
-              value={sessionDate}
-              onChange={(e) => setSessionDate(e.target.value)}
-              className="mt-1 p-2 w-full border border-gray-300 rounded-lg shadow-sm"
-            />
-          </div>
-          <div>
-            <label htmlFor="session-time" className="block text-sm font-medium">
-              Session Time
-            </label>
-            <input
-              type="time"
-              id="session-time"
-              value={sessionTime}
-              onChange={(e) => setSessionTime(e.target.value)}
-              className="mt-1 p-2 w-full border border-gray-300 rounded-lg shadow-sm"
-            />
-          </div>
-          <div className="flex justify-end space-x-4">
-            <button
-              type="submit"
-              className="bg-[#443EDE] text-white px-6 py-2 rounded-lg shadow-md"
-            >
-              Create Event
-            </button>
-            <button
-              type="button"
-              onClick={handleUpdateEvent}
-              className="bg-yellow-500 text-white px-6 py-2 rounded-lg shadow-md"
-            >
-              Update Event
-            </button>
-          </div>
-        </form>
-      </div>
+        ))
+      )}
 
-      <div className="mt-6 bg-white p-6 rounded-lg shadow-lg">
-        <h2 className="text-lg font-medium mb-4">All Events</h2>
-        <ul>
-          {events.map((event) => (
-            <li key={event.bookingId} className="mb-2">
-              <div className="flex justify-between items-center">
-                <div>
-                  <p>Date: {event.bookingDate}</p>
-                  <p>Time: {event.bookingTime}</p>
-                  <p>Status: {event.bookingStatus}</p>
-                </div>
-                <div className="space-x-4">
-                  <button
-                    onClick={() => {
-                      setSelectedEventId(event.bookingId)
-                      setSessionDate(event.bookingDate)
-                      setSessionTime(event.bookingTime)
-                    }}
-                    className="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md"
-                  >
-                    Select
-                  </button>
-                  <button
-                    onClick={() => handleDeleteEvent(event.bookingId)}
-                    className="bg-red-500 text-white px-4 py-2 rounded-lg shadow-md"
-                  >
-                    Delete
-                  </button>
-                </div>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <h2 className="text-2xl font-bold mb-4 mt-8">Scheduled Events</h2>
+      {showPopup && (
+        <UpdateBookingPopupCoach
+          onClose={handleClosePopup}
+          booking={selectedBooking}
+          setBookings={setScheduledEvents}
+        />
+      )}
+      {scheduledEvents.length === 0 ? (
+        <p>No scheduled events found.</p>
+      ) : (
+        scheduledEvents.map((event) => (
+          <div
+            key={event.id}
+            className="p-4 border border-gray-300 rounded-lg mb-2"
+          >
+            <p>Date: {event.date}</p>
+            <p>Start Time: {event.startTime}</p>
+            <p>End Time: {event.endTime}</p>
+            <p>Message: {event.message}</p>
+            <div className="flex justify-end space-x-2 mt-2">
+              <PrimaryButton
+                text="Update"
+                onClick={() => handleUpdate(event)}
+              />
+              <PrimaryButton
+                text="Delete"
+                onClick={() => handleDelete(event.id)}
+              />
+            </div>
+          </div>
+        ))
+      )}
     </div>
   )
 }

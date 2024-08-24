@@ -1,9 +1,11 @@
 'use client'
+import withAuth from '@/hoc/withAuth'
 import React, { useState, useEffect } from 'react'
 import CountUp from 'react-countup'
 import axios from 'axios'
 import { useUser } from '@/context/UserContext'
-import withAuth from '@/hoc/withAuth'
+import Link from 'next/link'
+import PrimaryButton from '@/components/PrimaryButton'
 
 interface PaymentMethod {
   id: number
@@ -19,12 +21,14 @@ const PaymentsAndWallets: React.FC = () => {
   const [totalSessions, setTotalSessions] = useState<number>(0)
   const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>([])
   const [selectedMethods, setSelectedMethods] = useState<number[]>([])
+  const [loading, setLoading] = useState<boolean>(true)
 
   useEffect(() => {
     const fetchData = async () => {
       if (!user?.id) return
 
       try {
+        setLoading(true)
         const accessToken = localStorage.getItem('accessToken')
         const refreshToken = localStorage.getItem('refreshToken')
         const userId = user.id
@@ -39,8 +43,8 @@ const PaymentsAndWallets: React.FC = () => {
             },
           },
         )
-        setWalletBalance(walletResponse.data)
-
+        console.log('Wallet Balance:', walletResponse.data)
+        setWalletBalance(walletResponse.data.totalAmount)
         // Fetch amount spent
         const spentResponse = await axios.get(
           `${process.env.NEXT_PUBLIC_API_URL}/stripe/total-spent/${userId}`,
@@ -51,8 +55,8 @@ const PaymentsAndWallets: React.FC = () => {
             },
           },
         )
-        setAmountSpent(spentResponse.data)
-
+        console.log('Amount Spent:', spentResponse.data)
+        setAmountSpent(spentResponse.data.totalSpent)
         // Fetch total sessions
         const sessionsResponse = await axios.get(
           `${process.env.NEXT_PUBLIC_API_URL}/stripe/total-transactions/${userId}`,
@@ -63,7 +67,8 @@ const PaymentsAndWallets: React.FC = () => {
             },
           },
         )
-        setTotalSessions(sessionsResponse.data)
+        console.log('Total Sessions:', sessionsResponse.data)
+        setTotalSessions(sessionsResponse.data.totalTransactions)
 
         // Fetch payment methods
         const methodsResponse = await axios.get(
@@ -75,20 +80,12 @@ const PaymentsAndWallets: React.FC = () => {
             },
           },
         )
-        console.log(methodsResponse.data) // Log the response to see the structure
-        // Ensure that methodsResponse.data is an array
-        if (Array.isArray(methodsResponse.data)) {
-          setPaymentMethods(methodsResponse.data)
-        } else if (
-          methodsResponse.data &&
-          Array.isArray(methodsResponse.data.methods)
-        ) {
-          setPaymentMethods(methodsResponse.data.methods)
-        } else {
-          setPaymentMethods([]) // Set an empty array if the response structure is unexpected
-        }
+        console.log('Payment Methods:', methodsResponse.data.paymentMethods)
+        setPaymentMethods(methodsResponse.data.paymentMethods)
       } catch (error) {
         console.error('Error fetching data:', error)
+      } finally {
+        setLoading(false)
       }
     }
 
@@ -148,80 +145,96 @@ const PaymentsAndWallets: React.FC = () => {
 
   return (
     <div className="p-4">
-      <div className="flex flex-wrap justify-around mb-6 space-y-4 md:space-y-0 bg-[#EBEBFE] rounded-md w-full md:w-4/5 mx-auto">
-        <div className="relative w-full md:w-60 mx-2">
-          <div className="p-4 md:p-6 rounded-lg">
-            <div className="p-3 md:p-4 bg-white rounded-lg shadow-lg transform hover:scale-105 transition-transform">
-              <div className="text-sm md:text-sm font-semibold">
-                Wallet Balance
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        <>
+          <div className="flex flex-wrap justify-around mb-6 space-y-4 md:space-y-0 bg-[#EBEBFE] rounded-md w-full md:w-4/5 mx-auto">
+            <div className="relative w-full md:w-60 mx-2">
+              <div className="p-4 md:p-6 rounded-lg">
+                <div className="p-3 md:p-4 bg-white rounded-lg shadow-lg transform hover:scale-105 transition-transform">
+                  <div className="text-sm md:text-sm font-semibold">
+                    Wallet Balance
+                  </div>
+                  <div className="text-2xl md:text-4xl font-bold text-center text-[#443EDE]">
+                    $<CountUp end={walletBalance} />
+                  </div>
+                </div>
               </div>
-              <div className="text-2xl md:text-4xl font-bold text-center text-[#443EDE]">
-                $<CountUp end={walletBalance} />
+            </div>
+            <div className="relative w-full md:w-60 mx-2">
+              <div className="p-4 md:p-6 rounded-lg">
+                <div className="p-3 md:p-4 bg-white rounded-lg shadow-lg transform hover:scale-105 transition-transform justify-center">
+                  <div className="text-sm md:text-sm font-semibold">
+                    Amount Spent
+                  </div>
+                  <div className="text-2xl md:text-4xl font-bold text-center text-[#443EDE]">
+                    $<CountUp end={amountSpent} />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="relative w-full md:w-60 mx-2">
+              <div className="p-4 md:p-6 rounded-lg">
+                <div className="p-3 md:p-4 bg-white rounded-lg shadow-lg transform hover:scale-105 transition-transform">
+                  <div className="text-sm md:text-sm">Total Sessions</div>
+                  <div className="text-2xl md:text-4xl font-bold text-center text-[#443EDE]">
+                    <CountUp end={totalSessions} />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div className="relative w-full md:w-60 mx-2">
-          <div className="p-4 md:p-6 rounded-lg">
-            <div className="p-3 md:p-4 bg-white rounded-lg shadow-lg transform hover:scale-105 transition-transform justify-center">
-              <div className="text-sm md:text-sm font-semibold">
-                Amount Spent
-              </div>
-              <div className="text-2xl md:text-4xl font-bold text-center text-[#443EDE]">
-                $<CountUp end={amountSpent} />
-              </div>
-            </div>
+          <div className="bg-white p-6 rounded-lg shadow-lg m-6">
+            <Link href={`/wallet`}>
+              <PrimaryButton text="Recharge Wallet" />
+            </Link>
           </div>
-        </div>
-        <div className="relative w-full md:w-60 mx-2">
-          <div className="p-4 md:p-6 rounded-lg">
-            <div className="p-3 md:p-4 bg-white rounded-lg shadow-lg transform hover:scale-105 transition-transform">
-              <div className="text-sm md:text-sm">Total Sessions</div>
-              <div className="text-2xl md:text-4xl font-bold text-center text-[#443EDE]">
-                <CountUp end={totalSessions} />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="bg-white p-6 rounded-lg shadow-lg">
-        <h2 className="text-xl md:text-2xl font-semibold">Payment Methods</h2>
-        <h3 className="mb-3 md:text-sm text-xs text-[#7D7D7B]">
-          Select to Remove or edit your Method
-        </h3>
-        {Array.isArray(paymentMethods) &&
-          paymentMethods.map((method) => (
-            <div key={method.id} className="flex items-center mb-4">
-              <input
-                type="checkbox"
-                id={`method-${method.id}`}
-                className="mr-2"
-                checked={selectedMethods.includes(method.id)}
-                onChange={() => handleSelect(method.id)}
-              />
-              <label
-                htmlFor={`method-${method.id}`}
-                className="flex-1 flex justify-between text-xs md:text-sm shadow-[#F4F4FE]"
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <h2 className="text-xl md:text-2xl font-semibold">
+              Payment Methods
+            </h2>
+            <h3 className="mb-3 md:text-sm text-xs text-[#7D7D7B]">
+              Select to Remove or edit your Method
+            </h3>
+            {Array.isArray(paymentMethods) && paymentMethods.length > 0 ? (
+              paymentMethods.map((method) => (
+                <div key={method.id} className="flex items-center mb-4">
+                  <input
+                    type="checkbox"
+                    id={`method-${method.id}`}
+                    className="mr-2"
+                    checked={selectedMethods.includes(method.id)}
+                    onChange={() => handleSelect(method.id)}
+                  />
+                  <label
+                    htmlFor={`method-${method.id}`}
+                    className="flex-1 flex justify-between text-xs md:text-sm shadow-[#F4F4FE]"
+                  >
+                    Test Card ({method.cardNumber})
+                    <span>
+                      {method.bank} | Expiry {method.expiry}
+                    </span>
+                  </label>
+                </div>
+              ))
+            ) : (
+              <p>No payment methods available.</p>
+            )}
+            <div className="flex justify-end mt-4 gap-2">
+              <button className="bg-[#EFEFFE] text-[#443EDE] px-4 py-1 md:px-6 md:py-3 rounded-lg shadow-md">
+                Add New Method
+              </button>
+              <button
+                onClick={handleDelete}
+                className="bg-[#EFEFFE] text-[#443EDE] px-4 py-1 md:px-6 md:py-3 rounded-lg shadow-md"
               >
-                Test Card ({method.cardNumber})
-                <span>
-                  {method.bank} | Expiry {method.expiry}
-                </span>
-              </label>
+                Remove
+              </button>
             </div>
-          ))}
-        <div className="flex justify-end mt-4 gap-2">
-          <button className="bg-[#EFEFFE] text-[#443EDE] px-4 py-1 md:px-6 md:py-3 rounded-lg shadow-md">
-            Add New Method
-          </button>
-          <button
-            className="bg-[#443EDE] text-white px-4 py-1 md:px-6 md:py-3 rounded-lg shadow-md"
-            onClick={handleDelete}
-          >
-            Remove Selected
-          </button>
-        </div>
-      </div>
+          </div>
+        </>
+      )}
     </div>
   )
 }

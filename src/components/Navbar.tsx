@@ -75,6 +75,13 @@ const Navbar: React.FC = () => {
                 Find Coach
               </Link>
               <Link
+                href="/event-booking"
+                className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-md"
+                onClick={handleToggle}
+              >
+                Events
+              </Link>
+              <Link
                 href="/about"
                 className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-md"
               >
@@ -149,6 +156,13 @@ const Navbar: React.FC = () => {
                   onClick={handleToggle}
                 >
                   Find Coach
+                </Link>
+                <Link
+                  href="/event-booking"
+                  className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-lg py-3"
+                  onClick={handleToggle}
+                >
+                  Events
                 </Link>
                 <Link
                   href="/about"

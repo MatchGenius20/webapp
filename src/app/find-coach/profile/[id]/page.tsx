@@ -11,14 +11,14 @@ const CoachProfile: React.FC = () => {
   const params = useParams()
   const [coach, setCoach] = useState<Coach | null>(null)
   const [isBookingPopupOpen, setIsBookingPopupOpen] = useState(false)
-  const [onlineStatus, setOnlineStatus] = useState<string>('')
-  const [rating, setRating] = useState<number | null>(null)
-  const [price, setPrice] = useState<number | null>(null)
-  const [totalSessions, setTotalSessions] = useState<number | null>(null)
-  const [totalDuration, setTotalDuration] = useState<number | null>(null)
+  const [onlineStatus, setOnlineStatus] = useState<string>('online')
+  const [rating, setRating] = useState<number>(5)
+  const [price, setPrice] = useState<number>(200)
+  const [totalSessions, setTotalSessions] = useState<number>(0)
+  const [totalDuration, setTotalDuration] = useState<number>(0)
   const [availability, setAvailability] = useState<string>('')
   const [timings, setTimings] = useState<string>('')
-
+  const id = params?.id
   useEffect(() => {
     const fetchCoachData = async () => {
       const id = params?.id
@@ -72,7 +72,8 @@ const CoachProfile: React.FC = () => {
           <Image
             src={coach.image || '/'}
             alt={coach.name || ''}
-            fill={true}
+            width={16}
+            height={16}
             className="w-16 h-16 bg-gray-200 rounded-full mr-4 md:mr-8"
           />
           <div>
@@ -155,7 +156,13 @@ const CoachProfile: React.FC = () => {
           </div>
         </div>
       </div>
-      {isBookingPopupOpen && <BookingPopup onClose={handleCloseBookingPopup} />}
+      {isBookingPopupOpen && (
+        <BookingPopup
+          onClose={handleCloseBookingPopup}
+          coachId={id}
+          price={price}
+        />
+      )}
     </div>
   )
 }

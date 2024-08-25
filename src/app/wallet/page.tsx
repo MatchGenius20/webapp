@@ -6,6 +6,7 @@ import {
 } from '@stripe/react-stripe-js'
 import axios from 'axios'
 import { useState, FormEvent, useEffect } from 'react'
+import { useUser } from '@/context/UserContext'
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY ?? '',
@@ -15,15 +16,16 @@ const RechargeWallet = () => {
   const [clientSecret, setClientSecret] = useState<string | null>(null)
   const [amount, setAmount] = useState<number>(0)
   const [loading, setLoading] = useState<boolean>(false)
-
+  const { user } = useUser()
   const createCheckoutSession = async () => {
     setLoading(true)
     try {
       const accessToken = localStorage.getItem('accessToken')
       const refreshToken = localStorage.getItem('refreshToken')
+      const email = user?.email
       const { data } = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/stripe/recharge`,
-        { amount },
+        { amount, email },
         {
           headers: {
             'access-token': `Bearer ${accessToken}`,
@@ -46,9 +48,7 @@ const RechargeWallet = () => {
       createCheckoutSession()
     }
   }
-  // useEffect(() => {
-  //   createCheckoutSession().catch((error) => console.error(error));
-  // }, [createCheckoutSession]);
+
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -75,7 +75,9 @@ const RechargeWallet = () => {
         <EmbeddedCheckoutProvider
           stripe={stripePromise}
           key={clientSecret}
-          options={{ clientSecret }}
+          options={{
+            clientSecret,
+          }}
         >
           <EmbeddedCheckout />
         </EmbeddedCheckoutProvider>

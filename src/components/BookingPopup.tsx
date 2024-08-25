@@ -37,7 +37,7 @@ const BookingPopup: React.FC<BookingPopupProps> = ({
     try {
       const accessToken = localStorage.getItem('accessToken')
       const refreshToken = localStorage.getItem('refreshToken')
-      await axios.post(
+      const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/booking/create/request/${coachId}`,
         form,
         {
@@ -47,6 +47,8 @@ const BookingPopup: React.FC<BookingPopupProps> = ({
           },
         },
       )
+      console.log(response)
+
       onClose()
     } catch (error) {
       console.error('Error creating booking:', error)

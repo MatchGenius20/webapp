@@ -116,28 +116,31 @@ const EventBooking: React.FC = () => {
         {pendingRequests.length === 0 ? (
           <p>No pending requests found.</p>
         ) : (
-          pendingRequests.map((request) => (
-            <div
-              key={request.id}
-              className="p-4 border border-gray-300 rounded-lg mb-2"
-            >
-              <p>Date: {request.date}</p>
-              <p>Start Time: {request.startTime}</p>
-              <p>End Time: {request.endTime}</p>
-              <p>Message: {request.message}</p>
-              <div className="flex justify-end space-x-2 mt-2">
-                <PrimaryButton
-                  text="Cancel"
-                  onClick={() => handleDelete(request.id)}
-                />
-              </div>
-            </div>
-          ))
+          // (
+          //   pendingRequests.map((request) => (
+          //     <div
+          //       key={request.id}
+          //       className="p-4 border border-gray-300 rounded-lg mb-2"
+          //     >
+          //       <p>Date: {request.date}</p>
+          //       <p>Start Time: {request.startTime}</p>
+          //       <p>End Time: {request.endTime}</p>
+          //       <p>Message: {request.message}</p>
+          //       <div className="flex justify-end space-x-2 mt-2">
+          //         <PrimaryButton
+          //           text="Cancel"
+          //           onClick={() => handleDelete(request.id)}
+          //         />
+          //       </div>
+          //     </div>
+          //   ))
+          // )
+          JSON.stringify(pendingRequests)
         )}
       </div>
 
       <h3 className="text-xl font-bold mb-4 mt-8">Confirmed Bookings</h3>
-      <div className="mt-4">
+      {/* <div className="mt-4">
         {confirmedBookings.length === 0 ? (
           <p>No confirmed bookings found.</p>
         ) : (
@@ -163,7 +166,7 @@ const EventBooking: React.FC = () => {
             </div>
           ))
         )}
-      </div>
+      </div> */}
     </div>
   )
 }

@@ -47,6 +47,7 @@
     "embla-carousel-react": "^8.1.6",
     "eslint": "^8.57.0",
     "eslint-config-next": "^14.2.4",
+    "firebase": "^10.13.0",
     "gapi-script": "^1.2.0",
     "googleapis": "^140.0.1",
     "jest-environment-jsdom": "^29.7.0",

@@ -36,7 +36,9 @@ const ScheduleSession: React.FC = () => {
             },
           },
         )
-        setPendingRequests(pendingResponse.data || [])
+        setPendingRequests(
+          Array.isArray(pendingResponse.data) ? pendingResponse.data : [],
+        )
 
         // Fetch confirmed bookings
         const confirmedResponse = await axios.get(
@@ -48,9 +50,14 @@ const ScheduleSession: React.FC = () => {
             },
           },
         )
-        setConfirmedBookings(confirmedResponse.data || [])
+        setConfirmedBookings(
+          Array.isArray(confirmedResponse.data) ? confirmedResponse.data : [],
+        )
       } catch (error) {
         console.error('Error fetching bookings:', error)
+        // Set empty arrays on error
+        setPendingRequests([])
+        setConfirmedBookings([])
       }
     }
 

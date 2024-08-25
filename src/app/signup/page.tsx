@@ -1,15 +1,9 @@
 'use client'
-import Signup from '@/components/signup'
+import { Signup } from '@/components/signup'
 import React from 'react'
 
 const page = () => {
-  return (
-    <Signup
-      onClose={() => {
-        console.log('Login closed')
-      }}
-    />
-  )
+  return <Signup />
 }
 
 export default page

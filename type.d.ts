@@ -56,6 +56,13 @@ interface FormData {
   name: string
   email: string
   password: string
+  title: string
+  about: string
+  keywords: string
+  availabilityStatus: string
+  timings: string
+  isOnline: boolean
+  profileUrl?: string
 }
 interface LoginProps {
   onClose: () => void

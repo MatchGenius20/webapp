@@ -36,7 +36,7 @@ const ScheduleSession: React.FC = () => {
             },
           },
         )
-        setPendingRequests(pendingResponse.data)
+        setPendingRequests(pendingResponse.data || [])
 
         // Fetch confirmed bookings
         const confirmedResponse = await axios.get(
@@ -48,7 +48,7 @@ const ScheduleSession: React.FC = () => {
             },
           },
         )
-        setConfirmedBookings(confirmedResponse.data)
+        setConfirmedBookings(confirmedResponse.data || [])
       } catch (error) {
         console.error('Error fetching bookings:', error)
       }
@@ -105,11 +105,11 @@ const ScheduleSession: React.FC = () => {
       )}
 
       <h3 className="text-xl font-bold mb-4 mt-8">Pending Requests</h3>
-      <div className="mt-4">
+      {/* <div className="mt-4">
         {pendingRequests.length === 0 ? (
           <p>No pending requests found.</p>
         ) : (
-          pendingRequests.map((request) => (
+          pendingRequests?.map((request) => (
             <div
               key={request.id}
               className="p-4 border border-gray-300 rounded-lg mb-2"
@@ -127,10 +127,11 @@ const ScheduleSession: React.FC = () => {
             </div>
           ))
         )}
-      </div>
+      </div> */}
+      {JSON.stringify(pendingRequests)}
 
       <h3 className="text-xl font-bold mb-4 mt-8">Confirmed Bookings</h3>
-      <div className="mt-4">
+      {/* <div className="mt-4">
         {confirmedBookings.length === 0 ? (
           <p>No confirmed bookings found.</p>
         ) : (
@@ -156,7 +157,8 @@ const ScheduleSession: React.FC = () => {
             </div>
           ))
         )}
-      </div>
+      </div> */}
+      {JSON.stringify(confirmedBookings)}
     </div>
   )
 }

@@ -11,7 +11,7 @@
   }
 }
 .custom-placeholder::placeholder {
-  color: #443ede; /* Change this to your desired color */
+  color: #7681b3; /* Change this to your desired color */
 }
 /* styles/globals.css */
 .no-scrollbar::-webkit-scrollbar {
@@ -25,8 +25,8 @@
 
 @layer base {
   :root {
-    --color-primary: #443ede;
-    --color-secondary: #fafafc --background: 0 0% 100%;
+    --color-primary: #7681b3;
+    --color-secondary: #eeeeee;
     --foreground: 222.2 84% 4.9%;
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;

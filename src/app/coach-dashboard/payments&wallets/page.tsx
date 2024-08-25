@@ -221,14 +221,14 @@ const PaymentsAndWallets: React.FC = () => {
             )}
             <div className="flex justify-end mt-4 gap-2">
               <button
-                className="bg-[#EFEFFE] text-[#443EDE] px-4 py-1 md:px-6 md:py-3 rounded-lg shadow-md"
+                className="bg-[#EFEFFE] text-[#7681B3] px-4 py-1 md:px-6 md:py-3 rounded-lg shadow-md"
                 onClick={() => setShowPopup(true)}
               >
                 Add New Method
               </button>
               <button
                 onClick={handleDelete}
-                className="bg-[#EFEFFE] text-[#443EDE] px-4 py-1 md:px-6 md:py-3 rounded-lg shadow-md"
+                className="bg-[#EFEFFE] text-[#7681B3] px-4 py-1 md:px-6 md:py-3 rounded-lg shadow-md"
               >
                 Remove
               </button>
@@ -284,7 +284,7 @@ const StatCard: React.FC<{ title: string; value: number }> = ({
     <div className="p-4 md:p-6 rounded-lg">
       <div className="p-3 md:p-4 bg-white rounded-lg shadow-lg transform hover:scale-105 transition-transform">
         <div className="text-sm md:text-sm font-semibold">{title}</div>
-        <div className="text-2xl md:text-4xl font-bold text-center text-[#443EDE]">
+        <div className="text-2xl md:text-4xl font-bold text-center text-[#7681B3]">
           $<CountUp end={value} />
         </div>
       </div>

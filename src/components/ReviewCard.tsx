@@ -134,7 +134,7 @@ const ReviewCard: FC = () => {
                           backgroundColor:
                             cardStyle.backgroundColor === 'bg-primary'
                               ? 'white'
-                              : '#443EDE',
+                              : '#7681B3',
                         }}
                       >
                         <Image
@@ -201,7 +201,7 @@ const ReviewCard: FC = () => {
           bottom: 0 !important;
         }
         .custom-bullet {
-          background: #443ede;
+          background: #7681b3;
           width: 30px;
           height: 10px;
           border-radius: 10px;

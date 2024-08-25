@@ -159,7 +159,7 @@ export const Signup = () => {
                     I agree to the{' '}
                     <a
                       href="#"
-                      className="text-indigo-600 hover:text-indigo-500"
+                      className="text-[#7681B3] hover:text-indigo-500"
                     >
                       terms and conditions
                     </a>

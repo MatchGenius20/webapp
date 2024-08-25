@@ -10,7 +10,7 @@ export default function UserVerify() {
 
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState<boolean>(false)
-  const [isCoach, setCoach] = useState<boolean>(false)
+  const [isCoach, setCoach] = useState<string>('false')
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
@@ -39,7 +39,7 @@ export default function UserVerify() {
         new URL(continueUrl as string).search,
       ).get('isCoach')
       setFormData((prev) => ({ ...prev, ['email']: email as string }))
-      setCoach(Boolean(isCoach))
+      setCoach(isCoach as string)
     }
   }, [])
 
@@ -121,7 +121,7 @@ export default function UserVerify() {
                   className="w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-white"
                 />
               </div>
-              {isCoach && (
+              {isCoach === 'true' ? (
                 <>
                   <div>
                     <label
@@ -259,6 +259,8 @@ export default function UserVerify() {
                     />
                   </div>
                 </>
+              ) : (
+                <></>
               )}
               <label className="text-red-500">{error}</label>
               <div>

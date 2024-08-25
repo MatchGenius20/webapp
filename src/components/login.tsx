@@ -58,13 +58,13 @@ const Login: React.FC<LoginProps> = ({ onClose }) => {
 
   return (
     <div className="flex justify-center items-center md:mt-16 mt-10">
-      <div className="bg-white rounded-lg shadow-lg p-8 max-w-md w-full">
+      <div className="bg-white rounded-lg p-8 max-w-md w-full">
         <h2 className="text-xl sm:text-2xl font-bold text-primary mb-6">
           Login
         </h2>
         <form
           onSubmit={handleSubmit}
-          className="space-y-4 sm:space-y-6 bg-[#EDECFF] p-6 rounded-lg"
+          className="space-y-4 sm:space-y-6 p-6 rounded-lg"
         >
           <div>
             <label
@@ -113,8 +113,15 @@ const Login: React.FC<LoginProps> = ({ onClose }) => {
               Login as User (uncheck to login as Coach)
             </label>
           </div>
+
           {error && <div className="text-red-600 text-sm mt-2">{error}</div>}
           <div>
+            <a
+              href="/forgot-password"
+              className="underrline text-primary text-sm"
+            >
+              Forgot Password?
+            </a>
             <button
               type="submit"
               disabled={!isFormValid}

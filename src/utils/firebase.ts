@@ -117,7 +117,9 @@ export const sendVerificationEmail = async (
 
 export const resetPassword = async (email: string) => {
   try {
-    await sendPasswordResetEmail(auth, email)
+    await sendPasswordResetEmail(auth, email, {
+      url: `${process.env.NEXT_PUBLIC_FRONTEND_URL}?email=${email}`,
+    })
     return {
       success: true,
       msg: 'Password reset email sent! Check your inbox.',

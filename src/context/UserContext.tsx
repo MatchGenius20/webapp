@@ -38,17 +38,6 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({
       console.log(accessToken)
       console.log(refreshToken)
 
-      await axios.post(
-        'http://localhost:8080/api/v1/auth/logout',
-        {},
-        {
-          headers: {
-            'access-token': `Bearer ${accessToken}`,
-            'refresh-token': `Bearer ${refreshToken}`,
-          },
-        },
-      )
-
       document.cookie.split(';').forEach((cookie) => {
         const eqPos = cookie.indexOf('=')
         const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie
@@ -59,6 +48,16 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({
       localStorage.removeItem('refreshToken')
       sessionStorage.clear()
       setUser(null)
+      await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/logout`,
+        {},
+        {
+          headers: {
+            'access-token': `Bearer ${accessToken}`,
+            'refresh-token': `Bearer ${refreshToken}`,
+          },
+        },
+      )
     } catch (error) {
       console.error('Logout error:', error)
     }

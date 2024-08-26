@@ -3,6 +3,8 @@ import React, { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation' // Use the new `useRouter` hook from 'next/navigation'
 import { useUser } from '@/context/UserContext'
+import Image from 'next/image'
+import userPic from '../../public/images/user.png'
 
 const Navbar: React.FC = () => {
   const { user, logout } = useUser()
@@ -13,7 +15,7 @@ const Navbar: React.FC = () => {
 
   const handleLogout = (): void => {
     logout() // Call the logout function
-    // Optionally, you might want to redirect the user or update the UI
+    router.push('/')
   }
 
   // Redirect to signup page
@@ -33,7 +35,7 @@ const Navbar: React.FC = () => {
           <div className="flex justify-between items-center h-20 relative">
             <div className="flex items-center">
               <Link href="/" className="text-2xl text-[#443EDE] font-bold">
-                DebatesMatch
+                DebateMatch
               </Link>
             </div>
 
@@ -61,7 +63,7 @@ const Navbar: React.FC = () => {
             </div>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex space-x-10">
+            <div className="hidden md:flex justify-center items-center space-x-10">
               <Link
                 href="/"
                 className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-md"
@@ -75,31 +77,59 @@ const Navbar: React.FC = () => {
                 Find Coach
               </Link>
               <Link
-                href="/event-booking"
-                className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-md"
-                onClick={handleToggle}
-              >
-                Events
-              </Link>
-              <Link
                 href="/about"
                 className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-md"
               >
-                About
+                Our Team
+              </Link>
+              <Link
+                href="/event-booking"
+                className="text-primary bg-gray-100 px-2 py-1 rounded-sm font-semibold text-md"
+                onClick={handleToggle}
+              >
+                Events
               </Link>
             </div>
 
             {/* Desktop Sign In/Register/Logout Buttons */}
             <div className="hidden md:flex items-center space-x-6">
               {user ? (
-                <button
-                  onClick={handleLogout}
-                  className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-md px-4"
-                >
-                  Logout
-                </button>
+                <div className="flex justify-center items-center">
+                  <a
+                    href="/dashboard/profilesettings"
+                    className="text-[#1E1E1E] cursor-pointer hover:text-gray-700 font-semibold text-md px-4"
+                  >
+                    Dashboard
+                  </a>
+                  <div
+                    onClick={() => {
+                      const div = document.getElementById('nav-dropdown')
+                      div?.classList.toggle('hidden')
+                    }}
+                    className="w-[20px] h-[20px] rounded-full flex justify-center items-center cursor-pointer"
+                  >
+                    <Image
+                      src={
+                        user.profileImage === null ? userPic : user.profileImage
+                      }
+                      alt=""
+                      className="h-full w-full font-bold object-contain flex justify-center items-center"
+                    />
+                  </div>
+                  <div
+                    id="nav-dropdown"
+                    className="bg-white hidden max-h-[100px] w-[130px] absolute md:top-14 md:shadow-md md:rounded-sm p-2"
+                  >
+                    <button
+                      onClick={handleLogout}
+                      className="w-full p-2 bg-white rounded-md hover:bg-primary hover:text-white text-left px-2"
+                    >
+                      Logout
+                    </button>
+                  </div>
+                </div>
               ) : (
-                <>
+                <div>
                   <button
                     onClick={handleLoginRedirect}
                     className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-md px-4"
@@ -108,11 +138,11 @@ const Navbar: React.FC = () => {
                   </button>
                   <button
                     onClick={handleSignupRedirect}
-                    className="bg-[#443EDE] text-white font-semibold text-md px-5 py-3 rounded-md hover:bg-[#3836c4]"
+                    className="bg-[#443EDE] text-white font-semibold text-md px-4 py-2 rounded-md hover:bg-[#3836c4]"
                   >
                     Register
                   </button>
-                </>
+                </div>
               )}
             </div>
 
@@ -169,18 +199,45 @@ const Navbar: React.FC = () => {
                   className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-lg py-3"
                   onClick={handleToggle}
                 >
-                  About
+                  Our Team
                 </Link>
                 {user ? (
-                  <button
-                    onClick={() => {
-                      handleToggle()
-                      handleLogout()
-                    }}
-                    className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-lg py-3"
-                  >
-                    Logout
-                  </button>
+                  <div className="flex flex-col md:flex-row md:justify-center md:items-center">
+                    <a
+                      href="/dashboard/profilesettings"
+                      className="text-[#1E1E1E] cursor-pointer hover:text-gray-700 font-semibold text-lg py-3 md:py-0 md:text-md md:px-4"
+                    >
+                      Dashboard
+                    </a>
+                    <div
+                      onClick={() => {
+                        const div = document.getElementById('nav-dropdown-sm')
+                        div?.classList.toggle('hidden')
+                      }}
+                      className="w-[20px] h-[20px] rounded-full borde border-primar bg-whit overflow-hidden flex justify-center items-center"
+                    >
+                      <Image
+                        src={
+                          user.profileImage === null
+                            ? userPic
+                            : user.profileImage
+                        }
+                        alt=""
+                        className="h-full w-full object-contain flex justify-center items-center"
+                      />
+                    </div>
+                    <div
+                      id="nav-dropdown-sm"
+                      className="bg-white border rounded-md hidden max-h-[100px] w-[150px] md:shadow-md md:rounded-sm p-2"
+                    >
+                      <button
+                        onClick={handleLogout}
+                        className="w-full p-2 bg-white rounded-md hover:bg-primary hover:text-white text-left px-2"
+                      >
+                        Logout
+                      </button>
+                    </div>
+                  </div>
                 ) : (
                   <>
                     <button

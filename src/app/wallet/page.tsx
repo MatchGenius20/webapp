@@ -61,7 +61,7 @@ const RechargeWallet = () => {
           required
         />
         <button
-          className="px-6 py-3 bg-[#443EDE] text-white font-bold border border-white rounded-md transition-colors"
+          className="px-6 py-3 bg-[#7681B3] text-white font-bold border border-white rounded-md transition-colors"
           type="submit"
           disabled={loading}
         >

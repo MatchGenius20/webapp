@@ -111,7 +111,7 @@ export default function FindCoachContent() {
 
   return (
     <div>
-      <div className="flex flex-col md:flex-row justify-between mb-6 bg-secondary">
+      <div className="flex flex-col md:flex-row justify-between mb-6 bg-transparent">
         <div className="space-x-3 mb-4 md:mb-0">
           <button className="bg-white border border-[#C1BFFA] px-4 py-3 rounded-md font-semibold">
             4+ Rating
@@ -126,7 +126,7 @@ export default function FindCoachContent() {
         />
       </div>
       <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8">
-        <div className="w-full md:w-1/2 overflow-y-auto h-[calc(100vh-300px)] pr-4 hide-scrollbar">
+        <div className="w-full md:w-1/2 overflow-y-auto max-h-[calc(100vh-400px)] pr-4 hide-scrollbar">
           {filteredCoaches.map((coach) => (
             <CoachCard
               key={coach.id}

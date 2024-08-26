@@ -12,7 +12,9 @@ export type Coach = {
   id?: string
   name?: string
   location?: string
+  title?: string
   rating?: number
+  isOnline?: boolean
   skills?: string[]
   speciality?: string
   description?: string

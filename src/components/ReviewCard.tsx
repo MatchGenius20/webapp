@@ -89,8 +89,11 @@ const ReviewCard: FC = () => {
 
   return (
     <div className="bg-gray-50 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 text-left mb-12">
-        What our students are <br className="hidden md:block" /> saying about us
+      <h1 className="text-2xl sm:text-xl lg:text-[18px] font-medium text-gray-900 text-left mb-12">
+        Hear from our <br className="hidden md:block" />{' '}
+        <label className="text-2xl sm:text-3xl lg:text-5xl font-extrabold text-primary">
+          USERS
+        </label>
       </h1>
       <div className="relative swiper-container">
         <Swiper

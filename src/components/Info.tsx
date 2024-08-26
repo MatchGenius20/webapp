@@ -1,53 +1,38 @@
+import Image from 'next/image'
 import PrimaryButton from './PrimaryButton'
 
 const Info = () => {
   return (
-    <div className="bg-gray-50">
-      <div
-        className="max-w-7xl mx-auto pt-5 lg:pt-10 pb-5 px-4 sm:px-6 lg:px-8 flex flex-col 
-      md:flex-row items-center md:items-start"
-      >
-        <div className="md:w-1/2 md:pr-6 mb-10 md:mb-0 lg:mt-2">
-          <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900 ">
+    <div className="relative bg-gray-50 md:mb-8 mb-4 h-[90vh] flex items-center justify-center">
+      <div className="absolute inset-0 w-full h-full">
+        <Image
+          src="/images/back.jpg"
+          alt="Background Image"
+          layout="fill"
+          objectFit="cover"
+          objectPosition="center"
+          quality={100}
+        />
+      </div>
+
+      <div className="relative max-w-7xl mx-auto text-center md:text-left px-4 sm:px-6 lg:px-8">
+        <div className="md:w-full md:pr-6">
+          <h1 className="text-5xl md:text-7xl font-extrabold text-[#EEEEEE] text-center">
             Find your <span className="text-primary">Coach</span>,<br />
             and connect <br />
             <span className="text-primary">instantly</span>.
           </h1>
-          <p className="mt-6 text-md md:text-xl text-gray-600">
+          <p className="mt-6 text-xl md:text-3xl text-gray-600 text-center">
             Get instant consultation and guidance
             <br /> from the coach of your choice, and <br /> get ahead in your
             career.
           </p>
-          <div className="mt-8 flex space-x-6">
+          <div className="mt-8 flex justify-center space-x-6">
             <PrimaryButton text="Get Started" />
             <button className="bg-[#EDECFF] border border-primary text-primary px-6 py-3 rounded-md hover:bg-gray-200 font-semibold text-lg">
               Get Free Trial
             </button>
           </div>
-        </div>
-        <div
-          className="md:w-2/3 md:h-[600px] relative flex justify-start items-start md:justify-center md:items-center"
-          style={{
-            backgroundImage: 'url(/grp.svg)',
-            backgroundSize: 'contain',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat',
-          }}
-        >
-          <video
-            className="relative z-10 mr-8 md:mr-16 mt-10 mb-[128px]"
-            width="500"
-            height="480"
-            controls
-            autoPlay={true}
-            src="https://www.youtube.com/watch?v=3FIZwdzxNB4"
-          >
-            <source
-              src="https://www.youtube.com/watch?v=3FIZwdzxNB4"
-              type="video/mp4"
-            />
-            Your browser does not support the video tag.
-          </video>
         </div>
       </div>
     </div>

@@ -6,7 +6,7 @@ interface PrimaryButtonProps {
 export default function PrimaryButton({ text, onClick }: PrimaryButtonProps) {
   return (
     <button
-      className="bg-primary text-white px-4 py-3 rounded-md font-semibold"
+      className="bg-primary min-w-[180px] text-white px-4 py-3 rounded-md font-semibold"
       onClick={onClick}
     >
       {text}

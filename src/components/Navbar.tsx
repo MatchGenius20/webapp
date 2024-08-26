@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation' // Use the new `useRouter` hook from 'next/navigation'
 import { useUser } from '@/context/UserContext'
@@ -10,6 +10,17 @@ const Navbar: React.FC = () => {
   const { user, logout } = useUser()
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const router = useRouter() // Initialize the router
+  const [isHome, setHome] = useState<boolean>(false)
+
+  useEffect(() => {
+    const curr = window.location.href?.slice(0, window.location.href.length - 1)
+    const origin = window.location.origin
+    if (curr === origin) {
+      setHome(true)
+    } else {
+      setHome(false)
+    }
+  }, [])
 
   const handleToggle = (): void => setIsOpen(!isOpen)
 
@@ -29,12 +40,15 @@ const Navbar: React.FC = () => {
   }
 
   return (
-    <>
-      <nav className="bg-gray-50">
+    <div>
+      <nav className={isHome ? 'absolute w-full z-50' : 'bg-gray-50'}>
         <div className="max-w-full mx-auto px-8 sm:px-8 lg:px-16">
           <div className="flex justify-between items-center h-20 relative">
             <div className="flex items-center">
-              <Link href="/" className="text-2xl text-[#443EDE] font-bold">
+              <Link
+                href="/"
+                className={`${isHome ? 'text-indigo-100 ' : 'text-[#443EDE]'}  text-2xl font-bold`}
+              >
                 DebateMatch
               </Link>
             </div>
@@ -66,19 +80,31 @@ const Navbar: React.FC = () => {
             <div className="hidden md:flex justify-center items-center space-x-10">
               <Link
                 href="/"
-                className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-md"
+                className={
+                  isHome
+                    ? 'text-[#EEEEEE] font-medium hover:text-primary text-md'
+                    : `text-[#1E1E1E] hover:text-gray-700 text-md`
+                }
               >
                 Home
               </Link>
               <Link
                 href="/find-coach"
-                className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-md"
+                className={
+                  isHome
+                    ? 'text-[#EEEEEE] font-medium hover:text-primary text-md'
+                    : `text-[#1E1E1E] hover:text-gray-700 text-md`
+                }
               >
                 Find Coach
               </Link>
               <Link
                 href="/about"
-                className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-md"
+                className={
+                  isHome
+                    ? 'text-[#EEEEEE] font-medium hover:text-primary text-md'
+                    : `text-[#1E1E1E] hover:text-gray-700 text-md`
+                }
               >
                 Our Team
               </Link>
@@ -97,7 +123,11 @@ const Navbar: React.FC = () => {
                 <div className="flex justify-center items-center">
                   <a
                     href="/dashboard/profilesettings"
-                    className="text-[#1E1E1E] cursor-pointer hover:text-gray-700 font-semibold text-md px-4"
+                    className={
+                      isHome
+                        ? 'text-[#EEEEEE] font-medium hover:text-primary text-md px-4'
+                        : `text-[#1E1E1E] hover:text-gray-700 text-md px-4`
+                    }
                   >
                     Dashboard
                   </a>
@@ -106,14 +136,19 @@ const Navbar: React.FC = () => {
                       const div = document.getElementById('nav-dropdown')
                       div?.classList.toggle('hidden')
                     }}
-                    className="w-[20px] h-[20px] rounded-full flex justify-center items-center cursor-pointer"
+                    className={
+                      isHome
+                        ? 'invert'
+                        : '' +
+                          ' w-[25px] h-[25    px] rounded-full flex justify-center items-center cursor-pointer'
+                    }
                   >
                     <Image
                       src={
                         user.profileImage === null ? userPic : user.profileImage
                       }
                       alt=""
-                      className="h-full w-full font-bold object-contain flex justify-center items-center"
+                      className="h-full w-full font-bold object-contain flex justify-center items-center cursor-pointer"
                     />
                   </div>
                   <div
@@ -132,7 +167,11 @@ const Navbar: React.FC = () => {
                 <div>
                   <button
                     onClick={handleLoginRedirect}
-                    className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-md px-4"
+                    className={
+                      isHome
+                        ? 'text-[#EEEEEE] font-medium hover:text-primary text-md px-5'
+                        : `text-[#1E1E1E] hover:text-gray-700 text-md px-5`
+                    }
                   >
                     Sign In
                   </button>
@@ -265,7 +304,7 @@ const Navbar: React.FC = () => {
           </div>
         </div>
       </nav>
-    </>
+    </div>
   )
 }
 

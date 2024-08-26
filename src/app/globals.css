@@ -27,7 +27,7 @@
   :root {
     --color-primary: #7681b3;
     --color-secondary: #eeeeee;
-    --foreground: 222.2 84% 4.9%;
+    --color-effect: #312f2f --foreground: 222.2 84% 4.9%;
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;

@@ -38,7 +38,6 @@ export default function UserVerify() {
       const isCoach = new URLSearchParams(
         new URL(continueUrl as string).search,
       ).get('isCoach')
-      console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>' + isCoach)
 
       setFormData((prev) => ({ ...prev, ['email']: email as string }))
       setCoach(isCoach as string)

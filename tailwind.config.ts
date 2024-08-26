@@ -26,6 +26,7 @@ const config = {
         foreground: 'hsl(var(--foreground))',
         primary: 'var(--color-primary)',
         secondary: 'var(--color-secondary)', // Use the custom property
+        effect: 'var(--color-effect)', // Use the custom property
         destructive: {
           DEFAULT: 'hsl(var(--destructive))',
           foreground: 'hsl(var(--destructive-foreground))',

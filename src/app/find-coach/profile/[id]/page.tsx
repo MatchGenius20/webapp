@@ -6,12 +6,104 @@ import PrimaryButton from '@/components/PrimaryButton'
 import BookingPopup from '@/components/BookingPopup'
 import axios from 'axios'
 import Image from 'next/image'
+const sampleCoach: Coach = {
+  id: '12345',
+  name: 'John Doe',
+  location: 'New York, USA',
+  title: 'Certified Fitness Coach',
+  rating: 4.8,
+  isOnline: true,
+  skills: ['Strength Training', 'Yoga', 'Nutrition'],
+  speciality: 'Weight Loss',
+  description:
+    'A highly experienced coach with over 10 years of experience in helping clients achieve their fitness goals.',
+  price: 75, // Per session price
+  availability: 'Weekdays and Weekends',
+  timings: '9 AM - 5 PM',
+  image: '/images/johndoe.jpg',
+  experience: 10, // 10 years of experience
+  education: 'B.Sc. in Sports Science', // Education field
+  travelAvailability: 'Within the city', // Travel availability field
+  schedulingAvailability: 'Flexible', // Scheduling availability field
+  sessionSize: 'One-on-One', // Session size field
+  statistics: {
+    totalSessions: 500,
+    totalDuration: 1500, // Total duration in hours
+  },
+  reviews: [
+    {
+      rating: 5.0,
+      date: '2024-07-21',
+      text: 'John is an amazing coach! His sessions are highly effective and enjoyable.',
+      duration: 60, // Duration in minutes
+    },
+    {
+      rating: 4.5,
+      date: '2024-07-15',
+      text: 'Great experience. I learned a lot about proper nutrition and exercise techniques.',
+      duration: 90,
+    },
+  ],
+  calendar: [
+    {
+      session: 'Yoga Class',
+      date: '2024-08-25',
+      start: '10:00 AM',
+      end: '11:00 AM',
+    },
+    {
+      session: 'Strength Training',
+      date: '2024-08-26',
+      start: '2:00 PM',
+      end: '3:00 PM',
+    },
+  ],
+}
 
 const CoachProfile: React.FC = () => {
   const params = useParams()
-  const [coach, setCoach] = useState<Coach | null>(null)
+  const [coach, setCoach] = useState<Coach | null>({
+    id: '',
+    name: '',
+    location: '',
+    title: '',
+    rating: 0,
+    isOnline: false,
+    skills: [],
+    speciality: '',
+    description: '',
+    price: 0,
+    availability: '',
+    timings: '',
+    image: '',
+    experience: 0,
+    education: '',
+    travelAvailability: '',
+    schedulingAvailability: '',
+    sessionSize: '',
+    statistics: {
+      totalSessions: 0,
+      totalDuration: 0,
+    },
+    reviews: [
+      {
+        rating: 0,
+        date: '',
+        text: '',
+        duration: 0,
+      },
+    ],
+    calendar: [
+      {
+        session: '',
+        date: '',
+        start: '',
+        end: '',
+      },
+    ],
+  })
   const [isBookingPopupOpen, setIsBookingPopupOpen] = useState(false)
-  const [onlineStatus, setOnlineStatus] = useState<string>('online')
+  const [onlineStatus, setOnlineStatus] = useState<string>('')
   const [rating, setRating] = useState<number>(5)
   const [price, setPrice] = useState<number>(200)
   const [totalSessions, setTotalSessions] = useState<number>(0)
@@ -28,7 +120,8 @@ const CoachProfile: React.FC = () => {
           const coachResponse = await axios.get(
             `${process.env.NEXT_PUBLIC_API_URL}/coach/${id}`,
           )
-          setCoach(coachResponse.data.data || null)
+          // setCoach(coachResponse.data.data || null)
+          setCoach(sampleCoach)
           setRating(coachResponse.data.data.rating)
           // setPrice(coachResponse.data.data.price)
           // setPrice(200)

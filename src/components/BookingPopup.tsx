@@ -9,6 +9,7 @@ import { BookingPopupProps } from '../../type'
 import PrimaryButton from './PrimaryButton'
 import axios from 'axios'
 import { useUser } from '@/context/UserContext'
+
 const BookingPopup: React.FC<BookingPopupProps> = ({
   onClose,
   coachId,
@@ -24,6 +25,11 @@ const BookingPopup: React.FC<BookingPopupProps> = ({
     paymentId: '',
     message: '',
   })
+  const [loading, setLoading] = useState(false)
+  const [status, setStatus] = useState<{
+    success: boolean
+    message: string
+  } | null>(null)
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -34,6 +40,8 @@ const BookingPopup: React.FC<BookingPopupProps> = ({
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
+    setLoading(true)
+    setStatus(null)
     try {
       const accessToken = localStorage.getItem('accessToken')
       const refreshToken = localStorage.getItem('refreshToken')
@@ -49,9 +57,17 @@ const BookingPopup: React.FC<BookingPopupProps> = ({
       )
       console.log(response)
 
-      onClose()
+      setStatus({ success: true, message: 'Booking successful!' })
+      setLoading(false)
+      // Optionally close the popup after a delay
+      setTimeout(onClose, 2000)
     } catch (error) {
       console.error('Error creating booking:', error)
+      setStatus({
+        success: false,
+        message: 'Error creating booking. Please try again.',
+      })
+      setLoading(false)
     }
   }
 
@@ -128,8 +144,15 @@ const BookingPopup: React.FC<BookingPopupProps> = ({
               className="mt-1 p-2 w-full border border-gray-300 rounded-lg shadow-sm"
             />
           </div>
-          <div className="flex justify-center">
-            <PrimaryButton text="Book" />
+          <div className="flex flex-col items-center">
+            <PrimaryButton text={loading ? 'Loading...' : 'Book'} />
+            {status && (
+              <p
+                className={`mt-2 text-sm ${status.success ? 'text-green-500' : 'text-red-500'}`}
+              >
+                {status.message}
+              </p>
+            )}
           </div>
         </form>
       </div>

@@ -6,12 +6,14 @@ import UpdateBookingPopup from '@/components/UpdateBookingPopup'
 import Link from 'next/link'
 
 interface Booking {
-  id: number
-  date: string
-  startTime: string
-  endTime: string
-  message: string
-  status: string
+  userId: number
+  bookingId: number
+  coachId: number
+  bookingDate: string
+  bookingTime: string
+  duration: number
+  price: number
+  message: string // Include this to match with UpdateBookingPopup
 }
 
 const ScheduleSession: React.FC = () => {
@@ -36,8 +38,12 @@ const ScheduleSession: React.FC = () => {
             },
           },
         )
+        console.log(pendingResponse.data)
+
         setPendingRequests(
-          Array.isArray(pendingResponse.data) ? pendingResponse.data : [],
+          Array.isArray(pendingResponse.data.data)
+            ? pendingResponse.data.data
+            : [],
         )
 
         // Fetch confirmed bookings
@@ -50,8 +56,12 @@ const ScheduleSession: React.FC = () => {
             },
           },
         )
+        console.log(confirmedResponse.data)
+
         setConfirmedBookings(
-          Array.isArray(confirmedResponse.data) ? confirmedResponse.data : [],
+          Array.isArray(confirmedResponse.data.data)
+            ? confirmedResponse.data.data
+            : [],
         )
       } catch (error) {
         console.error('Error fetching bookings:', error)
@@ -77,8 +87,8 @@ const ScheduleSession: React.FC = () => {
           },
         },
       )
-      setPendingRequests((prev) =>
-        prev.filter((booking) => booking.id !== bookingId),
+      setPendingRequests(
+        (prev) => prev.filter((booking) => booking.bookingId !== bookingId), // Corrected
       )
     } catch (error) {
       console.error('Error deleting booking:', error)
@@ -107,65 +117,69 @@ const ScheduleSession: React.FC = () => {
         <UpdateBookingPopup
           onClose={handleClosePopup}
           booking={selectedBooking}
-          setBookings={setConfirmedBookings} // Updated to reflect confirmed bookings after updating
+          setBookings={setConfirmedBookings} // Pass the appropriate setter
         />
       )}
 
       <h3 className="text-xl font-bold mb-4 mt-8">Pending Requests</h3>
-      {/* <div className="mt-4">
-        {pendingRequests.length === 0 ? (
-          <p>No pending requests found.</p>
-        ) : (
-          pendingRequests?.map((request) => (
-            <div
-              key={request.id}
-              className="p-4 border border-gray-300 rounded-lg mb-2"
-            >
-              <p>Date: {request.date}</p>
-              <p>Start Time: {request.startTime}</p>
-              <p>End Time: {request.endTime}</p>
-              <p>Message: {request.message}</p>
-              <div className="flex justify-end space-x-2 mt-2">
-                <PrimaryButton
-                  text="Cancel"
-                  onClick={() => handleDelete(request.id)}
-                />
+      {
+        <div className="mt-4">
+          {pendingRequests.length === 0 ? (
+            <p>No pending requests found.</p>
+          ) : (
+            pendingRequests?.map((request) => (
+              <div
+                key={request.bookingId}
+                className="p-4 border border-gray-300 rounded-lg mb-2"
+              >
+                <p>Coach: {request.coachId}</p>
+                <p>Date: {request.bookingDate}</p>
+                <p>Time: {request.bookingTime}</p>
+                <p>Duration: {request.duration}</p>
+                <p>Price: {request.price}</p>
+                <div className="flex justify-end space-x-2 mt-2">
+                  <PrimaryButton
+                    text="Cancel"
+                    onClick={() => handleDelete(request.bookingId)}
+                  />
+                </div>
               </div>
-            </div>
-          ))
-        )}
-      </div> */}
-      {JSON.stringify(pendingRequests)}
+            ))
+          )}
+        </div>
+      }
 
       <h3 className="text-xl font-bold mb-4 mt-8">Confirmed Bookings</h3>
-      {/* <div className="mt-4">
-        {confirmedBookings.length === 0 ? (
-          <p>No confirmed bookings found.</p>
-        ) : (
-          confirmedBookings.map((booking) => (
-            <div
-              key={booking.id}
-              className="p-4 border border-gray-300 rounded-lg mb-2"
-            >
-              <p>Date: {booking.date}</p>
-              <p>Start Time: {booking.startTime}</p>
-              <p>End Time: {booking.endTime}</p>
-              <p>Message: {booking.message}</p>
-              <div className="flex justify-end space-x-2 mt-2">
-                <PrimaryButton
-                  text="Update"
-                  onClick={() => handleUpdate(booking)}
-                />
-                <PrimaryButton
-                  text="Delete"
-                  onClick={() => handleDelete(booking.id)}
-                />
+      {
+        <div className="mt-4">
+          {confirmedBookings.length === 0 ? (
+            <p>No confirmed bookings found.</p>
+          ) : (
+            confirmedBookings.map((booking) => (
+              <div
+                key={booking.bookingId}
+                className="p-4 border border-gray-300 rounded-lg mb-2"
+              >
+                <p>Coach: {booking.coachId}</p>
+                <p>Date: {booking.bookingDate}</p>
+                <p>Time: {booking.bookingTime}</p>
+                <p>Duration: {booking.duration}</p>
+                <p>Price: {booking.price}</p>
+                <div className="flex justify-end space-x-2 mt-2">
+                  <PrimaryButton
+                    text="Update"
+                    onClick={() => handleUpdate(booking)}
+                  />
+                  <PrimaryButton
+                    text="Delete"
+                    onClick={() => handleDelete(booking.bookingId)}
+                  />
+                </div>
               </div>
-            </div>
-          ))
-        )}
-      </div> */}
-      {JSON.stringify(confirmedBookings)}
+            ))
+          )}
+        </div>
+      }
     </div>
   )
 }

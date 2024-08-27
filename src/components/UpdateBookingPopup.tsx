@@ -10,12 +10,14 @@ import axios from 'axios'
 import { useUser } from '@/context/UserContext'
 
 interface Booking {
-  id: number
-  date: string
-  startTime: string
-  endTime: string
+  userId: number
+  bookingId: number
+  coachId: number
+  bookingDate: string
+  bookingTime: string
+  duration: number
+  price: number
   message: string
-  status: string
 }
 
 interface BookingPopupProps {
@@ -30,25 +32,29 @@ const UpdateBookingPopup: React.FC<BookingPopupProps> = ({
   setBookings,
 }) => {
   const { user } = useUser()
+
   const [form, setForm] = useState({
-    userId: user?.id,
+    userId: user?.id ? Number(user.id) : 0, // Initialize with userId as a number
     bookingDate: '',
     bookingTime: '',
     duration: '',
     message: '',
   })
 
+  const [loading, setLoading] = useState(false)
+  const [message, setMessage] = useState('')
+
   useEffect(() => {
     if (booking) {
       setForm({
-        userId: user?.id,
-        bookingDate: booking.date,
-        bookingTime: booking.startTime,
+        userId: user?.id ? Number(user.id) : 0, // Ensure userId is a number
+        bookingDate: booking.bookingDate,
+        bookingTime: booking.bookingTime,
         duration: '',
         message: booking.message,
       })
     }
-  }, [booking])
+  }, [booking, user?.id])
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -59,13 +65,24 @@ const UpdateBookingPopup: React.FC<BookingPopupProps> = ({
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
+    setLoading(true)
+    setMessage('')
+
     try {
       const accessToken = localStorage.getItem('accessToken')
       const refreshToken = localStorage.getItem('refreshToken')
+
       if (booking) {
+        // Convert duration to number before sending
+        const updatedForm = {
+          ...form,
+          duration: parseInt(form.duration, 10),
+          userId: Number(form.userId), // Ensure userId is sent as a number
+        }
+
         await axios.patch(
-          `${process.env.NEXT_PUBLIC_API_URL}/booking/update/request/${booking.id}`,
-          form,
+          `${process.env.NEXT_PUBLIC_API_URL}/booking/update/request/${booking.bookingId}`,
+          updatedForm,
           {
             headers: {
               'access-token': `Bearer ${accessToken}`,
@@ -73,17 +90,24 @@ const UpdateBookingPopup: React.FC<BookingPopupProps> = ({
             },
           },
         )
+
         setBookings((prevBookings) =>
           prevBookings.map((b) =>
-            b.id === booking.id ? { ...b, ...form } : b,
+            b.bookingId === booking.bookingId ? { ...b, ...updatedForm } : b,
           ),
         )
+
+        setMessage('Booking updated successfully')
       } else {
-        console.error(`Booking doen't exist`)
+        console.error(`Booking doesn't exist`)
+        setMessage('Booking does not exist')
       }
-      onClose()
     } catch (error) {
       console.error('Error creating or updating booking:', error)
+      setMessage('Error updating booking')
+    } finally {
+      setLoading(false)
+      onClose()
     }
   }
 
@@ -160,8 +184,15 @@ const UpdateBookingPopup: React.FC<BookingPopupProps> = ({
               className="mt-1 p-2 w-full border border-gray-300 rounded-lg shadow-sm"
             />
           </div>
-          <div className="flex justify-center">
-            <PrimaryButton text="Update" />
+          <div className="flex flex-col justify-center items-center">
+            <PrimaryButton text={loading ? 'Loading...' : 'Update'} />
+            {message && (
+              <p
+                className={`mt-4 text-sm ${message.includes('successfully') ? 'text-green-500' : 'text-red-500'}`}
+              >
+                {message}
+              </p>
+            )}
           </div>
         </form>
       </div>

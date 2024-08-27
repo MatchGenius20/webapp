@@ -1,11 +1,13 @@
 'use client'
-import { useParams } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation' // Import useRouter
 import { useEffect, useState } from 'react'
 import { Coach } from '../../../../../type'
 import PrimaryButton from '@/components/PrimaryButton'
 import BookingPopup from '@/components/BookingPopup'
 import axios from 'axios'
 import Image from 'next/image'
+import { useUser } from '@/context/UserContext'
+
 const sampleCoach: Coach = {
   id: '12345',
   name: 'John Doe',
@@ -17,25 +19,25 @@ const sampleCoach: Coach = {
   speciality: 'Weight Loss',
   description:
     'A highly experienced coach with over 10 years of experience in helping clients achieve their fitness goals.',
-  price: 75, // Per session price
+  price: 75,
   availability: 'Weekdays and Weekends',
   timings: '9 AM - 5 PM',
   image: '/images/johndoe.jpg',
-  experience: 10, // 10 years of experience
-  education: 'B.Sc. in Sports Science', // Education field
-  travelAvailability: 'Within the city', // Travel availability field
-  schedulingAvailability: 'Flexible', // Scheduling availability field
-  sessionSize: 'One-on-One', // Session size field
+  experience: 10,
+  education: 'B.Sc. in Sports Science',
+  travelAvailability: 'Within the city',
+  schedulingAvailability: 'Flexible',
+  sessionSize: 'One-on-One',
   statistics: {
     totalSessions: 500,
-    totalDuration: 1500, // Total duration in hours
+    totalDuration: 1500,
   },
   reviews: [
     {
       rating: 5.0,
       date: '2024-07-21',
       text: 'John is an amazing coach! His sessions are highly effective and enjoyable.',
-      duration: 60, // Duration in minutes
+      duration: 60,
     },
     {
       rating: 4.5,
@@ -61,47 +63,10 @@ const sampleCoach: Coach = {
 }
 
 const CoachProfile: React.FC = () => {
+  const { user } = useUser()
+  const router = useRouter() // Use useRouter hook
   const params = useParams()
-  const [coach, setCoach] = useState<Coach | null>({
-    id: '',
-    name: '',
-    location: '',
-    title: '',
-    rating: 0,
-    isOnline: false,
-    skills: [],
-    speciality: '',
-    description: '',
-    price: 0,
-    availability: '',
-    timings: '',
-    image: '',
-    experience: 0,
-    education: '',
-    travelAvailability: '',
-    schedulingAvailability: '',
-    sessionSize: '',
-    statistics: {
-      totalSessions: 0,
-      totalDuration: 0,
-    },
-    reviews: [
-      {
-        rating: 0,
-        date: '',
-        text: '',
-        duration: 0,
-      },
-    ],
-    calendar: [
-      {
-        session: '',
-        date: '',
-        start: '',
-        end: '',
-      },
-    ],
-  })
+  const [coach, setCoach] = useState<Coach | null>(null)
   const [isBookingPopupOpen, setIsBookingPopupOpen] = useState(false)
   const [onlineStatus, setOnlineStatus] = useState<string>('')
   const [rating, setRating] = useState<number>(5)
@@ -111,6 +76,7 @@ const CoachProfile: React.FC = () => {
   const [availability, setAvailability] = useState<string>('')
   const [timings, setTimings] = useState<string>('')
   const id = params?.id
+
   useEffect(() => {
     const fetchCoachData = async () => {
       const id = params?.id
@@ -120,15 +86,19 @@ const CoachProfile: React.FC = () => {
           const coachResponse = await axios.get(
             `${process.env.NEXT_PUBLIC_API_URL}/coach/${id}`,
           )
-          // setCoach(coachResponse.data.data || null)
-          setCoach(sampleCoach)
+          setCoach(coachResponse.data.data)
           setRating(coachResponse.data.data.rating)
-          // setPrice(coachResponse.data.data.price)
-          // setPrice(200)
           setTotalSessions(coachResponse.data.data.statistics?.totalSessions)
           setTotalDuration(coachResponse.data.data.statistics?.totalDuration)
           setAvailability(coachResponse.data.data.availability)
           setTimings(coachResponse.data.data.timings)
+
+          console.log(coachResponse.data.data)
+          console.log(coachResponse.data.data.rating)
+          console.log(coachResponse.data.data.statistics?.totalSessions)
+          console.log(coachResponse.data.data.statistics?.totalDuration)
+          console.log(coachResponse.data.data.availability)
+          console.log(coachResponse.data.data.timings)
 
           // Fetch online status
           const statusResponse = await axios.get(
@@ -149,7 +119,11 @@ const CoachProfile: React.FC = () => {
   }
 
   const handleBookSessionClick = () => {
-    setIsBookingPopupOpen(true)
+    if (!user) {
+      router.push('/login') // Redirect to login if user is not authenticated
+    } else {
+      setIsBookingPopupOpen(true)
+    }
   }
 
   const handleCloseBookingPopup = () => {

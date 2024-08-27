@@ -32,6 +32,8 @@ const CoachList: React.FC = () => {
           throw new Error('Failed to fetch coaches')
         }
         const result = await response.json()
+        console.log(result)
+
         const coachesData = Array.isArray(result.data) ? result.data : []
         setCoaches(coachesData)
       } catch (error) {

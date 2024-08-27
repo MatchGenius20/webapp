@@ -8,7 +8,7 @@ const withAuth = (WrappedComponent: React.FC) => {
     const router = useRouter()
 
     useEffect(() => {
-      if (!user || user.role !== 'coach') {
+      if (user && user.role === 'user') {
         router.push('/login') // Redirect to login if not a coach
       }
     }, [user, router])

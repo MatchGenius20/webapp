@@ -12,6 +12,8 @@ interface PaymentMethod {
   cardNumber: string
   bank: string
   expiryDate: string
+  cardType: string
+  holderName: string
 }
 
 interface Transaction {
@@ -31,7 +33,7 @@ const PaymentsAndWallets: React.FC = () => {
   const [walletBalance, setWalletBalance] = useState<number>(0)
   const [amountSpent, setAmountSpent] = useState<number>(0)
   const [blockedAmount, setBlockedAmount] = useState<number>(0)
-  const [totalSessions, setTotalSessions] = useState<number>(0)
+  const [totalTransactions, setTotalTransactions] = useState<number>(0)
   const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>([])
   const [transactions, setTransactions] = useState<Transaction[]>([])
   const [selectedMethods, setSelectedMethods] = useState<number>()
@@ -115,9 +117,15 @@ const PaymentsAndWallets: React.FC = () => {
         setWalletBalance(walletResponse.data.totalAmount)
         setBlockedAmount(blockedResponse.data.blockedAmount)
         setAmountSpent(spentResponse.data.totalSpent)
-        setTotalSessions(sessionsResponse.data.totalTransactions)
+        setTotalTransactions(sessionsResponse.data.totalTransactions)
         setPaymentMethods(methodsResponse.data.paymentMethods || [])
         setTransactions(transactionsList.data.history || [])
+        console.log(walletResponse.data.totalAmount)
+        console.log(blockedResponse.data.blockedAmount)
+        console.log(spentResponse.data.totalSpent)
+        console.log(sessionsResponse.data.totalTransactions)
+        console.log(methodsResponse.data.paymentMethods || [])
+        console.log(transactionsList.data.history || [])
       } catch (error) {
         console.error('Error fetching data:', error)
       } finally {
@@ -154,6 +162,7 @@ const PaymentsAndWallets: React.FC = () => {
         },
       )
       setPaymentMethods(updatedMethodsResponse.data.paymentMethods || [])
+
       setSelectedMethods(0)
     } catch (error) {
       console.error('Error deleting payment methods:', error)
@@ -179,7 +188,10 @@ const PaymentsAndWallets: React.FC = () => {
             <StatCard title="Wallet Balance" value={walletBalance} />
             <StatCard title="Blocked Amount" value={blockedAmount} />
             <StatCard title="Amount Spent" value={amountSpent} />
-            <StatCard title="Total Sessions" value={totalSessions} />
+            <TotalTransactions
+              title="Total Transactions"
+              value={totalTransactions}
+            />
           </div>
           <div className="bg-white p-6 rounded-lg shadow-lg m-6">
             <Link href={`/wallet`}>
@@ -208,10 +220,9 @@ const PaymentsAndWallets: React.FC = () => {
                     htmlFor={`method-${method.id}`}
                     className="flex-1 flex justify-between text-xs md:text-sm shadow-[#F4F4FE]"
                   >
-                    Test Card ({method.cardNumber})
-                    <span>
-                      {method.bank} | Expiry {method.expiryDate}
-                    </span>
+                    {method.cardType} ({method.cardNumber}) | Holder :{' '}
+                    {method.holderName}
+                    <span>Expiry Date : {method.expiryDate}</span>
                   </label>
                 </div>
               ))
@@ -246,9 +257,7 @@ const PaymentsAndWallets: React.FC = () => {
                       <span className="font-semibold">
                         {transaction.description}
                       </span>
-                      <span
-                        className={`font-bold ${transaction.type === 'credit' ? 'text-green-600' : 'text-red-600'}`}
-                      >
+                      <span className={`font-bold text-[#7681B3]`}>
                         {transaction.amount > 0 ? '+' : '-'}$
                         {Math.abs(transaction.amount).toFixed(2)}
                       </span>
@@ -285,6 +294,21 @@ const StatCard: React.FC<{ title: string; value: number }> = ({
         <div className="text-sm md:text-sm font-semibold">{title}</div>
         <div className="text-2xl md:text-4xl font-bold text-center text-[#7681B3]">
           $<CountUp end={value} />
+        </div>
+      </div>
+    </div>
+  </div>
+)
+const TotalTransactions: React.FC<{ title: string; value: number }> = ({
+  title,
+  value,
+}) => (
+  <div className="relative w-full md:w-60 mx-2">
+    <div className="p-4 md:p-6 rounded-lg">
+      <div className="p-3 md:p-4 bg-white rounded-lg shadow-lg transform hover:scale-105 transition-transform">
+        <div className="text-sm md:text-sm font-semibold">{title}</div>
+        <div className="text-2xl md:text-4xl font-bold text-center text-[#7681B3]">
+          <CountUp end={value} />
         </div>
       </div>
     </div>

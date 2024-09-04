@@ -28,19 +28,46 @@ export default function UserVerify() {
     const currUrl = window.location.href
     const urlObj = new URL(currUrl)
     const mode = urlObj.searchParams.get('mode')
+
     if (mode === 'resetPassword') {
       router.push(`/reset-password?url=${currUrl}`)
     } else {
+      // Check for continueUrl or direct email and isCoach params
       const continueUrl = urlObj.searchParams.get('continueUrl')
-      const email = new URLSearchParams(
-        new URL(continueUrl as string).search,
-      ).get('email')
-      const isCoach = new URLSearchParams(
-        new URL(continueUrl as string).search,
-      ).get('isCoach')
 
-      setFormData((prev) => ({ ...prev, ['email']: email as string }))
-      setCoach(isCoach as string)
+      let email, isCoachParam
+
+      if (continueUrl) {
+        email = new URLSearchParams(new URL(continueUrl).search).get('email')
+        isCoachParam = new URLSearchParams(new URL(continueUrl).search).get(
+          'isCoach',
+        )
+      } else {
+        email = urlObj.searchParams.get('email')
+        isCoachParam = urlObj.searchParams.get('isCoach')
+      }
+
+      setFormData((prev) => ({ ...prev, email: email as string }))
+      setCoach(isCoachParam as string)
+
+      // Save access and refresh token from x-auth-cookie to localStorage
+      const cookies = document.cookie.split(';')
+      console.log(cookies)
+
+      cookies.forEach((cookie) => {
+        const [key, value] = cookie.split('=').map((c) => c.trim())
+        if (key === 'x-auth-cookie') {
+          try {
+            const { accessToken, refreshToken } = JSON.parse(
+              decodeURIComponent(value),
+            )
+            localStorage.setItem('accessToken', accessToken)
+            localStorage.setItem('refreshToken', refreshToken)
+          } catch (e) {
+            console.error('Failed to parse x-auth-cookie:', e)
+          }
+        }
+      })
     }
   }, [])
 
@@ -72,13 +99,14 @@ export default function UserVerify() {
       setLoading(false)
     }
   }
+
   return (
     <div>
       {loading && <Loader />}
       <div className="flex justify-center items-center md:mt-5 mt-10">
         <div className="bg-white rounded-lg p-8 max-w-lg max-h-[700px] overflow-x-hidden overflow-y-scroll w-full">
           <h2 className="text-xl sm:text-2xl font-bold text-primary mb-0">
-            Registeration Details
+            Registration Details
           </h2>
           <div>
             <form
@@ -122,7 +150,7 @@ export default function UserVerify() {
                   className="w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-white"
                 />
               </div>
-              {isCoach === 'true' ? (
+              {isCoach === 'true' && (
                 <>
                   <div>
                     <label
@@ -155,12 +183,10 @@ export default function UserVerify() {
                       spellCheck
                       value={formData.about}
                       onChange={(e) => {
-                        setFormData((prev) => {
-                          return {
-                            ...prev,
-                            about: e.target.value,
-                          }
-                        })
+                        setFormData((prev) => ({
+                          ...prev,
+                          about: e.target.value,
+                        }))
                       }}
                       required
                       className="w-full border resize-none border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-white"
@@ -175,7 +201,7 @@ export default function UserVerify() {
                     </label>
                     <p className="text-xs my-1">
                       Note: Please enter details about your availability for
-                      seesions.
+                      sessions.
                     </p>
                     <textarea
                       id="avlbl-status"
@@ -184,12 +210,10 @@ export default function UserVerify() {
                       spellCheck
                       value={formData.availabilityStatus}
                       onChange={(e) => {
-                        setFormData((prev) => {
-                          return {
-                            ...prev,
-                            availabilityStatus: e.target.value,
-                          }
-                        })
+                        setFormData((prev) => ({
+                          ...prev,
+                          availabilityStatus: e.target.value,
+                        }))
                       }}
                       required
                       className="w-full border resize-none border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-white"
@@ -213,12 +237,10 @@ export default function UserVerify() {
                       spellCheck
                       value={formData.timings}
                       onChange={(e) => {
-                        setFormData((prev) => {
-                          return {
-                            ...prev,
-                            timings: e.target.value,
-                          }
-                        })
+                        setFormData((prev) => ({
+                          ...prev,
+                          timings: e.target.value,
+                        }))
                       }}
                       required
                       className="w-full border resize-none border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-white"
@@ -234,7 +256,7 @@ export default function UserVerify() {
                     <div className="my-2">
                       <p className="text-xs">
                         Note: Please enter keywords related to your expertise so
-                        that user can find you in search.
+                        that users can find you in search.
                       </p>
                       <p className="text-xs">
                         Note: Segregate keywords from each other by introducing
@@ -248,32 +270,23 @@ export default function UserVerify() {
                       spellCheck
                       value={formData.keywords}
                       onChange={(e) => {
-                        setFormData((prev) => {
-                          return {
-                            ...prev,
-                            keywords: e.target.value,
-                          }
-                        })
+                        setFormData((prev) => ({
+                          ...prev,
+                          keywords: e.target.value,
+                        }))
                       }}
                       required
                       className="w-full border resize-none border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-white"
                     />
                   </div>
                 </>
-              ) : (
-                <></>
               )}
-              <label className="text-red-500">{error}</label>
-              <div>
-                <button
-                  type="submit"
-                  // disabled={!isFormValid}
-                  className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500
-                  }`}
-                >
-                  Submit
-                </button>
-              </div>
+              <button
+                type="submit"
+                className="bg-primary text-white px-4 py-2 rounded-md"
+              >
+                Submit
+              </button>
             </form>
           </div>
         </div>

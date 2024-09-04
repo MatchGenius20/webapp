@@ -79,6 +79,7 @@ const UpdateBookingPopup: React.FC<BookingPopupProps> = ({
           duration: parseInt(form.duration, 10),
           userId: Number(form.userId), // Ensure userId is sent as a number
         }
+        console.log(updatedForm)
 
         await axios.patch(
           `${process.env.NEXT_PUBLIC_API_URL}/booking/update/request/${booking.bookingId}`,

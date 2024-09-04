@@ -86,21 +86,51 @@ const ScheduleSession: React.FC = () => {
   const handleRequestAction = async (
     bookingId: number,
     status: string,
-    type: 'create' | 'update' | 'delete',
+    type: string,
   ) => {
     try {
       const accessToken = localStorage.getItem('accessToken')
       const refreshToken = localStorage.getItem('refreshToken')
-      await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/booking/${type}/respond/${bookingId}`,
-        { status },
-        {
-          headers: {
-            'access-token': `Bearer ${accessToken}`,
-            'refresh-token': `Bearer ${refreshToken}`,
-          },
-        },
-      )
+      switch (type) {
+        case 'create':
+          await axios.post(
+            `${process.env.NEXT_PUBLIC_API_URL}/booking/create/respond/${bookingId}`,
+            { status },
+            {
+              headers: {
+                'access-token': `Bearer ${accessToken}`,
+                'refresh-token': `Bearer ${refreshToken}`,
+              },
+            },
+          )
+          break
+        case 'update':
+          await axios.patch(
+            `${process.env.NEXT_PUBLIC_API_URL}/booking/update/respond/${bookingId}`,
+            { status },
+            {
+              headers: {
+                'access-token': `Bearer ${accessToken}`,
+                'refresh-token': `Bearer ${refreshToken}`,
+              },
+            },
+          )
+          break
+        case 'delete':
+          await axios.post(
+            `${process.env.NEXT_PUBLIC_API_URL}/booking/delete/respond/${bookingId}`,
+            { status },
+            {
+              headers: {
+                'access-token': `Bearer ${accessToken}`,
+                'refresh-token': `Bearer ${refreshToken}`,
+              },
+            },
+          )
+          break
+        default:
+          break
+      }
 
       // Update state based on the action
       if (status === 'ACCEPTED') {

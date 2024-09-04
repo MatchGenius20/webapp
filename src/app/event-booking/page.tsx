@@ -1,38 +1,38 @@
 'use client'
-import { useState } from 'react'
-
+import { useState, useEffect } from 'react'
+import axios from 'axios' // Make sure to install axios or use fetch
+export interface Event {
+  id: number
+  name: string
+  date: string
+  location: string
+  description?: string
+  price?: number
+}
 const EventsPage = () => {
   const [selectedDate, setSelectedDate] = useState<string | null>(null)
+  const [events, setEvents] = useState<Event[]>([]) // State to store events
+  const [loading, setLoading] = useState(true) // State to manage loading
+  const [error, setError] = useState<string | null>(null) // State to manage errors
 
-  // Dummy event data
-  const events = [
-    {
-      id: 1,
-      title: 'Music Festival',
-      date: '2024-09-10',
-      location: 'New York',
-    },
-    { id: 2, title: 'Art Exhibition', date: '2024-09-25', location: 'Paris' },
-    { id: 2, title: 'Art Exhibition', date: '2024-09-10', location: 'Paris' },
-    {
-      id: 3,
-      title: 'Tech Conference',
-      date: '2024-09-20',
-      location: 'San Francisco',
-    },
-    {
-      id: 3,
-      title: 'Tech Conference',
-      date: '2024-09-20',
-      location: 'San Francisco',
-    },
-    {
-      id: 3,
-      title: 'Tech Conference',
-      date: '2024-09-20',
-      location: 'San Francisco',
-    },
-  ]
+  // Fetch events from API
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_URL}/event/all`,
+        )
+        setEvents(response.data.data)
+        setLoading(false)
+      } catch (err) {
+        setError('Failed to fetch events.')
+        setLoading(false)
+      }
+    }
+
+    fetchEvents()
+  }, [])
+
   // Sort the events by date
   const sortedEvents = events.sort(
     (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
@@ -46,6 +46,9 @@ const EventsPage = () => {
   const handleDateClick = (date: string) => {
     setSelectedDate(date)
   }
+
+  if (loading) return <div>Loading...</div>
+  if (error) return <div>{error}</div>
 
   return (
     <div className="">
@@ -72,7 +75,7 @@ const EventsPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {sortedEvents.slice(0, 3).map((event) => (
               <div key={event.id} className="bg-white p-6 rounded-lg shadow-lg">
-                <h3 className="text-xl font-semibold mb-2">{event.title}</h3>
+                <h3 className="text-xl font-semibold mb-2">{event.name}</h3>
                 <p className="text-gray-600">{event.date}</p>
                 <p className="text-gray-600">{event.location}</p>
               </div>
@@ -114,7 +117,7 @@ const EventsPage = () => {
                         key={event.id}
                         className="bg-white p-4 rounded-lg shadow"
                       >
-                        <h4 className="text-lg font-semibold">{event.title}</h4>
+                        <h4 className="text-lg font-semibold">{event.name}</h4>
                         <p className="text-gray-600">{event.location}</p>
                       </div>
                     ))}
@@ -151,7 +154,11 @@ const Calendar = ({
       {daysInMonth.map((date) => (
         <button
           key={date}
-          className={`py-2 rounded-lg  ${selectedDate === date ? 'bg-blue-500 text-white' : 'bg-white text-gray-800'}`}
+          className={`py-2 rounded-lg  ${
+            selectedDate === date
+              ? 'bg-blue-500 text-white'
+              : 'bg-white text-gray-800'
+          }`}
           onClick={() => onDateClick(date)}
         >
           {date.split('-')[2]}

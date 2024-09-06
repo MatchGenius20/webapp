@@ -1,7 +1,11 @@
+'use Client'
 import Image from 'next/image'
 import PrimaryButton from './PrimaryButton'
+import Link from 'next/link'
+import { useUser } from '@/context/UserContext'
 
 const Info = () => {
+  const { user } = useUser()
   return (
     <div className="relative bg-gray-50 md:mb-8 mb-4 h-[100vh] flex items-center justify-center">
       <div className="absolute inset-0 w-full h-full">
@@ -29,11 +33,12 @@ const Info = () => {
             <br /> from the coach of your choice, and <br /> get ahead in your
             career.
           </p>
-          <div className="mt-8 flex justify-center space-x-6">
-            <PrimaryButton text="Get Started" />
-            <button className="bg-[#EDECFF] min-w-[100px] max-w-[180px] border border-primary text-primary px-6 py-3 rounded-md hover:bg-gray-200 font-semibold text-lg">
-              Get Free Trial
-            </button>
+          <div className="m-7 flex flex-col items-center">
+            <Link href={!user ? '/login' : '/find-coach'}>
+              <button className="px-6 py-3 bg-primary text-white font-bold border border-white rounded-md transition-colors">
+                Get Started
+              </button>
+            </Link>
           </div>
         </div>
       </div>

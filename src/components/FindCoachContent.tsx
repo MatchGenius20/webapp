@@ -72,14 +72,14 @@ export default function FindCoachContent() {
       }
     }
 
-    if (filters.experience) {
-      const minExperience = parseInt(filters.experience, 10)
-      if (!isNaN(minExperience)) {
-        filtered = filtered.filter(
-          (coach) => (coach.experience as number) >= minExperience,
-        )
-      }
-    }
+    // if (filters.experience) {
+    //   const minExperience = parseInt(filters.experience, 10)
+    //   if (!isNaN(minExperience)) {
+    //     filtered = filtered.filter(
+    //       (coach) => (coach.experience as number) >= minExperience,
+    //     )
+    //   }
+    // }
 
     if (filters.education) {
       filtered = filtered.filter(

@@ -93,6 +93,24 @@ export default function FilterModal({
           </div>
           <div className="flex items-center space-x-4">
             <label className="block text-sm font-medium text-gray-700 w-24">
+              Rating:
+            </label>
+            <select
+              name="rating"
+              value={filters.rating}
+              onChange={handleInputChange}
+              className="flex-grow p-3 border border-gray-300 rounded-md custom-placeholder"
+            >
+              <option value="">Select Rating</option>
+              <option value="5">5</option>
+              <option value="4">4</option>
+              <option value="3">3</option>
+              <option value="2">2</option>
+              <option value="1">1</option>
+            </select>
+          </div>
+          {/* <div className="flex items-center space-x-4">
+            <label className="block text-sm font-medium text-gray-700 w-24">
               Experience:
             </label>
             <input
@@ -102,7 +120,7 @@ export default function FilterModal({
               onChange={handleInputChange}
               className="flex-grow p-3 border border-gray-300 rounded-md custom-placeholder"
             />
-          </div>
+          </div> */}
           {/* New Dropdown Fields */}
           <div className="flex items-center space-x-4">
             <label className="block text-sm font-medium text-gray-700 w-24">

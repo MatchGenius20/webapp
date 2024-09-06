@@ -7,8 +7,6 @@ import React, {
   ReactNode,
 } from 'react'
 import axios from 'axios'
-import { headers } from 'next/headers'
-import { log } from 'console'
 
 interface User {
   id: string
@@ -35,19 +33,24 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({
     try {
       const accessToken = localStorage.getItem('accessToken')
       const refreshToken = localStorage.getItem('refreshToken')
-      console.log(accessToken)
-      console.log(refreshToken)
 
+      // Clearing cookies
       document.cookie.split(';').forEach((cookie) => {
         const eqPos = cookie.indexOf('=')
         const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie
         document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:00 GMT'
       })
+
+      // Clearing local and session storage
       localStorage.removeItem('user')
       localStorage.removeItem('accessToken')
       localStorage.removeItem('refreshToken')
       sessionStorage.clear()
+
+      // Update state
       setUser(null)
+
+      // API call to log out
       await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/auth/logout`,
         {},

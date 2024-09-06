@@ -11,7 +11,7 @@ const Login: React.FC<LoginProps> = ({ onClose }) => {
   const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [isUser, setIsUser] = useState(true)
+  const [isUser, setIsUser] = useState(true) // Default to user login
   const [isFormValid, setIsFormValid] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setLoading] = useState<boolean>(false)
@@ -59,9 +59,16 @@ const Login: React.FC<LoginProps> = ({ onClose }) => {
       setLoading(false)
     }
   }
+
   const handleGoogleAuth = () => {
     window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/auth/google?isCoach=${!isUser}`
   }
+
+  const switchRole = (role: boolean) => {
+    setIsUser(role)
+    setError(null)
+  }
+
   return (
     <>
       {isLoading && <Loader />}
@@ -70,6 +77,30 @@ const Login: React.FC<LoginProps> = ({ onClose }) => {
           <h2 className="text-xl sm:text-2xl font-bold text-primary mb-6">
             Login
           </h2>
+          <div className="flex space-x-4 mb-4">
+            <button
+              type="button"
+              onClick={() => switchRole(true)}
+              className={`w-full py-2 px-4 text-sm font-medium rounded-md shadow-sm ${
+                isUser
+                  ? 'bg-primary text-white'
+                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+              }`}
+            >
+              Login as User
+            </button>
+            <button
+              type="button"
+              onClick={() => switchRole(false)}
+              className={`w-full py-2 px-4 text-sm font-medium rounded-md shadow-sm ${
+                !isUser
+                  ? 'bg-primary text-white'
+                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+              }`}
+            >
+              Login as Coach
+            </button>
+          </div>
           <form
             onSubmit={handleSubmit}
             className="space-y-4 sm:space-y-6 p-6 rounded-lg"
@@ -105,21 +136,6 @@ const Login: React.FC<LoginProps> = ({ onClose }) => {
                 required
                 className="w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-white"
               />
-            </div>
-            <div className="flex items-center">
-              <input
-                type="checkbox"
-                id="isUser"
-                checked={isUser}
-                onChange={(e) => setIsUser(e.target.checked)}
-                className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-              />
-              <label
-                htmlFor="isUser"
-                className="ml-2 text-sm font-medium text-gray-700"
-              >
-                Login as User (uncheck to login as Coach)
-              </label>
             </div>
 
             {error && <div className="text-red-600 text-sm mt-2">{error}</div>}

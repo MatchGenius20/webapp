@@ -1,4 +1,4 @@
-import Category from '@/components/Category'
+'use client'
 import CoachList from '@/components/CoachList'
 import Footer from '@/components/Footer'
 import GoToDashboard from '@/components/GoToDashboard'

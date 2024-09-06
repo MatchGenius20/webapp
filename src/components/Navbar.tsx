@@ -99,7 +99,17 @@ const Navbar: React.FC = () => {
                 Find Coach
               </Link>
               <Link
-                href="/about"
+                href="/our-coaches"
+                className={
+                  isHome
+                    ? 'text-[#EEEEEE] font-medium hover:text-primary text-md'
+                    : `text-[#1E1E1E] hover:text-gray-700 text-md`
+                }
+              >
+                Our Coaches
+              </Link>
+              <Link
+                href="/our-team"
                 className={
                   isHome
                     ? 'text-[#EEEEEE] font-medium hover:text-primary text-md'
@@ -122,7 +132,13 @@ const Navbar: React.FC = () => {
               {user ? (
                 <div className="flex justify-center items-center">
                   <a
-                    href="/dashboard/profilesettings"
+                    href={
+                      !user
+                        ? '/login'
+                        : user.role == 'admin'
+                          ? '/coach-dashboard/profilesettings'
+                          : '/dashboard/profilesettings'
+                    }
                     className={
                       isHome
                         ? 'text-[#EEEEEE] font-medium hover:text-primary text-md px-4'
@@ -234,7 +250,14 @@ const Navbar: React.FC = () => {
                   Events
                 </Link>
                 <Link
-                  href="/about"
+                  href="/our-coaches"
+                  className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-lg py-3"
+                  onClick={handleToggle}
+                >
+                  Our Coaches
+                </Link>
+                <Link
+                  href="/our-team"
                   className="text-[#1E1E1E] hover:text-gray-700 font-semibold text-lg py-3"
                   onClick={handleToggle}
                 >
@@ -243,7 +266,13 @@ const Navbar: React.FC = () => {
                 {user ? (
                   <div className="flex flex-col md:flex-row md:justify-center md:items-center">
                     <a
-                      href="/dashboard/profilesettings"
+                      href={
+                        !user
+                          ? '/login'
+                          : user.role == 'admin'
+                            ? '/coach-dashboard/profilesettings'
+                            : '/dashboard/profilesettings'
+                      }
                       className="text-[#1E1E1E] cursor-pointer hover:text-gray-700 font-semibold text-lg py-3 md:py-0 md:text-md md:px-4"
                     >
                       Dashboard

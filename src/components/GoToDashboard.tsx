@@ -1,8 +1,11 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useUser } from '@/context/UserContext'
 
 const GoToDashboard: React.FC = () => {
+  console.log('useUSer is', useUser)
+  const { user } = useUser()
   return (
     <div className="flex flex-col md:flex-row justify-between items-start p-4 md:p-14 bg-primary text-white overflow-hidden relative h-[600px]">
       <div className="max-w-full md:max-w-lg mb-5 md:mb-0">
@@ -16,7 +19,15 @@ const GoToDashboard: React.FC = () => {
           Phasellus fermentum enim eget, eget faucibus leo pellentesque vel. Sed
           quis neque ornare, semper lectus ut.
         </p>
-        <Link href={'/dashboard/profilesettings'}>
+        <Link
+          href={
+            !user
+              ? '/login'
+              : user.role == 'admin'
+                ? '/coach-dashboard/profilesettings'
+                : '/dashboard/profilesettings'
+          }
+        >
           <button className="px-6 py-3 bg-primary text-white font-bold border border-white rounded-md transition-colors">
             Go to Dashboard
           </button>

@@ -9,6 +9,72 @@ export interface Event {
   description?: string
   price?: number
 }
+const events_arr: Event[] = [
+  {
+    id: 1,
+    name: 'enent 1',
+    date: '05/09/2024',
+    location: 'Chandigarh',
+    description: 'events',
+    price: 500,
+  },
+  {
+    id: 2,
+    name: 'enent 1',
+    date: '05/09/2024',
+    location: 'Chandigarh',
+    description: 'events',
+    price: 500,
+  },
+  {
+    id: 8,
+    name: 'enent 1',
+    date: '05/09/2024',
+    location: 'Chandigarh',
+    description: 'events',
+    price: 500,
+  },
+  {
+    id: 3,
+    name: 'enent 1',
+    date: '06/09/2024',
+    location: 'Chandigarh',
+    description: 'events',
+    price: 500,
+  },
+  {
+    id: 4,
+    name: 'enent 1',
+    date: '08/09/2024',
+    location: 'Chandigarh',
+    description: 'events',
+    price: 500,
+  },
+  {
+    id: 5,
+    name: 'enent 1',
+    date: '10/09/2024',
+    location: 'Chandigarh',
+    description: 'events',
+    price: 500,
+  },
+  {
+    id: 6,
+    name: 'enent 1',
+    date: '15/09/2024',
+    location: 'Chandigarh',
+    description: 'events',
+    price: 500,
+  },
+  {
+    id: 7,
+    name: 'enent 1',
+    date: '25/09/2024',
+    location: 'Chandigarh',
+    description: 'events',
+    price: 500,
+  },
+]
 const EventsPage = () => {
   const [selectedDate, setSelectedDate] = useState<string | null>(null)
   const [events, setEvents] = useState<Event[]>([]) // State to store events
@@ -23,8 +89,12 @@ const EventsPage = () => {
           `${process.env.NEXT_PUBLIC_API_URL}/event/all`,
         )
         setEvents(response.data.data)
+        setEvents(events)
+
         setLoading(false)
       } catch (err) {
+        setEvents(events)
+
         setError('Failed to fetch events.')
         setLoading(false)
       }
@@ -38,18 +108,12 @@ const EventsPage = () => {
     (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
   )
 
-  // Filter events based on the selected date
-  const eventsForSelectedDate = events.filter(
-    (event) => event.date === selectedDate,
-  )
-
-  const handleDateClick = (date: string) => {
-    setSelectedDate(date)
-  }
-
   if (loading) return <div>Loading...</div>
   if (error) return <div>{error}</div>
-
+  const daysInMonth = Array.from(
+    { length: 30 },
+    (_, i) => `${i + 1 < 10 ? `0${i + 1}` : i + 1}/09/2024`,
+  )
   return (
     <div className="">
       {/* Landing Section with Background Image */}
@@ -90,80 +154,41 @@ const EventsPage = () => {
           Event Calendar
         </h2>
 
-        <div className="container mx-auto px-4 flex justify-around items-start">
-          <div className="flex justify-center w-[30%]">
-            <div className="bg-gray-100 p-6 rounded-lg shadow-lg w-full max-w-md">
-              <h3 className="text-xl font-semibold mb-4 text-center">
-                Select a Date to see events
-              </h3>
-              <Calendar
-                onDateClick={handleDateClick}
-                selectedDate={selectedDate}
-              />
-            </div>
-          </div>
-
-          {/* Render events for the selected date */}
-          <div className="mt-8 w-[60%]">
-            {selectedDate && (
-              <div>
-                <h3 className="text-2xl font-semibold text-center mb-4">
-                  Events on {selectedDate}
-                </h3>
-                {eventsForSelectedDate.length > 0 ? (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                    {eventsForSelectedDate.map((event) => (
-                      <div
-                        key={event.id}
-                        className="bg-white p-4 rounded-lg shadow"
-                      >
-                        <h4 className="text-lg font-semibold">{event.name}</h4>
-                        <p className="text-gray-600">{event.location}</p>
-                      </div>
-                    ))}
+        <div className="container mx-auto px-4 flex justify-around items-start w-full">
+          <div className="flex justify-center w-full">
+            <div className="bg-gray-100 p-6 rounded-lg shadow-lg w-full">
+              <div className="grid grid-cols-7 gap-4">
+                {daysInMonth.map((date) => (
+                  <div
+                    key={date}
+                    className="p-2 rounded-lg bg-white text-gray-800 h-32 w-full overflow-y-scroll no-scrollbar" // Use 'no-scrollbar' class
+                    style={{ height: '120px' }}
+                  >
+                    <div className="font-bold mb-2">{date.split('/')[0]}</div>
+                    <div className="grid gap-2 max-h-full overflow-y-scroll no-scrollbar">
+                      {events.map((event) =>
+                        event.date === date ? (
+                          <div
+                            key={event.id}
+                            className="bg-white p-2 rounded-lg shadow text-sm overflow-hidden"
+                          >
+                            <p className="text-gray-600">
+                              <span className="font-semibold truncate">
+                                {event.name}
+                              </span>
+                              |{event.location}
+                            </p>
+                          </div>
+                        ) : null,
+                      )}
+                    </div>
                   </div>
-                ) : (
-                  <p className="text-center text-gray-600">
-                    No events on this date.
-                  </p>
-                )}
+                ))}
               </div>
-            )}
+            </div>
           </div>
         </div>
       </section>
-    </div>
-  )
-}
-
-// Sample Calendar Component (You can customize or replace this with a library)
-const Calendar = ({
-  onDateClick,
-  selectedDate,
-}: {
-  onDateClick: (date: string) => void
-  selectedDate: string | null
-}) => {
-  const daysInMonth = Array.from(
-    { length: 30 },
-    (_, i) => `2024-09-${i + 1 < 10 ? `0${i + 1}` : i + 1}`,
-  )
-
-  return (
-    <div className="grid grid-cols-7 gap-4">
-      {daysInMonth.map((date) => (
-        <button
-          key={date}
-          className={`py-2 rounded-lg  ${
-            selectedDate === date
-              ? 'bg-blue-500 text-white'
-              : 'bg-white text-gray-800'
-          }`}
-          onClick={() => onDateClick(date)}
-        >
-          {date.split('-')[2]}
-        </button>
-      ))}
     </div>
   )
 }

@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss'
+import plugin from 'tailwindcss/plugin'
 
 const config = {
   darkMode: ['class'],
@@ -79,7 +80,20 @@ const config = {
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [
+    require('tailwindcss-animate'),
+    plugin(function ({ addUtilities }) {
+      addUtilities({
+        '.no-scrollbar': {
+          '-ms-overflow-style': 'none' /* Hide scrollbar for IE and Edge */,
+          'scrollbar-width': 'none' /* Hide scrollbar for Firefox */,
+        },
+        '.no-scrollbar::-webkit-scrollbar': {
+          display: 'none' /* Hide scrollbar for Chrome, Safari, and Opera */,
+        },
+      })
+    }),
+  ],
 } satisfies Config
 
 export default config

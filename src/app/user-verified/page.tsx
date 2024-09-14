@@ -15,13 +15,20 @@ export default function UserVerify() {
     name: '',
     email: '',
     password: '',
+    location: '',
     title: '',
-    about: '',
-    keywords: '',
+    speciality: '',
+    description: '',
+    availability: '',
     timings: '',
-    availabilityStatus: '',
-    isOnline: true,
+    experience: 0,
+    education: '',
     profileUrl: '',
+    currentPrice: 0,
+    travelAvailability: '',
+    schedulingAvailability: '',
+    sessionSize: '',
+    isOnline: true, // Added default
   })
 
   useEffect(() => {
@@ -32,7 +39,6 @@ export default function UserVerify() {
     if (mode === 'resetPassword') {
       router.push(`/reset-password?url=${currUrl}`)
     } else {
-      // Check for continueUrl or direct email and isCoach params
       const continueUrl = urlObj.searchParams.get('continueUrl')
 
       let email, isCoachParam
@@ -52,8 +58,6 @@ export default function UserVerify() {
 
       // Save access and refresh token from x-auth-cookie to localStorage
       const cookies = document.cookie.split(';')
-      console.log(cookies)
-
       cookies.forEach((cookie) => {
         const [key, value] = cookie.split('=').map((c) => c.trim())
         if (key === 'x-auth-cookie') {
@@ -72,6 +76,13 @@ export default function UserVerify() {
   }, [])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    const { name, value } = e.target
+    setFormData((prevData) => ({ ...prevData, [name]: value }))
+  }
+
+  const handleTextAreaChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement>,
+  ): void => {
     const { name, value } = e.target
     setFormData((prevData) => ({ ...prevData, [name]: value }))
   }
@@ -118,7 +129,7 @@ export default function UserVerify() {
               <br />
               <div>
                 <label
-                  htmlFor="Name"
+                  htmlFor="name"
                   className="block text-sm font-medium text-gray-700 mb-1"
                 >
                   Name
@@ -135,7 +146,7 @@ export default function UserVerify() {
               </div>
               <div>
                 <label
-                  htmlFor="Password"
+                  htmlFor="password"
                   className="block text-sm font-medium text-gray-700 mb-1"
                 >
                   Password
@@ -154,7 +165,24 @@ export default function UserVerify() {
                 <>
                   <div>
                     <label
-                      htmlFor="Title"
+                      htmlFor="location"
+                      className="block text-sm font-medium text-gray-700 mb-1"
+                    >
+                      Location
+                    </label>
+                    <input
+                      type="text"
+                      id="location"
+                      name="location"
+                      value={formData.location}
+                      onChange={handleChange}
+                      required
+                      className="w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-white"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="title"
                       className="block text-sm font-medium text-gray-700 mb-1"
                     >
                       Title
@@ -171,50 +199,52 @@ export default function UserVerify() {
                   </div>
                   <div>
                     <label
-                      htmlFor="about"
+                      htmlFor="speciality"
                       className="block text-sm font-medium text-gray-700 mb-1"
                     >
-                      About
+                      Speciality
+                    </label>
+                    <input
+                      type="text"
+                      id="speciality"
+                      name="speciality"
+                      value={formData.speciality}
+                      onChange={handleChange}
+                      required
+                      className="w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-white"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="description"
+                      className="block text-sm font-medium text-gray-700 mb-1"
+                    >
+                      Description
                     </label>
                     <textarea
-                      id="about"
-                      name="about"
+                      id="description"
+                      name="description"
                       rows={3}
                       spellCheck
-                      value={formData.about}
-                      onChange={(e) => {
-                        setFormData((prev) => ({
-                          ...prev,
-                          about: e.target.value,
-                        }))
-                      }}
+                      value={formData.description}
+                      onChange={handleTextAreaChange}
                       required
                       className="w-full border resize-none border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-white"
                     />
                   </div>
                   <div>
                     <label
-                      htmlFor="avlbl-status"
+                      htmlFor="availability"
                       className="block text-sm font-medium text-gray-700 mb-1"
                     >
-                      Availability Status
+                      Availability
                     </label>
-                    <p className="text-xs my-1">
-                      Note: Please enter details about your availability for
-                      sessions.
-                    </p>
                     <textarea
-                      id="avlbl-status"
-                      name="avlbl-status"
-                      rows={3}
-                      spellCheck
-                      value={formData.availabilityStatus}
-                      onChange={(e) => {
-                        setFormData((prev) => ({
-                          ...prev,
-                          availabilityStatus: e.target.value,
-                        }))
-                      }}
+                      id="availability"
+                      name="availability"
+                      rows={2}
+                      value={formData.availability}
+                      onChange={handleTextAreaChange}
                       required
                       className="w-full border resize-none border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-white"
                     />
@@ -226,67 +256,166 @@ export default function UserVerify() {
                     >
                       Timings
                     </label>
-                    <p className="text-xs my-1">
-                      Note: Please enter timings details in which you can take
-                      up sessions.
-                    </p>
                     <textarea
                       id="timings"
                       name="timings"
-                      rows={3}
-                      spellCheck
+                      rows={2}
                       value={formData.timings}
-                      onChange={(e) => {
-                        setFormData((prev) => ({
-                          ...prev,
-                          timings: e.target.value,
-                        }))
-                      }}
+                      onChange={handleTextAreaChange}
                       required
                       className="w-full border resize-none border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-white"
                     />
                   </div>
                   <div>
                     <label
-                      htmlFor="keywords"
+                      htmlFor="experience"
                       className="block text-sm font-medium text-gray-700 mb-1"
                     >
-                      Keywords
+                      Experience (Years)
                     </label>
-                    <div className="my-2">
-                      <p className="text-xs">
-                        Note: Please enter keywords related to your expertise so
-                        that users can find you in search.
-                      </p>
-                      <p className="text-xs">
-                        Note: Segregate keywords from each other by introducing
-                        a blank space between them.
-                      </p>
-                    </div>
-                    <textarea
-                      id="keywords"
-                      name="keywords"
-                      rows={3}
-                      spellCheck
-                      value={formData.keywords}
-                      onChange={(e) => {
+                    <input
+                      type="number"
+                      id="experience"
+                      name="experience"
+                      value={formData.experience}
+                      onChange={handleChange}
+                      required
+                      className="w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-white"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="education"
+                      className="block text-sm font-medium text-gray-700 mb-1"
+                    >
+                      Education
+                    </label>
+                    <input
+                      type="text"
+                      id="education"
+                      name="education"
+                      value={formData.education}
+                      onChange={handleChange}
+                      required
+                      className="w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-white"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="profileUrl"
+                      className="block text-sm font-medium text-gray-700 mb-1"
+                    >
+                      Profile URL
+                    </label>
+                    <input
+                      type="url"
+                      id="profileUrl"
+                      name="profileUrl"
+                      value={formData.profileUrl}
+                      onChange={handleChange}
+                      className="w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-white"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="currentPrice"
+                      className="block text-sm font-medium text-gray-700 mb-1"
+                    >
+                      Current Price (₹)
+                    </label>
+                    <input
+                      type="number"
+                      id="currentPrice"
+                      name="currentPrice"
+                      value={formData.currentPrice}
+                      onChange={handleChange}
+                      required
+                      className="w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-white"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="travelAvailability"
+                      className="block text-sm font-medium text-gray-700 mb-1"
+                    >
+                      Travel Availability
+                    </label>
+                    <input
+                      type="text"
+                      id="travelAvailability"
+                      name="travelAvailability"
+                      value={formData.travelAvailability}
+                      onChange={handleChange}
+                      required
+                      className="w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-white"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="schedulingAvailability"
+                      className="block text-sm font-medium text-gray-700 mb-1"
+                    >
+                      Scheduling Availability
+                    </label>
+                    <input
+                      type="text"
+                      id="schedulingAvailability"
+                      name="schedulingAvailability"
+                      value={formData.schedulingAvailability}
+                      onChange={handleChange}
+                      required
+                      className="w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-white"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="sessionSize"
+                      className="block text-sm font-medium text-gray-700 mb-1"
+                    >
+                      Session Size
+                    </label>
+                    <input
+                      type="text"
+                      id="sessionSize"
+                      name="sessionSize"
+                      value={formData.sessionSize}
+                      onChange={handleChange}
+                      required
+                      className="w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-white"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="isOnline"
+                      className="block text-sm font-medium text-gray-700 mb-1"
+                    >
+                      Is Online?
+                    </label>
+                    <input
+                      type="checkbox"
+                      id="isOnline"
+                      name="isOnline"
+                      checked={formData.isOnline}
+                      onChange={(e) =>
                         setFormData((prev) => ({
                           ...prev,
-                          keywords: e.target.value,
+                          isOnline: e.target.checked,
                         }))
-                      }}
-                      required
-                      className="w-full border resize-none border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-white"
+                      }
+                      className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
                     />
                   </div>
                 </>
               )}
-              <button
-                type="submit"
-                className="bg-primary text-white px-4 py-2 rounded-md"
-              >
-                Submit
-              </button>
+              {error && <p className="text-red-500 text-sm">{error}</p>}
+              <div className="flex justify-end">
+                <button
+                  type="submit"
+                  className="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white font-semibold rounded-md"
+                >
+                  Submit
+                </button>
+              </div>
             </form>
           </div>
         </div>

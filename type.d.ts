@@ -58,14 +58,22 @@ interface FormData {
   name: string
   email: string
   password: string
+  location: string
   title: string
-  about: string
-  keywords: string
-  availabilityStatus: string
+  speciality: string
+  description: string
+  availability: string
   timings: string
-  isOnline: boolean
+  experience: number
+  education: string
   profileUrl?: string
+  currentPrice: number
+  travelAvailability: string
+  schedulingAvailability: string
+  sessionSize: string
+  isOnline: boolean
 }
+
 interface LoginProps {
   onClose: () => void
 }

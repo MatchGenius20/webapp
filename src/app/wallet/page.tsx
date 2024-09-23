@@ -1,9 +1,10 @@
 'use client'
-import React, { useState, FormEvent } from 'react'
+import React, { useState, useEffect, FormEvent } from 'react'
 import { loadStripe } from '@stripe/stripe-js'
 import {
   EmbeddedCheckoutProvider,
   EmbeddedCheckout,
+  PaymentRequestButtonElement,
 } from '@stripe/react-stripe-js'
 import axios from 'axios'
 import { useUser } from '@/context/UserContext'
@@ -14,6 +15,7 @@ const stripePromise = loadStripe(
 
 const RechargeWallet = () => {
   const [clientSecret, setClientSecret] = useState<string | null>(null)
+  const [paymentRequest, setPaymentRequest] = useState<any>(null)
   const [amount, setAmount] = useState<number>(0)
   const [loading, setLoading] = useState<boolean>(false)
   const { user } = useUser()
@@ -42,6 +44,29 @@ const RechargeWallet = () => {
       setLoading(false)
     }
   }
+
+  useEffect(() => {
+    if (stripePromise) {
+      stripePromise.then((stripe) => {
+        const pr = stripe?.paymentRequest({
+          country: 'US',
+          currency: 'usd',
+          total: {
+            label: 'Recharge Wallet',
+            amount: amount * 100,
+          },
+          requestPayerName: true,
+          requestPayerEmail: true,
+        })
+
+        pr?.canMakePayment().then((result) => {
+          if (result) {
+            setPaymentRequest(pr)
+          }
+        })
+      })
+    }
+  }, [amount])
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -87,7 +112,7 @@ const RechargeWallet = () => {
           </form>
         </div>
 
-        {/* Second container for EmbeddedCheckout */}
+        {/* Second container for EmbeddedCheckout or Apple Pay */}
         <div className="w-full lg:w-1/2 p-4">
           {clientSecret ? (
             <EmbeddedCheckoutProvider
@@ -97,7 +122,11 @@ const RechargeWallet = () => {
                 clientSecret,
               }}
             >
-              <EmbeddedCheckout />
+              {paymentRequest ? (
+                <PaymentRequestButtonElement options={{ paymentRequest }} />
+              ) : (
+                <EmbeddedCheckout />
+              )}
             </EmbeddedCheckoutProvider>
           ) : (
             <p className="text-center text-gray-500">Loading checkout...</p>

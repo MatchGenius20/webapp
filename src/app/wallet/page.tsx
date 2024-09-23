@@ -1,9 +1,12 @@
 'use client'
-import React, { useState, FormEvent } from 'react'
+import React, { useState, useEffect, FormEvent } from 'react'
 import { loadStripe } from '@stripe/stripe-js'
 import {
-  EmbeddedCheckoutProvider,
-  EmbeddedCheckout,
+  Elements,
+  PaymentRequestButtonElement,
+  CardElement,
+  useStripe,
+  useElements,
 } from '@stripe/react-stripe-js'
 import axios from 'axios'
 import { useUser } from '@/context/UserContext'
@@ -14,9 +17,34 @@ const stripePromise = loadStripe(
 
 const RechargeWallet = () => {
   const [clientSecret, setClientSecret] = useState<string | null>(null)
+  const [paymentRequest, setPaymentRequest] = useState<any>(null)
   const [amount, setAmount] = useState<number>(0)
   const [loading, setLoading] = useState<boolean>(false)
   const { user } = useUser()
+
+  const stripe = useStripe()
+  const elements = useElements()
+
+  useEffect(() => {
+    if (stripe) {
+      const pr = stripe.paymentRequest({
+        country: 'US',
+        currency: 'usd',
+        total: {
+          label: 'Total',
+          amount: amount * 100,
+        },
+        requestPayerName: true,
+        requestPayerEmail: true,
+      })
+
+      pr.canMakePayment().then((result) => {
+        if (result) {
+          setPaymentRequest(pr)
+        }
+      })
+    }
+  }, [stripe, amount])
 
   const createCheckoutSession = async () => {
     setLoading(true)
@@ -34,7 +62,6 @@ const RechargeWallet = () => {
           },
         },
       )
-      console.log('Received clientSecret: ', data.clientSecret)
       setClientSecret(data.clientSecret)
     } catch (error) {
       console.error('Error creating checkout session:', error)
@@ -43,9 +70,10 @@ const RechargeWallet = () => {
     }
   }
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (amount > 0) {
+
+    if (amount > 0 && stripe && elements) {
       createCheckoutSession()
     }
   }
@@ -54,7 +82,6 @@ const RechargeWallet = () => {
     <div className="max-w-5xl mb-40 mx-auto p-6 bg-white rounded-lg shadow-lg">
       <h1 className="text-2xl font-bold text-center mb-4">Recharge Wallet</h1>
       <div className="flex flex-col lg:flex-row">
-        {/* First container for form */}
         <div className="w-full lg:w-1/2 p-4">
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
@@ -75,11 +102,7 @@ const RechargeWallet = () => {
             </div>
             <button
               type="submit"
-              className={`w-80 px-6 py-3 text-white font-bold rounded-md transition-colors ${
-                loading
-                  ? 'bg-gray-400 cursor-not-allowed'
-                  : 'bg-[#7681B3] hover:bg-[#5a6b94]'
-              }`}
+              className={`w-80 px-6 py-3 text-white font-bold rounded-md transition-colors ${loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#7681B3] hover:bg-[#5a6b94]'}`}
               disabled={loading}
             >
               {loading ? 'Processing...' : 'Recharge Wallet'}
@@ -87,18 +110,15 @@ const RechargeWallet = () => {
           </form>
         </div>
 
-        {/* Second container for EmbeddedCheckout */}
         <div className="w-full lg:w-1/2 p-4">
           {clientSecret ? (
-            <EmbeddedCheckoutProvider
-              stripe={stripePromise}
-              key={clientSecret}
-              options={{
-                clientSecret,
-              }}
-            >
-              <EmbeddedCheckout />
-            </EmbeddedCheckoutProvider>
+            <Elements stripe={stripePromise} options={{ clientSecret }}>
+              {paymentRequest ? (
+                <PaymentRequestButtonElement options={{ paymentRequest }} />
+              ) : (
+                <CardElement />
+              )}
+            </Elements>
           ) : (
             <p className="text-center text-gray-500">Loading checkout...</p>
           )}

@@ -65,7 +65,7 @@ export const Signup = () => {
         `${process.env.NEXT_PUBLIC_FRONTEND_URL}/user-verified?email=${formData.email}&isCoach=${isCoachSignup}`,
       )
       if (!res.success) {
-        setError('Something went wrong! Please try again later.')
+        setError(res.msg || 'Something went wrong! Please try again later.')
       } else {
         setOtpForm(true)
         setInitial(false)
